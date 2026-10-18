@@ -24,10 +24,10 @@ a dialog without it.** This holds for every question, also the short ones, also 
 - **The intro is where the user reads; the dialog is where they click.** Keep the dialog short:
   labels and one line of description. The explanation, the sketch and the tip belong in the
   intro.
-- **Where the intro comes from:** a question with a card under `questions/` (see "Question
-  cards") has its intro written out there, ready to send. A question with a sketch sends the
-  sketch and the text around it. Any other question: at least the recommendation and its reason,
-  never a tip alone, never one bare sentence.
+- **Where the intro comes from:** questions 5 to 8 carry an **Intro text** written out at the
+  question, ready to send: send it as written, translated into the chat language. A question
+  with a sketch sends the sketch and the text around it. Any other question: at least the
+  recommendation and its reason, never a tip alone, never one bare sentence.
 - **Never invent an option the skill does not name.**
 
 Why this rule stands first: runs on 02.10.2026 and 17.10.2026, with Sonnet 5.5 and with Opus 5.5,
@@ -288,23 +288,6 @@ the user, not by review:
 **One tip per dialog** still holds (see "Tips" below) — with one question per dialog it is
 simply never in question again.
 
-### Question cards — the wording comes ready-made
-
-**Some questions have a card: a file under `questions/` with the finished wording.** Today
-that is question 5 (`questions/05-numbering.md`). For a question with a card:
-
-1. **Read the card immediately before the question**, not at the start of the interview. Its
-   text must be fresh when you ask.
-2. **Send the card's intro text first, as visible text in your reply.** It is written out like
-   a sketch: send it whole, translated into the chat language.
-3. **Then open the dialog exactly as the card gives it.** Translate; do not shorten, merge,
-   reword or add options.
-
-The card exists so that no question depends on wording you have to invent. The questions that
-lost their intro in test runs were exactly the ones whose intro had to be invented.
-
-Questions without a card follow the rest of this file as before.
-
 ### Option letters — the anchor between the message and the dialog
 
 **Every question that carries a mockup labels its options `A`, `B`, `C`, in the chat message
@@ -346,21 +329,102 @@ on its own.
      and tables, chapters, bibliography, appendix — for seminar papers and shorter
      theses) or `academic-paper` (lean: title block on the first page, abstract with
      keywords, sections, bibliography — no separate title page, no table of contents).
-5. **Numbering depth** — how deep should headings be numbered? **Read
-   `questions/05-numbering.md` immediately before asking, and ask it exactly as written
-   there** (see "Question cards" above). The card holds the intro text with its sketch and the
-   short dialog, for both option sets. The reasoning behind it and what the answer writes into
-   the preamble stay in "Sectioning depth" below.
+5. **Numbering depth** — how deep should headings be numbered? The reasoning behind it and
+   what the answer writes into the preamble: "Sectioning depth" below.
+
+   **Intro text** (send first, as written, translated into the chat language; keep the
+   numbers, the sketch and its arrow exactly as they are):
+
+   > **How deep should your headings be numbered?**
+   >
+   > I recommend **up to 1.1.1**. Below that, every heading looks the same (same font size),
+   > and only the length of the number tells the levels apart.
+   >
+   > ```
+   > Up to 1.1.1 (recommended)        Up to 1.1.1.1
+   >
+   > 1  Introduction                  1  Introduction
+   > 1.1  Background                  1.1  Background
+   > 1.1.1  Earlier studies           1.1.1  Earlier studies
+   >        Survey design  ← no no.   1.1.1.1  Survey design
+   > ```
+   >
+   > **One thing to know:** a link to a heading without a number points to the wrong place.
+   > So at 1.1.1, links work down to 1.1.1. If you want to link to finer headings, pick a
+   > deeper option.
+   >
+   > 💡 **Tip:** Numbers that run deep quickly make a text look technical. If it bothers you
+   > once you see the PDF, tell me and I will change the depth.
+
+   **Without chapters only**, add this sentence after "One thing to know": *"From 1.1.1.1 on,
+   the deepest heading runs into the first line of its paragraph instead of standing on its
+   own line. This layout cannot change that."*
+
+   **Dialog** (header `Numbering`, question "How deep should headings be numbered?"). Short
+   descriptions, no previews: the sketch is in the intro.
+
+   - With chapters: `Up to 1.1.1 (recommended)` "Chapter, section and one level below." ·
+     `Up to 1.1.1.1` "One more numbered level." · `Up to 1.1.1.1.1` "Two more numbered
+     levels." · `Up to 1.1.1.1.1.1` "The deepest numbering possible."
+   - Without chapters: `Up to 1.1.1 (recommended)` "Section and two levels below." ·
+     `Up to 1.1.1.1` "One more numbered level." · `Up to 1.1.1.1.1` "The deepest numbering
+     possible."
 6. **Contents list depth** — same depth as the numbering, or one level shallower? Never
    deeper. Asked **after** answer 5 is in, because the option labels and the recommendation are
    both written out of it; see "Sectioning depth" below.
+
+   **Intro text** (send first, translated). Send **one** of the two versions, the one that
+   matches answer 5; never both.
+
+   *After answer 5 = 1.1.1:*
+
+   > **How deep should the table of contents go?**
+   >
+   > It can list your headings as deep as they are numbered, down to 1.1.1, or stop one level
+   > earlier, at 1.1. I recommend **down to 1.1.1**: three levels stay easy to take in.
+   >
+   > It never goes deeper than the numbering. Headings without a number would sit in the list
+   > at the same indent as the ones above them, and the list would stop showing the order.
+
+   *After answer 5 = 1.1.1.1 or deeper.* `<N>` is answer 5 (for example `1.1.1.1`), `<N−1>` is
+   that number with one segment taken off (`1.1.1`):
+
+   > **How deep should the table of contents go?**
+   >
+   > It can list your headings as deep as they are numbered, down to <N>, or stop one level
+   > earlier, at <N−1>. I recommend **down to <N−1>**: with every numbered level listed, the
+   > table of contents outgrows a page and stops giving an overview.
+   >
+   > It never goes deeper than the numbering. Headings without a number would sit in the list
+   > at the same indent as the ones above them, and the list would stop showing the order.
+
+   **Dialog:** the two options with their labels and one-line descriptions, as "Question B" in
+   "Sectioning depth" gives them.
 7. **Citation style** — numeric (default), author–year, APA, or verbose. Maps to the biblatex
    `style=` option in the preamble. **APA is an option of its own, not a flavour of
    author–year:** psychology, education, the social sciences and often business ask for it by
    name, and its reference list follows rules `authoryear` does not (titles in sentence case,
-   "&" between two authors). Send this tip with the question (see "Tips" below):
-   *"💡 **Tip:** If your university asks for a different style, just tell me. It is one word
-   in the setup and every citation in the document follows."*
+   "&" between two authors).
+
+   **Intro text** (send first, translated; keep the example citations exactly as they are):
+
+   > **How should sources appear in your text?**
+   >
+   > There are four common styles. They differ in what the reader sees at the point where you
+   > cite:
+   >
+   > ```
+   > Numbers         … as shown in [1].
+   > Author-year     … as shown in (Meier 2020).
+   > APA             … as shown in (Meier, 2020).
+   > Footnotes       … as shown in.¹    ¹ Hans Meier: Title, Publisher 2020, p. 12.
+   > ```
+   >
+   > Your university often prescribes one. If it does not, numbers or author-year are both a
+   > good choice.
+   >
+   > 💡 **Tip:** If your university asks for a different style, just tell me. It is one word in
+   > the setup and every citation in the document follows.
 
    **Labels and `description`, in dialog order.** Translate them into the chat language, but
    keep the example citations exactly as they are:
@@ -384,9 +448,31 @@ on its own.
    subtitle, document type (e.g. Seminar Paper / Master Thesis), degree program, author,
    supervisor. For academic-paper (since 30.09.2026): title, subtitle, the authors with
    their institution, the corresponding author's e-mail, date. A paper has no document type,
-   degree program or supervisor, so do not ask for them. Send this tip with the
-   question (see "Tips" below): *"💡 **Tip:** No final title yet? Leave the placeholders
-   standing. Tell me any time and I will fill them in."*
+   degree program or supervisor, so do not ask for them.
+
+   **Intro text** (send first, translated). The field list matches the template.
+
+   *professional-thesis and simple-thesis:*
+
+   > **What goes on the title page?**
+   >
+   > The title page shows six things: title, subtitle, type of work (for example Master
+   > Thesis), degree program, your name and your supervisor. You can fill them in now, or
+   > leave the placeholders and fill them in later.
+   >
+   > 💡 **Tip:** No final title yet? Leave the placeholders standing. Tell me any time and I
+   > will fill them in.
+
+   *academic-paper:*
+
+   > **What goes into the title block?**
+   >
+   > The first page shows: title, subtitle, the authors with their institution, the e-mail of
+   > the corresponding author, and the date. You can fill them in now, or leave the
+   > placeholders and fill them in later.
+   >
+   > 💡 **Tip:** No final title yet? Leave the placeholders standing. Tell me any time and I
+   > will fill them in.
 
    **Ask it in two steps, the first one always as a dialog.** The data itself is free text,
    and a dialog needs options to click. Left open, runs did both wrong things: one asked in
@@ -394,8 +480,8 @@ on its own.
    Thesis, details via Other", 17.10.2026). So:
 
    1. **Dialog with exactly these two options**, in this order: `A: Fill in now` and
-      `B: Keep the placeholders for now`. The chat message before it names the fields of
-      this template, so the user knows what "now" means. Nothing else goes into the dialog.
+      `B: Keep the placeholders for now`. The intro text above names the fields of this
+      template, so the user knows what "now" means. Nothing else goes into the dialog.
    2. **On A**, ask for the fields in plain chat, as a short list, and wait for the reply. A
       field the user leaves out keeps its placeholder; do not ask again for it. **On B**, go
       straight on to question 9.
@@ -1244,8 +1330,8 @@ this in plain words; it is the whole reason for the question.
 
 ### Question A — numbering depth
 
-**The wording the user sees is on the card `questions/05-numbering.md`.** This section is the
-reasoning behind it. Change the card when the wording changes, and this section when the
+**The wording the user sees is in the interview list, question 5 (intro text and dialog).**
+This section is the reasoning behind it. Change the wording there, and this section when the
 reasoning does.
 
 Offer **every level the class can number** — the recommendation steers, it does not restrict.
