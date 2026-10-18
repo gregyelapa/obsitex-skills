@@ -23,8 +23,9 @@ understands, which is not always the Markdown Obsidian renders.
 ## Requirements
 
 - **An AI coding tool that reads Agent Skills.** Tested with **Claude Code** and **OpenCode**.
-  **Codex** reads the same skill folders but has not been tested yet. In Claude Code the setup
-  interview shows menus with sketches; in other tools it asks the same questions as plain text.
+  **Codex** reads the same skill folders but has not been tested yet. The setup interview works
+  the same in every tool: each question comes as a chat message with its explanation and
+  sketches, and you answer with a letter.
 - **Obsidian** for writing, and the **Obsitex web app** for turning the vault into a PDF.
 - **Flexplorer**, an Obsidian plugin that controls file order, is recommended. `obsitex-init`
   installs a pinned copy into your vault for you. You never have to fetch it yourself.

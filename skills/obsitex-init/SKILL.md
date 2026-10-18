@@ -1,6 +1,6 @@
 ---
 name: obsitex-init
-description: Set up a new Obsitex writing project in an Obsidian vault — scaffolds a research project structure (project, research, interviews, data, exports) around the manuscript as Professional Thesis (scrbook), Simple Thesis, or Academic Paper (LaTeX preamble, DDS settings, ordered chapter files, bibliography), ready for the Obsitex Markdown-to-LaTeX converter.
+description: Set up a new Obsitex writing project in an Obsidian vault — scaffolds a research project structure (organisation, research, interviews, data, exports) around the manuscript as Professional Thesis (scrbook), Simple Thesis, or Academic Paper (LaTeX preamble, DDS settings, ordered chapter files, bibliography), ready for the Obsitex Markdown-to-LaTeX converter.
 disable-model-invocation: true
 argument-hint: "[project folder]"
 metadata:
@@ -14,27 +14,103 @@ Obsitex is a web app that converts an Obsidian vault (Markdown on OneDrive) into
 document and PDF. This skill lays down everything the converter needs — document settings
 (DDS), LaTeX preamble, and an ordered set of chapter files — so the user only fills in content.
 
+## Map of this file
+
+**Rules that hold for the whole run.** They come first in this file; read them before step 1.
+
+- [[#Every question starts with a visible intro text]]
+- [[#Two words, used everywhere]]: *project folder* and *the manuscript*, never a synonym.
+- [[#Which language governs what — one rule]]: what the PDF reader sees follows the document
+  language, everything else the chat language.
+- [[#Tips — the hint element]]: the 💡 element, at most one per question.
+- [[#Hard rules]]: valid from the first file you write.
+
+**The run, in this order.** Each step links the section that holds it.
+
+1. [[#Before you start]] — read `shared/obsitex-conventions.md`, settle the project folder,
+   read `VERSION`.
+2. [[#Open with this]] — the greeting: version, the two terms, the folder sketch.
+3. [[#Interview — twelve questions, each with its intro]] — twelve questions in fixed order,
+   each one intro text first. Questions 1 and 2 share one dialog; from question 3 on, the
+   options follow the intro text in the same chat message. The longer questions continue in their own sections:
+   - [[#Question 3 in detail — Chapters or sections]]
+   - [[#Questions 5 and 6 in detail — Sectioning depth]]
+   - [[#Question 9 in detail — Project scaffold]]
+   - [[#Question 10 in detail — Splitting into folders]]
+   - [[#Question 11 in detail — Ordering variant A or B]]
+   - [[#Question 12 in detail — Folder notes ask, and recommend it clearly]]
+4. [[#Scaffold]] — project folders, copy the template verbatim, adapt it to the answers, split
+   it into folders, set the file names. Its first lines give the order of work.
+5. [[#Install the Flexplorer plugin]] and [[#Seed the Flexplorer order]] — only for variant A
+   of question 11.
+6. [[#Install the Folder notes plugin]] — only on a yes to question 12.
+7. [[#Wrap up]] — the report to the user. Inside it:
+   - [[#Switching the add-ons on — guide, then confirm]], for every add-on that was installed.
+   - At its very end, the offer of [[#The project `AGENTS.md` — what the next session will not know]],
+     and after that answer the advice to start a new chat.
+
 ## Every question starts with a visible intro text
 
-**Before every dialog of the interview, write that question's intro text in the chat. Never open
-a dialog without it.** This holds for every question, also the short ones, also the tenth.
+**Before every question of the interview, write that question's intro text in the chat. Never
+ask a question without it.** This holds for every question, also the short ones, also the
+tenth.
 
-- **Visible text in your reply, written before the dialog call.** Text in your thinking is never
-  shown to the user. An intro you only thought counts as no intro at all.
-- **The intro is where the user reads; the dialog is where they click.** Keep the dialog short:
-  labels and one line of description. The explanation, the sketch and the tip belong in the
-  intro.
-- **Where the intro comes from:** questions 5 to 8 carry an **Intro text** written out at the
-  question, ready to send: send it as written, translated into the chat language. A question
-  with a sketch sends the sketch and the text around it. Any other question: at least the
-  recommendation and its reason, never a tip alone, never one bare sentence.
+**Two forms, fixed per question:**
+
+| Questions | Form |
+|---|---|
+| 1 and 2 (together) | the greeting, the intro text, then an AskUserQuestion dialog, all in the same reply |
+| 3 to 12 | **one chat message:** the confirmation sentence (below), the intro text, then the options as a lettered list, then one line saying how to answer. **No AskUserQuestion.** End the reply there and wait for the answer |
+
+Questions 1 and 2 keep the dialog: they follow the greeting, which the model always writes as
+visible text, and their intro has come every time. Every other question is asked in the chat,
+because a reply without a tool call cannot lose its text: the text *is* the reply.
+
+- **Open every reply after an answer with one visible sentence that confirms it**, in the chat
+  language and in plain words, naming the choice and never only its letter: *"Good, with
+  chapters."*, *"Then I lay out the whole project."* Then any note that belongs to that answer
+  (the depth note after question 10), then the intro text of the next question. Write the
+  sentence first thing in the visible reply, before you think about the next question. **Why:**
+  an intro text standing alone in front of a dialog reads to the model like preparation for the
+  tool call, and preparation goes into thinking. An intro that follows text already written to
+  the user stays visible: the greeting carried questions 1 and 2 every time, and the depth note
+  carried question 11. This sentence gives every question that start.
+- **Visible text in your reply, never drafted in your thinking.** Text in your thinking is
+  never shown to the user. An intro you only thought counts as no intro at all. Do not plan,
+  draft or paraphrase the intro text in your thinking; copy it straight into the visible reply.
+- **The check before the AskUserQuestion of questions 1 and 2:** does the visible part of this
+  reply already hold the greeting and, under it, the bold heading of their intro text? If not,
+  write them now, then call the tool.
+- **The intro is where the user reads; the options are where they choose.** Keep the options
+  short: a label and one line of description. The explanation, the sketch and the tip belong in
+  the intro.
+- **Where the intro comes from:** every question carries an **Intro text**, written out and
+  ready to send: send it as written, translated into the chat language. It stands under its own
+  heading **Intro text**, followed by a heading **Dialog** (questions with a dialog) or
+  **Options** (questions in the chat): at the question itself (1 and 2 together, 4 to 8) or in
+  its "in detail" section (3, 9, 10, 11, 12); the entry in the interview list says which. Never
+  shorten it, never write your own instead, never send only its tip.
+- **Every intro text starts with its number**, *Question 3 of 12* (German: *Frage 3 von 12*),
+  already written into each one. The numbers are fixed: question 4 keeps its number also when
+  it has nothing to choose, and questions 1 and 2 share *Questions 1 and 2 of 12*. So the user
+  always sees where they are, and the count never jumps.
 - **Never invent an option the skill does not name.**
 
 Why this rule stands first: runs on 02.10.2026 and 17.10.2026, with Sonnet 5.5 and with Opus 5.5,
 opened the dialogs for questions 5 to 7 (and later ones) with no visible text in front of them.
 In one run the intros went into thinking, and the session afterwards believed it had sent them.
-Questions with a sketch kept their intro every time. The ones that only had a sentence to write
-lost it.
+On 18.10.2026 a Sonnet 5.5 run sent the greeting and the intro of question 3 in full, then wrote
+questions 4 to 8 into its thinking, one summarising sentence each, and opened every dialog with
+nothing visible in front of it. A stronger wording of this rule had not prevented it before,
+which is why questions 4 to 8 now go without a dialog. A second Sonnet 5.5 run the same day,
+with 4 to 8 in the chat: all five intros came. Of the dialog questions, 3, 9 and 11 kept their
+intro, 10 and 12 lost it into thinking again. Question 11 was the one with visible text in
+front of it (the depth note), which is where the confirmation sentence comes from. Two more
+runs (Opus 5.5, then Sonnet 5.5, with the confirmation sentence and with intro texts that
+needed no adapting) lost the intros of 10 and 12 again, every time, while 3, 9 and 11 kept
+theirs. No change of wording had helped in four runs, the chat form had never failed, so
+since then every question from 3 on is asked in the chat. The dialog sections are kept by the
+maintainers, outside this skill, should a later model change the picture.
 
 ## Two words, used everywhere
 
@@ -74,11 +150,148 @@ In the usual case both answers are the same language and nothing differs. The ru
 when they diverge — which is exactly where it matters.
 
 **Say what you did.** One sentence in the final report (it is listed under "Wrap up"), so the user can overrule without
-having been asked a ninth question: *"I set the folders and notes up in German, because that
+having been asked an extra question: *"I set the folders and notes up in German, because that
 is the language we are speaking — tell me if you would rather have them in English."*
 
 Without the project scaffold (opt-out) there is only one folder, which is project folder and
 manuscript at once — then just say "your folder".
+
+## Tips — the hint element
+
+Some settings are worth naming while the user decides, but they must not become a paragraph
+nobody reads. For those there is **one** recognisable element: a quote block opened by a light
+bulb.
+
+```
+> 💡 **Tip:** the sentence, in the chat language.
+> A second line at most.
+```
+
+**What a tip says, always:** *this is adjustable, tell me and I will change it.* Nothing else.
+No reasoning, no LaTeX command, no package name. The command is the skill's business, never the
+user's.
+
+Rules, so the element keeps working:
+
+- **At most one tip per question.** Two in a row and the eye starts skipping them, which is the
+  very problem this element solves.
+- **Two or three lines**, never more.
+- It sits **directly under the message it belongs to**, never collected at the end.
+- **The tip comes before the options, never after the answer.** It goes into the intro text
+  that prepares the question, and the dialog or the list of options follows it. A tip exists to reassure while
+  the user decides. Sent after the answer, it reads like a comment on their choice, and "No
+  final title yet? Leave the placeholders standing" after the user has just chosen the
+  placeholders is simply redundant. Measured 27.09.2026: one run sent the tips for the
+  citation style and the cover data only after the answer.
+- **Never inside `description` or `preview` of an option.** A tip must not tilt a choice. It is
+  the reassurance that the choice is not final.
+- **A tip that holds for only one of the options says so in its own bold label**, before the
+  first word of the sentence: *"Tip, if you go with chapters:"*. Standing under a comparison
+  list, an unlabelled tip reads as if it applied to both sides.
+- Translate the word "Tip" into the chat language (German: "Tipp"), and keep the tip text free
+  of dashes like the rest of the user-facing wording.
+
+Four questions carry a tip today: chapters or sections, numbering depth, citation style and the
+cover data. Each one is written out at its own question.
+
+## Hard rules
+
+- **Never write a `.md` file through the shell.** An unquoted heredoc (`<<EOF`), `echo`,
+  `printf` or a `sed` replacement eats one backslash of every pair: `\\` silently becomes
+  `\`. In a ` ```latex ` block that deletes the forced line break the `\\` stands for, and in
+  a ` ```dds ` block it breaks the JSON. **Nothing warns**, because damaged LaTeX still
+  compiles: on the title page the three `tabbing` lines then print on top of each other
+  (measured 24.08.2026, professional-thesis). Use the file tools (Write, Edit) for every
+  `.md` file. Copy templates with a plain `cp`, which does not touch the content, and edit
+  the copy afterwards. Whenever you touched a file that holds a ` ```latex ` or ` ```dds `
+  block, compare it against its template before you report done:
+  `grep -c '\\\\' "<file>"` must give the same number for both.
+- **Write every paragraph as ONE unbroken line.** A single newline inside a paragraph
+  becomes `\\` in the output — a forced line break in the middle of the printed sentence.
+  Wrapping prose at 80 or 90 columns is a reflex almost everywhere else, and it is wrong
+  here. Obsidian soft-wraps the display, so a wrapped paragraph and a single-line one look
+  identical on screen; the damage is visible only in the PDF. This holds for the templates
+  and for any body text written later. Wrapping is fine inside ` ```remark `, ` ```latex `
+  and ` ```dds ` blocks. It applies to LIST ITEMS too - a wrapped item gets the same forced break.
+- **German is written with real umlauts: ä, ö, ü, Ä, Ö, Ü. Never ae, oe, ue.** This holds for
+  every file you write (remarks, READMEs, `AGENTS.md`) and for the chat. The file tools write
+  UTF-8 and handle umlauts correctly, so there is no reason to avoid them. **ß by default, ss
+  when the user writes ss:** standard German writes "heißt", "weiß", "groß". If the user writes
+  "heisst", "gross" (Swiss German has no ß), use ss everywhere instead, including the German
+  wording this file gives verbatim. Never mix the two in one project. **And translate the
+  meaning, not the words:** "Introduce the topic" is "Führe in das Thema ein", never
+  "Introduziere das Thema". Measured 27.09.2026: in one run two files came out in ae/oe/ue
+  while all others had real umlauts, one of them with "Introduziere".
+- **Never `Write` over an `AGENTS.md` or `CLAUDE.md` that already exists.** Look for both
+  before you write, in the project folder only, never above it. Found one? Then `Read` it and `Edit`
+  only the block between the two markers. It may hold months of the user's own instructions,
+  and `Write` replaces the whole file without a trace. The Obsitex facts go into `AGENTS.md`;
+  a `CLAUDE.md` only ever gets the line `@AGENTS.md`. Procedure: "Never overwrite an existing
+  `AGENTS.md` or `CLAUDE.md`" below.
+- **Ask the twelve questions in their numbered order.** No question is held back for the end
+  because it feels like a good closing question. The cover data (8) is the one this happens to,
+  and it happened: asked after question 11, as "almost done, one more thing". It belongs in
+  block 2, before a single file question.
+- **One question at a time, from question 3 on.** Never two in one AskUserQuestion or one chat
+  message, however well they seem to pair. Each one is prepared by its own intro text; a second
+  question in the same message would arrive with nothing in front of it. The language pair is
+  the only exception, and it is the next rule.
+- **Every question starts with a visible intro text in the chat**, and every reply after an
+  answer opens with one visible sentence confirming that answer. Never only in your
+  thinking, never a question without it. Questions 3 to 12 are asked in the chat, without
+  AskUserQuestion. Details: the section of that name at the top of this file.
+- **Every sketch in the chat stays within 50 characters per line**, the ones this file gives
+  and the ones you put together yourself (the file tree in the report, a folder sketch on
+  request). A narrow chat window, Claudian in Obsidian for one, breaks longer lines, and a
+  sketch broken in the middle is harder to read than none. Stack two sketches one below the
+  other instead of side by side, and shorten labels rather than let them run long.
+- **The first dialog always carries both language questions.** Chat language and document
+  language, together, before anything else. Reading the chat language off what the user has
+  written so far is an offer for the top option, never a reason to drop the question: it also
+  names the folders on disk. One question alone in that dialog means the rule was broken.
+- Only supported Markdown (see `shared/obsitex-conventions.md` and the topic files it points
+  to). **If a construct appears in none of them, it is unsupported** — do not invent it, tell
+  the user Obsitex does not know it and offer the nearest thing that works.
+- **Never write a `.md` file whose first heading has more than one `#`.** A folder note's `#`
+  is its folder's own level, every other file's `#` one level below. Where the folder limit stops the splitting, the file at
+  that level takes its whole substructure inside itself as `##`, `###` — never as sibling
+  files. This holds for every template and for anything the skill generates later.
+- **Every folder meant as a level gets its folder note**, the file with the folder's exact
+  name; that is what makes it a structure folder. Without it the folder adds no level, silently. Rename folder and folder note together.
+  **Never give a file inside `Front Matter`, `Main Matter`, `Back Matter` or any other grouping
+  folder that folder's name** — it would turn the grouping folder into a level and push
+  everything else in it one level down.
+- **In `professional-thesis` the switch files stay first:** `Switch to Front Matter` at the top
+  of `Front Matter`, `Switch to Main Matter` at the top of `Main Matter` (above every chapter
+  folder), `Switch to Appendix` before the first appendix chapter.
+- **Never create a grouping folder** (`Subchapters`, `Unterkapitel`, `Subsections`) between a
+  chapter and its sections. Sections are files directly in the chapter folder.
+- **A heading needs no blank line before it** (since 2026-08-04). A `#` line ends the running
+  paragraph on its own, exactly as in Obsidian and CommonMark. The one exception: a `#` line
+  directly under a **list item** is still swallowed by the list — put a blank line there.
+- **Write attachment links the way Obsidian's autocomplete would** — shortest path that is
+  still unambiguous: bare name while the name is unique in the vault, vault-root folder in
+  front of it as soon as it is not (`![[Kapitel 2/aufbau.png]]`). You have no autocomplete
+  correcting you, so this is on you. **Never `../`** (Obsitex does not resolve it and falls
+  back to the bare name, silently hitting the wrong file) and **never drop the extension**
+  (`![[aufbau]]` finds nothing in Obsidian, but Obsitex may embed `aufbau.pdf` instead of the
+  picture). When naming files, prefer distinct names over a second `aufbau.png`: a bare-name
+  link written today becomes ambiguous the day a namesake appears, and nothing warns.
+  Details → `shared/obsitex-conventions.md`, "How to write an attachment link".
+- Raw LaTeX only inside ` ```latex ` blocks, always with a leading `%` comment line saying
+  what the block does. Prefer Markdown wherever it can express the same thing.
+- Never put backslash commands or bare special characters (`_`, `~`, `^`) in inline
+  backticks — inline code is passed through raw and breaks or distorts the LaTeX output.
+- Do not add preamble packages beyond the template on your own. If the user asks for a
+  feature that needs one, add the `\usepackage` line to `00 Document Setup.md` with an inline
+  `%` comment explaining what it is for — never inject silently.
+- Guidance for the user belongs in ` ```remark ` blocks (ignored by the converter).
+  Visible placeholder text must be obviously replaceable ("Replace this paragraph with …").
+
+Write your answers without dashes, neither the long one (em dash) nor the short one (en dash).
+Use a full stop, a comma, a colon or brackets instead. A dash pushes a side thought into the
+middle of a sentence, and the sentence then has to be read twice. Hyphens in compound words
+are fine. This applies to what you say, never to what the user has written.
 
 ## Before you start
 
@@ -105,10 +318,13 @@ manuscript at once — then just say "your folder".
 
 ## Open with this
 
-Before the first question, greet the user with the text below, **in the chat language**. The
-English wording here is the original; translate it, never paste it untranslated into a German
-conversation. This is the one place where the two central terms are introduced, so do not
-shorten it away and do not fold it into the first question.
+Before the first question, greet the user with the text below, **in the language the user has
+written in so far** (English if they have written nothing yet). The chat language is asked only
+afterwards, in question 1. The English wording here is the original; translate it, never paste
+it untranslated into a German conversation. This is the one place where the two central terms are introduced, so do not
+shorten it away and do not fold it into the first question. The intro text of questions 1
+and 2 follows directly under it, as its own block (see "Questions 1 and 2 — intro text
+and dialog"), and only then the dialog.
 
 Six things to adapt, then send it as one message:
 
@@ -117,7 +333,7 @@ Six things to adapt, then send it as one message:
 - **The address `www.obsitex.com` is translated into nothing and dropped from nothing.** It is
   the one place the user is told where the app actually lives, and someone who reads the
   greeting and then looks for Obsitex has no other pointer.
-- **The example names in the sketch follow the chat language** (`Thesis` / `Masterarbeit`,
+- **The example names in the sketch follow that same language** (`Thesis` / `Masterarbeit`,
   `Manuscript` / `Manuskript`, …), exactly like the folders you will create later.
 - **Re-align the dotted lines** after translating. They are aligned with fixed-width
   characters, so a longer word pushes them out of line.
@@ -155,16 +371,16 @@ the result to Overleaf if you ever want to hand-tune it.
 I will build a workspace for the whole thesis, not just for the text. Roughly like this:
 
 ```
-Thesis                    ←── THE PROJECT FOLDER
+Thesis              ←── THE PROJECT FOLDER
 │
-├── Organisation .......... schedule, tasks, feedback
+├── Organisation ...... schedule, tasks, feedback
 │
-├── Manuscript            ←── THE MANUSCRIPT
+├── Manuscript      ←── THE MANUSCRIPT
 │
-├── Research .............. literature notes, source PDFs
-├── Interviews ............ guides, transcripts
-├── Data .................. raw data, figure source files
-└── Exports ............... PDF versions you send out
+├── Research .......... literature, source PDFs
+├── Interviews ........ guides, transcripts
+├── Data .............. raw data, figure sources
+└── Exports ........... PDF versions you send out
 ```
 
 Six folders. Two of them have names you will hear from me again and again:
@@ -193,48 +409,38 @@ chapters, headings, page numbers and the table of contents, not about document c
 packages, environments or DDS. Where a technical name is unavoidable, put it in
 parentheses after the plain wording.
 
-**Block 1 — languages first.** Before anything else, ask these two questions together in a
-single AskUserQuestion dialog (no such tool? see "When there is no question tool" below):
+### Overview — the twelve questions
 
-1. **Chat language** — which language should the conversation use? **Always ask this, and
-   always inside the same dialog as the document language.** If the user has already written
-   in a language in this session, put that language first as the top option, but still let
-   them confirm it. **Never skip the question, never infer the answer silently** — the chat
-   language also decides the folder names on disk, and a decision that visible must not be
-   made behind the user's back. A dialog that shows only one question is the bug, not a
-   shortcut.
-2. **Document language** — which language will the thesis/paper be written in? It may
-   differ from the chat language. **No default** — list English first, then German.
-   Affects babel options, DDS quotation marks, and the visible headings (see adaptation
-   table below). English and German are fully supported; if the user picks another
-   language, say honestly that it is untested and adapt generically (babel option, DDS
-   quotation marks, translated headings).
+The numbers are fixed. Every mention of a question in this file, and every heading below, uses
+them. Ask in exactly this order.
 
-From here on, communicate in the chat language — including the remaining questions.
-
-**Blocks 2 and 3 — these ten questions** (AskUserQuestion works well), then use defaults
-and tell the user everything can be changed later. All ten apply to every template. Keep the
-blocks in this order: first what the finished document looks like, then how Obsitex lays the
-files out and keeps them in order.
-
-**The numbers are the order, not a list.** Ask 3, 4, 5, 6, 7, 8, then 9, 10, 11, 12. **Question 8,
-the cover data, is the one that drifts:** it is the only free-text question, it needs no
-decision, and after it the interview is over, so it reads like a natural closing question. It is
-not one. It says what the document *is*, which is block 2, and block 3's whole promise is that
-the document is settled before the files come up. Measured 26.08.2026: it was asked after
-question 11, as "almost done, one more thing".
+| # | Block | Question | Form | Details |
+|---|---|---|---|---|
+| 1 | 1 · languages | Chat language | shared with 2 | here |
+| 2 | 1 · languages | Document language | shared with 1 | here |
+| 3 | 2 · the document | Chapters or sections | own, mockups A/B | "Question 3 in detail" |
+| 4 | 2 · the document | Template | chat message; skipped with chapters | here |
+| 5 | 2 · the document | Numbering depth | chat message | here, and "Questions 5 and 6 in detail" |
+| 6 | 2 · the document | Contents list depth | chat message, after answer 5 | here, and "Questions 5 and 6 in detail" |
+| 7 | 2 · the document | Citation style | chat message | here |
+| 8 | 2 · the document | Cover data | chat message, then free text on A | here |
+| 9 | 3 · the files | Project structure | own, sketches A/B | "Question 9 in detail" |
+| 10 | 3 · the files | How the parts are split up | own, sketches A/B/C | "Question 10 in detail" |
+| 11 | 3 · the files | File order: variant A or B | own, sketches A/B | "Question 11 in detail" |
+| 12 | 3 · the files | Folder notes | own, asked last | "Question 12 in detail" |
 
 ### When there is no question tool
 
 This file is written for Claude Code, where questions go through **AskUserQuestion**: a box with
 clickable options, and a sketch beside them (`preview`). Other tools may have a similar tool
 under another name. **Use it if you have one.** If you have none, ask in plain chat text. Every
-rule in this file still holds, only the form changes:
+rule in this file still holds, only the form changes. **Questions 3 to 12 always use this form**,
+also when a question tool exists (see "Every question starts with a visible intro text"):
 
 - **"Dialog"** means one chat message that ends with the question and waits for the answer.
   One question per message, as below; the language pair shares one message.
 - **The options** stand as a list under the question, each with its letter, its label and its
-  `description` on one line: `A: With chapters (recommended). Each part is a chapter …`. Close
+  `description` on one line: `A: Full project scaffold (recommended). Six folders …`. Close
   with one line saying how to answer, e.g. "Reply with the letter." Letters always, also where
   the dialog would have no letters, never numbers (see "Option letters" below).
 - **A `preview`** goes into a fenced code block above the list, one per option, each headed by
@@ -256,9 +462,10 @@ Reply with the letter.
 
 ### One question per dialog
 
-**Every question from 3 on opens its own AskUserQuestion. The language pair is the only
-exception.** So: one dialog for questions 1 and 2 together, then one dialog each. Eleven in all,
-ten when the template question falls away.
+**Every question from 3 on is asked on its own, in its own chat message. The language pair is
+the only exception.** So: one dialog for
+questions 1 and 2 together, then one question at a time. Eleven in all, ten when the template
+question falls away.
 
 AskUserQuestion can hold four questions at once, and bundling would save clicks. Do not use it.
 **The reason is the chat message.** Every question here is prepared by a message written for it
@@ -268,8 +475,9 @@ reads a message and answers the question that message prepared. That is the whol
 (What the message must contain: "Every question starts with a visible intro text", at the top
 of this file.)
 
-**Why the languages may share one dialog:** they are one decision in two halves, asked before
-any explanation exists, and neither carries a sketch. Nothing precedes them that could get lost.
+**Why the languages may share one dialog:** they are one decision in two halves, and neither
+carries a sketch. Their one intro text explains both, so nothing it prepares can get lost
+behind a second tab.
 
 **What bundling cost when it was allowed** — kept here because each one shipped and was found by
 the user, not by review:
@@ -285,20 +493,19 @@ the user, not by review:
   files come up. A dialog that opens on the contents list with the folder split in the next tab
   breaks that promise in the one place the user actually looks.
 
-**One tip per dialog** still holds (see "Tips" below) — with one question per dialog it is
+**One tip per question** still holds (see "Tips" above) — with one question per message it is
 simply never in question again.
 
-### Option letters — the anchor between the message and the dialog
+### Option letters — the anchor between the sketch and the options
 
-**Every question that carries a mockup labels its options `A`, `B`, `C`, in the chat message
-and in the dialog alike.** The five are: chapters or sections, the project structure, the
-splitting, variant A or B, Folder notes yes or no.
+**Every question that carries a mockup labels its options `A`, `B`, `C`, in the sketch and in
+the list of options alike.** The five are: chapters or sections (question 3), the project
+structure (9), the splitting (10), variant A or B (11), Folder notes yes or no (12).
 
-The letter exists because the two lists need not be in the same order. The chat message is free
-to run from coarse to fine, the dialog has to put the recommended option first (the topmost
-option holds the focus when the dialog opens, so a quick confirmation must land on the
-recommendation). Without an anchor the user has to match sketch to button themselves. With one,
-both orders can be right at the same time.
+The letter exists because the sketch and the list need not be in the same order. The sketch is
+free to run from coarse to fine, the list puts the recommended option first. Without an anchor
+the user has to match sketch to option themselves. With one, both orders can be right at the
+same time.
 
 Three rules, or it makes things worse instead of better:
 
@@ -308,409 +515,496 @@ Three rules, or it makes things worse instead of better:
 - **Letters, not numbers.** The splitting question already counts levels 1, 2, 3. An "option 3"
   next to "three levels" is a trap.
 - **The same letter for the same thing in both places**, whatever the order. `A` in the sketch
-  and `A` in the dialog, even when `A` sits second in the message and first in the dialog.
+  and `A` in the list, even when `A` sits second in the sketch and first in the list.
 
 The letters are per question. Questions 11 and 12 use `A` and `B` too, for something else entirely —
-that is fine, they live in different dialogs, and the rule above keeps every mention readable
+that is fine, they live in different messages, and the rule above keeps every mention readable
 on its own.
 
-**Block 2 — how the document looks**
+### Block 1 — the languages (questions 1 and 2)
 
-3. **Top structural level — chapters or sections?** Ask this *before* the template
-   question; it decides which templates remain. Details and the illustration the user
-   needs: see "Chapters or sections" below.
-4. **Template** — only the ones matching the previous answer:
-   - with chapters → `professional-thesis` (numbered chapters, front matter with roman
-     page numbers, lettered appendices — for master theses and dissertations). This is
-     currently the only one; skip the question and say in one sentence what they get.
-     It ships as one template with one file per chapter; a folder per chapter (the default
-     of the splitting question in block 3) is built from it by rule.
-   - without chapters → `simple-thesis` (title page, table of contents, lists of figures
-     and tables, chapters, bibliography, appendix — for seminar papers and shorter
-     theses) or `academic-paper` (lean: title block on the first page, abstract with
-     keywords, sections, bibliography — no separate title page, no table of contents).
-5. **Numbering depth** — how deep should headings be numbered? The reasoning behind it and
-   what the answer writes into the preamble: "Sectioning depth" below.
+**Languages first.** Before anything else, ask these two questions together in a
+single AskUserQuestion dialog (no such tool? see "When there is no question tool" below):
 
-   **Intro text** (send first, as written, translated into the chat language; keep the
-   numbers, the sketch and its arrow exactly as they are):
+#### Question 1 — Chat language
 
-   > **How deep should your headings be numbered?**
-   >
-   > I recommend **up to 1.1.1**. Below that, every heading looks the same (same font size),
-   > and only the length of the number tells the levels apart.
-   >
-   > ```
-   > Up to 1.1.1 (recommended)        Up to 1.1.1.1
-   >
-   > 1  Introduction                  1  Introduction
-   > 1.1  Background                  1.1  Background
-   > 1.1.1  Earlier studies           1.1.1  Earlier studies
-   >        Survey design  ← no no.   1.1.1.1  Survey design
-   > ```
-   >
-   > **One thing to know:** a link to a heading without a number points to the wrong place.
-   > So at 1.1.1, links work down to 1.1.1. If you want to link to finer headings, pick a
-   > deeper option.
-   >
-   > 💡 **Tip:** Numbers that run deep quickly make a text look technical. If it bothers you
-   > once you see the PDF, tell me and I will change the depth.
+Which language should the conversation use? **Always ask this, and
+always inside the same dialog as the document language.** If the user has already written
+in a language in this session, put that language first as the top option, but still let
+them confirm it. **Never skip the question, never infer the answer silently** — the chat
+language also decides the folder names on disk, and a decision that visible must not be
+made behind the user's back. A dialog that shows only one question is the bug, not a
+shortcut.
 
-   **Without chapters only**, add this sentence after "One thing to know": *"From 1.1.1.1 on,
-   the deepest heading runs into the first line of its paragraph instead of standing on its
-   own line. This layout cannot change that."*
+#### Question 2 — Document language
 
-   **Dialog** (header `Numbering`, question "How deep should headings be numbered?"). Short
-   descriptions, no previews: the sketch is in the intro.
+Which language will the thesis/paper be written in? It may
+differ from the chat language. **No default** — list English first, then German.
+Affects babel options, DDS quotation marks, and the visible headings (see adaptation
+table below). English and German are fully supported; if the user picks another
+language, say honestly that it is untested and adapt generically (babel option, DDS
+quotation marks, translated headings).
 
-   - With chapters: `Up to 1.1.1 (recommended)` "Chapter, section and one level below." ·
-     `Up to 1.1.1.1` "One more numbered level." · `Up to 1.1.1.1.1` "Two more numbered
-     levels." · `Up to 1.1.1.1.1.1` "The deepest numbering possible."
-   - Without chapters: `Up to 1.1.1 (recommended)` "Section and two levels below." ·
-     `Up to 1.1.1.1` "One more numbered level." · `Up to 1.1.1.1.1` "The deepest numbering
-     possible."
-6. **Contents list depth** — same depth as the numbering, or one level shallower? Never
-   deeper. Asked **after** answer 5 is in, because the option labels and the recommendation are
-   both written out of it; see "Sectioning depth" below.
+#### Questions 1 and 2 — intro text and dialog
 
-   **Intro text** (send first, translated). Send **one** of the two versions, the one that
-   matches answer 5; never both.
+##### Intro text
 
-   *After answer 5 = 1.1.1:*
+Send it first, directly under the greeting, as its own block with its own bold
+heading; translated into the language the user has written in so far, English if they have
+written nothing yet; keep the example names exactly as they are.
 
-   > **How deep should the table of contents go?**
-   >
-   > It can list your headings as deep as they are numbered, down to 1.1.1, or stop one level
-   > earlier, at 1.1. I recommend **down to 1.1.1**: three levels stay easy to take in.
-   >
-   > It never goes deeper than the numbering. Headings without a number would sit in the list
-   > at the same indent as the ones above them, and the list would stop showing the order.
+> *Questions 1 and 2 of 12*
+>
+> **First, two questions about language**
+>
+> **The chat language** is the language we talk in from here on. It also names the folders I
+> create for you (for example `Manuskript` or `Manuscript`), so you will see it in Obsidian
+> every day.
+>
+> **The document language** is the language your text is written in. It decides the headings
+> in the PDF (for example "Contents" or "Inhaltsverzeichnis"), the quotation marks and how
+> words are broken at the end of a line. It may differ from the chat language: you can talk
+> to me in German and write your document in English.
+>
+> English and German are fully supported. I can set up any other language too, but it has not
+> been tested.
 
-   *After answer 5 = 1.1.1.1 or deeper.* `<N>` is answer 5 (for example `1.1.1.1`), `<N−1>` is
-   that number with one segment taken off (`1.1.1`):
+##### Dialog
 
-   > **How deep should the table of contents go?**
-   >
-   > It can list your headings as deep as they are numbered, down to <N>, or stop one level
-   > earlier, at <N−1>. I recommend **down to <N−1>**: with every numbered level listed, the
-   > table of contents outgrows a page and stops giving an overview.
-   >
-   > It never goes deeper than the numbering. Headings without a number would sit in the list
-   > at the same indent as the ones above them, and the list would stop showing the order.
+**Check before the call:** the visible part of this reply already holds the greeting and,
+under it, **First, two questions about language** (translated). If it does not, write the
+intro text now, not in your thinking.
 
-   **Dialog:** the two options with their labels and one-line descriptions, as "Question B" in
-   "Sectioning depth" gives them.
-7. **Citation style** — numeric (default), author–year, APA, or verbose. Maps to the biblatex
-   `style=` option in the preamble. **APA is an option of its own, not a flavour of
-   author–year:** psychology, education, the social sciences and often business ask for it by
-   name, and its reference list follows rules `authoryear` does not (titles in sentence case,
-   "&" between two authors).
+One AskUserQuestion with both questions, in this order. No previews, short
+descriptions.
 
-   **Intro text** (send first, translated; keep the example citations exactly as they are):
+- **Question 1**, header `Chat`, question "Which language should we talk in?". Options: the
+  language the user has written in so far first (if any), then English, then German, without
+  repeating one. Descriptions: one line, e.g. "We talk in English, and the folders get English
+  names."
+- **Question 2**, header `Document`, question "Which language will your document be written
+  in?". Options: `English`, `German`, `Another language` ("Untested. I will adapt it as well as
+  I can."). No recommendation, no default.
 
-   > **How should sources appear in your text?**
-   >
-   > There are four common styles. They differ in what the reader sees at the point where you
-   > cite:
-   >
-   > ```
-   > Numbers         … as shown in [1].
-   > Author-year     … as shown in (Meier 2020).
-   > APA             … as shown in (Meier, 2020).
-   > Footnotes       … as shown in.¹    ¹ Hans Meier: Title, Publisher 2020, p. 12.
-   > ```
-   >
-   > Your university often prescribes one. If it does not, numbers or author-year are both a
-   > good choice.
-   >
-   > 💡 **Tip:** If your university asks for a different style, just tell me. It is one word in
-   > the setup and every citation in the document follows.
+From here on, communicate in the chat language — including the remaining questions.
 
-   **Labels and `description`, in dialog order.** Translate them into the chat language, but
-   keep the example citations exactly as they are:
+### Blocks 2 and 3 — questions 3 to 12
 
-   - **`Numbers [1]` (default)** — "The source appears as a number in square brackets. Common
-     in engineering, computer science and the natural sciences."
-   - **`Author-year (Meier 2020)`** — "Name and year in parentheses. A good choice when your
-     university prescribes nothing."
-   - **`APA (Meier, 2020)`** — "The style of the American Psychological Association. Common in
-     psychology, education and the social sciences."
-   - **`Footnotes`** — "The full source in a footnote at the bottom of the page, shortened when
-     it comes again. Common in history, law and philosophy."
+**These ten questions**, then use defaults
+and tell the user everything can be changed later. All ten apply to every template, except
+question 4, which falls away with chapters. Keep the
+blocks in this order: first what the finished document looks like, then how Obsitex lays the
+files out and keeps them in order.
 
-   **Why the example sits in the label:** "numeric" and "verbose" mean nothing to a student,
-   and an example is understood at a glance. APA and author-year look almost alike in the text;
-   the comma and the line below are the only visible difference, so neither may be dropped.
-   **The subjects are a rule of thumb, never a rule.** Write "common in", never "required in"
-   or "used in", and never steer the user towards a style because of their subject. What their
-   university asks for decides, and the tip covers that.
-8. **Cover data** (every template) — for professional-thesis and simple-thesis: title,
-   subtitle, document type (e.g. Seminar Paper / Master Thesis), degree program, author,
-   supervisor. For academic-paper (since 30.09.2026): title, subtitle, the authors with
-   their institution, the corresponding author's e-mail, date. A paper has no document type,
-   degree program or supervisor, so do not ask for them.
+**The numbers are the order, not a list.** Ask 3, 4, 5, 6, 7, 8, then 9, 10, 11, 12. **Question 8,
+the cover data, is the one that drifts:** it is the only free-text question, it needs no
+decision, and after it the interview is over, so it reads like a natural closing question. It is
+not one. It says what the document *is*, which is block 2, and block 3's whole promise is that
+the document is settled before the files come up. Measured 26.08.2026: it was asked after
+question 11, as "almost done, one more thing".
 
-   **Intro text** (send first, translated). The field list matches the template.
+### Block 2 — how the document looks (questions 3 to 8)
 
-   *professional-thesis and simple-thesis:*
+#### Question 3 — Top structural level: chapters or sections
 
-   > **What goes on the title page?**
-   >
-   > The title page shows six things: title, subtitle, type of work (for example Master
-   > Thesis), degree program, your name and your supervisor. You can fill them in now, or
-   > leave the placeholders and fill them in later.
-   >
-   > 💡 **Tip:** No final title yet? Leave the placeholders standing. Tell me any time and I
-   > will fill them in.
+Ask this *before* the template
+question; it decides which templates remain. **Intro text**, the illustration the user needs
+and the options: see "Question 3 in detail" below.
 
-   *academic-paper:*
+#### Question 4 — Template
 
-   > **What goes into the title block?**
-   >
-   > The first page shows: title, subtitle, the authors with their institution, the e-mail of
-   > the corresponding author, and the date. You can fill them in now, or leave the
-   > placeholders and fill them in later.
-   >
-   > 💡 **Tip:** No final title yet? Leave the placeholders standing. Tell me any time and I
-   > will fill them in.
+Only the ones matching the previous answer:
+- with chapters → `professional-thesis` (numbered chapters, front matter with roman
+  page numbers, lettered appendices — for master theses and dissertations). This is
+  currently the only one; skip the question and send the intro text below instead.
+  It ships as one template with one file per chapter; a folder per chapter (the default
+  of the splitting question in block 3) is built from it by rule.
+- without chapters → `simple-thesis` (title page, table of contents, lists of figures
+  and tables, sections, bibliography, appendix — for seminar papers and shorter
+  theses) or `academic-paper` (lean: title block on the first page, abstract with
+  keywords, sections, bibliography — no separate title page, no table of contents).
 
-   **Ask it in two steps, the first one always as a dialog.** The data itself is free text,
-   and a dialog needs options to click. Left open, runs did both wrong things: one asked in
-   plain chat with no dialog at all, one built a dialog around an invented option ("Master
-   Thesis, details via Other", 17.10.2026). So:
+##### Intro text
 
-   1. **Dialog with exactly these two options**, in this order: `A: Fill in now` and
-      `B: Keep the placeholders for now`. The intro text above names the fields of this
-      template, so the user knows what "now" means. Nothing else goes into the dialog.
-   2. **On A**, ask for the fields in plain chat, as a short list, and wait for the reply. A
-      field the user leaves out keeps its placeholder; do not ask again for it. **On B**, go
-      straight on to question 9.
+Send it first, translated. Send **one** of the two versions, the one that
+matches answer 3; never both.
 
-**Block 3 — how Obsitex lays the files out and orders them**
+*With chapters.* There is nothing to choose, so this text replaces the question: send it,
+open no dialog, and go on to question 5.
+
+> *Question 4 of 12*
+>
+> **Your template**
+>
+> For a document with chapters there is one template, made for master theses and
+> dissertations: numbered chapters, Roman page numbers (i, ii, iii) before the introduction,
+> and appendices labelled A, B, C. I will use that one.
+
+*Without chapters:*
+
+> *Question 4 of 12*
+>
+> **Which template fits your document?**
+>
+> Two templates work with sections:
+>
+> **Thesis:** a title page of its own, a table of contents, lists of figures and tables, the
+> bibliography and an appendix. Made for seminar papers and shorter theses.
+>
+> **Paper:** lean. Title, authors and a short summary (abstract) with keywords sit at the top
+> of the first page, and the text follows right below. No separate title page, no table of
+> contents. Made for articles and conference papers.
+>
+> If you are not sure: does your document need a title page of its own and a table of
+> contents? Then take the thesis.
+
+##### Options
+
+In the same chat message, directly under the intro text, translated into the chat language.
+No AskUserQuestion: end the reply after the last line and wait for the answer.
+
+```
+A: Thesis. Title page, table of contents and lists. For seminar papers and shorter theses.
+B: Paper. Title block on the first page, no table of contents. For articles.
+Reply with the letter.
+```
+
+#### Question 5 — Numbering depth
+
+How deep should headings be numbered? The reasoning behind it and
+what the answer writes into the preamble: "Questions 5 and 6 in detail" below.
+
+##### Intro text
+
+Send it first, as written, translated into the chat language; keep the numbers, the sketch and
+its arrow exactly as they are. Send **one** of the two versions, the one that matches answer 3;
+never both, and never change one into the other.
+
+*With chapters:*
+
+> *Question 5 of 12*
+>
+> **How deep should your headings be numbered?**
+>
+> I recommend **up to 1.1.1**. Below that, every heading looks the same (same font size),
+> and only the length of the number tells the levels apart.
+>
+> ```
+> Up to 1.1.1 (recommended)  Up to 1.1.1.1
+>
+> 1  Introduction            1  Introduction
+> 1.1  Background            1.1  Background
+> 1.1.1  Studies             1.1.1  Studies
+>        Survey  ← no no.    1.1.1.1  Survey
+> ```
+>
+> **One thing to know:** a link to a heading without a number points to the wrong place.
+> So at 1.1.1, links work down to 1.1.1. If you want to link to finer headings, pick a
+> deeper option.
+>
+> 💡 **Tip:** Numbers that run deep quickly make a text look technical. If it bothers you
+> once you see the PDF, tell me and I will change the depth.
+
+*Without chapters:*
+
+> *Question 5 of 12*
+>
+> **How deep should your headings be numbered?**
+>
+> I recommend **up to 1.1.1**. Below that, every heading looks the same (same font size),
+> and only the length of the number tells the levels apart.
+>
+> ```
+> Up to 1.1.1 (recommended)  Up to 1.1.1.1
+>
+> 1  Introduction            1  Introduction
+> 1.1  Background            1.1  Background
+> 1.1.1  Studies             1.1.1  Studies
+>        Survey  ← no no.    1.1.1.1  Survey
+> ```
+>
+> **One thing to know:** a link to a heading without a number points to the wrong place.
+> So at 1.1.1, links work down to 1.1.1. If you want to link to finer headings, pick a
+> deeper option.
+>
+> From 1.1.1.1 on, the deepest heading runs into the first line of its paragraph instead of
+> standing on its own line. This layout cannot change that.
+>
+> 💡 **Tip:** Numbers that run deep quickly make a text look technical. If it bothers you
+> once you see the PDF, tell me and I will change the depth.
+
+##### Options
+
+In the same chat message, directly under the intro text, translated into the chat language.
+No AskUserQuestion: end the reply after the last line and wait for the answer.
+
+*With chapters:*
+
+```
+A: Up to 1.1.1 (recommended). Chapter, section and one level below.
+B: Up to 1.1.1.1. One more numbered level.
+C: Up to 1.1.1.1.1. Two more numbered levels.
+D: Up to 1.1.1.1.1.1. The deepest numbering possible.
+Reply with the letter.
+```
+
+*Without chapters:*
+
+```
+A: Up to 1.1.1 (recommended). Section and two levels below.
+B: Up to 1.1.1.1. One more numbered level.
+C: Up to 1.1.1.1.1. The deepest numbering possible.
+Reply with the letter.
+```
+
+#### Question 6 — Contents list depth
+
+Same depth as the numbering, or one level shallower? Never
+deeper. Asked **after** answer 5 is in, because the option labels and the recommendation are
+both written out of it; see "Questions 5 and 6 in detail" below.
+
+##### Intro text
+
+Send it first, translated. Send **one** of the four versions, the one that matches answer 5;
+never more than one, and never change the numbers in it.
+
+*After answer 5 = 1.1.1* (with or without chapters):
+
+> *Question 6 of 12*
+>
+> **How deep should the table of contents go?**
+>
+> It can list your headings as deep as they are numbered, down to 1.1.1, or stop one level
+> earlier, at 1.1. I recommend **down to 1.1.1**: three levels stay easy to take in.
+>
+> It never goes deeper than the numbering. Headings without a number would sit in the list
+> at the same indent as the ones above them, and the list would stop showing the order.
+
+*After answer 5 = 1.1.1.1* (with or without chapters):
+
+> *Question 6 of 12*
+>
+> **How deep should the table of contents go?**
+>
+> It can list your headings as deep as they are numbered, down to 1.1.1.1, or stop one level
+> earlier, at 1.1.1. I recommend **down to 1.1.1**: with every numbered level listed, the
+> table of contents outgrows a page and stops giving an overview.
+>
+> It never goes deeper than the numbering. Headings without a number would sit in the list
+> at the same indent as the ones above them, and the list would stop showing the order.
+
+*After answer 5 = 1.1.1.1.1* (with or without chapters):
+
+> *Question 6 of 12*
+>
+> **How deep should the table of contents go?**
+>
+> It can list your headings as deep as they are numbered, down to 1.1.1.1.1, or stop one level
+> earlier, at 1.1.1.1. I recommend **down to 1.1.1.1**: with every numbered level listed, the
+> table of contents outgrows a page and stops giving an overview.
+>
+> It never goes deeper than the numbering. Headings without a number would sit in the list
+> at the same indent as the ones above them, and the list would stop showing the order.
+
+*After answer 5 = 1.1.1.1.1.1* (with chapters only):
+
+> *Question 6 of 12*
+>
+> **How deep should the table of contents go?**
+>
+> It can list your headings as deep as they are numbered, down to 1.1.1.1.1.1, or stop one level
+> earlier, at 1.1.1.1.1. I recommend **down to 1.1.1.1.1**: with every numbered level listed, the
+> table of contents outgrows a page and stops giving an overview.
+>
+> It never goes deeper than the numbering. Headings without a number would sit in the list
+> at the same indent as the ones above them, and the list would stop showing the order.
+
+##### Options
+
+In the same chat message, directly under the intro text, translated into the chat language.
+No AskUserQuestion: end the reply after the last line and wait for the answer.
+
+The version that matches answer 5, the same one as for the intro text:
+
+*After answer 5 = 1.1.1* (with or without chapters):
+
+```
+A: Also down to 1.1.1 (recommended). As deep as the numbering. Three levels stay easy to take in.
+B: Only down to 1.1. One level shallower than the numbering.
+Reply with the letter.
+```
+
+*After answer 5 = 1.1.1.1* (with or without chapters):
+
+```
+A: Only down to 1.1.1 (recommended). One level shallower than the numbering. The list keeps giving an overview.
+B: Also down to 1.1.1.1. As deep as the numbering.
+Reply with the letter.
+```
+
+*After answer 5 = 1.1.1.1.1* (with or without chapters):
+
+```
+A: Only down to 1.1.1.1 (recommended). One level shallower than the numbering. The list keeps giving an overview.
+B: Also down to 1.1.1.1.1. As deep as the numbering.
+Reply with the letter.
+```
+
+*After answer 5 = 1.1.1.1.1.1* (with chapters only):
+
+```
+A: Only down to 1.1.1.1.1 (recommended). One level shallower than the numbering. The list keeps giving an overview.
+B: Also down to 1.1.1.1.1.1. As deep as the numbering.
+Reply with the letter.
+```
+
+#### Question 7 — Citation style
+
+Numeric (default), author–year, APA, or verbose. Maps to the biblatex
+`style=` option in the preamble. **APA is an option of its own, not a flavour of
+author–year:** psychology, education, the social sciences and often business ask for it by
+name, and its reference list follows rules `authoryear` does not (titles in sentence case,
+"&" between two authors).
+
+##### Intro text
+
+Send it first, translated; keep the example citations exactly as they are.
+
+> *Question 7 of 12*
+>
+> **How should sources appear in your text?**
+>
+> There are four common styles. They differ in what the reader sees at the point where you
+> cite:
+>
+> ```
+> Numbers       … as shown in [1].
+> Author-year   … as shown in (Meier 2020).
+> APA           … as shown in (Meier, 2020).
+> Footnotes     … as shown in.¹
+>   ¹ Hans Meier: Title, Publisher 2020, p. 12.
+> ```
+>
+> Your university often prescribes one. If it does not, numbers or author-year are both a
+> good choice.
+>
+> 💡 **Tip:** If your university asks for a different style, just tell me. It is one word in
+> the setup and every citation in the document follows.
+
+##### Options
+
+In the same chat message, directly under the intro text, translated into the chat language.
+No AskUserQuestion: end the reply after the last line and wait for the answer.
+
+**The four options, in this order, as `A` to `D`**, each with its label and description on one
+line, then "Reply with the letter." Translate them, but keep the example citations exactly as
+they are:
+
+- **`Numbers [1]` (default)** — "The source appears as a number in square brackets. Common
+  in engineering, computer science and the natural sciences."
+- **`Author-year (Meier 2020)`** — "Name and year in parentheses. A good choice when your
+  university prescribes nothing."
+- **`APA (Meier, 2020)`** — "The style of the American Psychological Association. Common in
+  psychology, education and the social sciences."
+- **`Footnotes`** — "The full source in a footnote at the bottom of the page, shortened when
+  it comes again. Common in history, law and philosophy."
+
+**Why the example sits in the label:** "numeric" and "verbose" mean nothing to a student,
+and an example is understood at a glance. APA and author-year look almost alike in the text;
+the comma and the line below are the only visible difference, so neither may be dropped.
+**The subjects are a rule of thumb, never a rule.** Write "common in", never "required in"
+or "used in", and never steer the user towards a style because of their subject. What their
+university asks for decides, and the tip covers that.
+
+#### Question 8 — Cover data
+
+Every template. For professional-thesis and simple-thesis: title,
+subtitle, document type (e.g. Seminar Paper / Master Thesis), degree program, author,
+supervisor. For academic-paper (since 30.09.2026): title, subtitle, the authors with
+their institution, the corresponding author's e-mail, date. A paper has no document type,
+degree program or supervisor, so do not ask for them.
+
+##### Intro text
+
+Send it first, translated. The field list matches the template.
+
+*professional-thesis and simple-thesis:*
+
+> *Question 8 of 12*
+>
+> **What goes on the title page?**
+>
+> The title page shows six things: title, subtitle, type of work (for example Master
+> Thesis), degree program, your name and your supervisor. You can fill them in now, or
+> leave the placeholders and fill them in later.
+>
+> 💡 **Tip:** No final title yet? Leave the placeholders standing. Tell me any time and I
+> will fill them in.
+
+*academic-paper:*
+
+> *Question 8 of 12*
+>
+> **What goes into the title block?**
+>
+> The first page shows: title, subtitle, the authors with their institution, the e-mail of
+> the corresponding author, and the date. You can fill them in now, or leave the
+> placeholders and fill them in later.
+>
+> 💡 **Tip:** No final title yet? Leave the placeholders standing. Tell me any time and I
+> will fill them in.
+
+##### Options
+
+In the same chat message, directly under the intro text, translated into the chat language.
+No AskUserQuestion: end the reply after the last line and wait for the answer.
+
+**Ask it in two steps, the first one always as a choice between two options.** Left open,
+runs did both wrong things: one asked for the data straight away with no choice, one built a
+dialog around an invented option ("Master Thesis, details via Other", 17.10.2026). So:
+
+1. **Exactly these two options**, in this order, then "Reply with the letter.":
+   `A: Fill in now` and `B: Keep the placeholders for now`. The intro text above names the
+   fields of this template, so the user knows what "now" means. Nothing else goes into the
+   list.
+2. **On A**, ask for the fields in plain chat, as a short list, and wait for the reply. A
+   field the user leaves out keeps its placeholder; do not ask again for it. **On B**, go
+   straight on to question 9.
+
+### Block 3 — how Obsitex lays the files out and orders them (questions 9 to 12)
 
 This block goes from large to small: first the whole project folder, then how its parts are
 split up, then the order of the single files.
 
-9. **Project structure** — full project scaffold (recommended default): six top-level
-   folders for the whole research project, with the manuscript in its own subfolder
-   (see "Project scaffold" below) — or manuscript only, files straight into the folder.
-   **A folder sketch on both options.** Wording and the two sketches:
-   see "Project scaffold" → "How to ask it" below.
-10. **How the parts are split up** — one file per part, or a folder of files, and how deep?
-    **Three options, default two levels.** Asked for **every** template, and produced the
-    same way for all of them: every template ships flat and is transformed by rule after
-    copying. **A folder sketch on every option.** Wording, the
-    sketches, the depth note and the rules: see "Splitting into folders" below.
-11. **How the file order is controlled — variant A or B.** Ask this after question 10, and
-    before scaffolding: it decides the file names. See "Ordering: variant A or B" below.
-12. **Folder notes — install it or not?** Ask this **last**. It is the user's choice, because
-    it is third-party code in their vault, but **recommend it clearly**. It is asked in both
-    ordering variants. See "Folder notes: ask, and recommend it clearly" below.
+#### Question 9 — Project structure
 
-## Tips — the hint element
+Full project scaffold (recommended default): six top-level
+folders for the whole research project, with the manuscript in its own subfolder
+(see "Question 9 in detail" below) — or manuscript only, files straight into the folder.
+**A folder sketch on both options.** **Intro text**, the two sketches and the options:
+see "Question 9 in detail" → "How to ask it" below.
 
-Some settings are worth naming while the user decides, but they must not become a paragraph
-nobody reads. For those there is **one** recognisable element: a quote block opened by a light
-bulb.
+#### Question 10 — How the parts are split up
 
-```
-> 💡 **Tip:** the sentence, in the chat language.
-> A second line at most.
-```
+One file per part, or a folder of files, and how deep?
+**Three options, default two levels.** Asked for **every** template, and produced the
+same way for all of them: every template ships flat and is transformed by rule after
+copying. **A folder sketch on every option.** **Intro text**, the
+sketches, the options, the depth note and the rules: see "Question 10 in detail" below.
 
-**What a tip says, always:** *this is adjustable, tell me and I will change it.* Nothing else.
-No reasoning, no LaTeX command, no package name. The command is the skill's business, never the
-user's.
+#### Question 11 — How the file order is controlled: variant A or B
 
-Rules, so the element keeps working:
+Ask this after question 10, and
+before scaffolding: it decides the file names. **Intro text**, sketches and options: see
+"Question 11 in detail" below.
 
-- **At most one tip per question.** Two in a row and the eye starts skipping them, which is the
-  very problem this element solves.
-- **Two or three lines**, never more.
-- It sits **directly under the message it belongs to**, never collected at the end.
-- **The tip comes before the dialog, never after the answer.** It goes into the chat message
-  that prepares the question, and the dialog opens after it. A tip exists to reassure while
-  the user decides. Sent after the answer, it reads like a comment on their choice, and "No
-  final title yet? Leave the placeholders standing" after the user has just chosen the
-  placeholders is simply redundant. Measured 27.09.2026: one run sent the tips for the
-  citation style and the cover data only after the answer.
-- **Never inside `description` or `preview` of an option.** A tip must not tilt a choice. It is
-  the reassurance that the choice is not final.
-- **A tip that holds for only one of the options says so in its own bold label**, before the
-  first word of the sentence: *"Tip, if you go with chapters:"*. Standing under a comparison
-  list, an unlabelled tip reads as if it applied to both sides.
-- Translate the word "Tip" into the chat language (German: "Tipp"), and keep the tip text free
-  of dashes like the rest of the user-facing wording.
+#### Question 12 — Folder notes: install it or not
 
-Four questions carry a tip today: chapters or sections, numbering depth, citation style and the
-cover data. Each one is written out at its own question.
+Ask this **last**. It is the user's choice, because
+it is third-party code in their vault, but **recommend it clearly**. It is asked in both
+ordering variants. **Intro text**, sketch and options: see "Question 12 in detail" below.
 
-## Ordering: variant A or B (question 11)
-
-Obsitex converts the files in a set order. There are two ways to control it, and they lead
-to different file names — so the answer must be known before any file is written.
-
-**Do not tell the user that Obsitex converts "in the order Obsidian shows".** That holds
-for A only. With B, Obsidian's file list and the PDF disagree (folders on top, see below),
-and that sentence is exactly what made a user think the B sketch was a mistake.
-
-**Recommend A clearly** — not only as a parenthesis in the option label, but in the
-message next to the question ("I'd strongly recommend the first one"). Still no automatic
-default: the user chooses.
-
-- **`A: Change the order freely by drag & drop` (strongly recommended).** A small
-  Obsidian add-on (Flexplorer) does the sorting; the skill brings it along and walks the
-  user through switching it on. File names stay clean, without numbers.
-- **`B: Control the order through the file names`.** Nothing to install. Every file gets
-  a number in front (10, 20, 30 …), and reordering means renaming.
-
-The letters are the user's here too, not just the skill's shorthand — they go into the labels
-and above the two sketches, exactly as in the other three mockup questions (see "Option
-letters").
-
-Show the difference the same way as for the chapters question — **as a chat message before
-the call, and as `preview` on both options** (never only in `description`):
-
-*A — drag & drop:*
-
-```
-Obsidian shows = PDF gets
-    00 Document Setup
-[F] Front Matter
-[F] Main Matter
-        Switch to Main Matter
-    [F] Introduction
-    [F] Methodology
-        Conclusion
-[F] Back Matter
-
-[F] = folder
-```
-
-*B — numbers in the file names:*
-
-```
-Obsidian shows             PDF gets
-[F] 10 Front Matter        00 Document Setup
-[F] 20 Main Matter         10 Front Matter
-    [F] 30 Introduction    20 Main Matter
-    [F] 50 Methodology        10 Switch to Main…
-        10 Switch to Main…    30 Introduction
-        80 Conclusion         50 Methodology
-[F] 90 Back Matter            80 Conclusion
-    00 Document Setup      90 Back Matter
-
-[F] = folder
-```
-
-Mark folders with `[F]` and nothing else. An emoji such as 📁 shifts the columns in a
-terminal, and the old `›` arrow at the line end was too easy to miss. Files carry four
-spaces in its place, so the names of one level stay aligned.
-
-Variant B's mockup must show **both columns**: Obsidian's list with the folders on top
-(that is what Obsidian really does without the add-on: folders first, files after them,
-each group sorted by name) and next to it the order the PDF gets. Side by side, the user
-sees the mismatch before choosing, not afterwards.
-
-**Below the two sketches, write this block in the chat message** (translated into the chat
-language, no dashes). It names the two costs of B separately, because they are of a
-different kind: one can be fixed by hand, the other never.
-
-> **With B you accept two things:**
->
-> 1. **Reordering means renaming.** To move a chapter, you change the number in its name.
->    That is work, but you can always do it.
-> 2. **Folders always sit on top.** Obsidian lists folders first and files after them. You
->    cannot change this. So your file list never shows the real order. The PDF is still
->    correct.
->
-> With A, neither happens.
-
-Say in the option descriptions, short and in plain words: with A the names stay clean and
-reordering is one drag; the order then lives in a settings file of the add-on. With B
-nothing extra is installed, reordering means renaming, and the file list in Obsidian shows
-the folders on top, not in the real order. The gaps between 10, 20, 30 exist so a new
-chapter can be squeezed in as 25 without renaming the rest.
-
-**What follows from the answer**
-
-| | A | B |
-|---|---|---|
-| File names | no number prefixes — **except `00 Document Setup.md`**, which keeps its `00 ` | number prefixes in steps of ten, as the templates carry them |
-| Flexplorer | plugin files + seed `data.json`, then guided activation | not installed at all, no `data.json` |
-| Folder notes | on a yes to question 12: downloaded from its author, then guided activation | the same: it does not depend on the ordering |
-| Reordering | drag & drop in Obsidian | rename the file (see the renaming rules in the report) |
-
-In **variant A**, strip the leading `^\d+\s+` from every file and folder name while
-copying — including the top-level folders (`Organisation`, `Manuscript`, `Research`, `Interviews`,
-`Data`, `Exports`) and the three area folders (`Front Matter`, `Main Matter`, `Back Matter`). The single
-exception is `00 Document Setup.md`: it must sort first even when the add-on is not running,
-because the converter reads its settings at the position where they stand. Mention this in
-the report in one sentence — it is the reason that one file looks different from the rest.
-
-**Watch the chapter folders while stripping.** When a chapter becomes a folder, the folder
-and its title file carry the same name (`30 Introduction/30 Introduction.md`). The converter
-recognises the title file *by* that match, so both must be stripped together
-(`Introduction/Introduction.md`). Strip only one and the file turns into an ordinary
-section — silently, with the chapter title landing on the wrong level. The trap is easy to
-hit, because the skill creates the folder and its file itself rather than copying them.
-
-## Folder notes: ask, and recommend it clearly (question 12)
-
-The Obsidian plugin **Folder notes** shows a folder and its folder note as **one** entry. What
-it does and how it is installed: "Install the Folder notes plugin" below. This section is only
-about asking.
-
-**Why it is asked at all.** It is third-party code in the user's vault, and Obsidian itself asks
-before running such code. Flexplorer is a choice (question 11), so Folder notes is one too.
-Without it nothing breaks and the PDF is the same. Only the file list shows every chapter
-folder with a second entry of the same name inside it.
-
-**Why it is recommended clearly.** Without it, the file list contradicts the structure the user
-has just chosen: the chapter looks like a folder *and* a file. That is the one view of the
-level rule the user sees every day.
-
-**Recommend it clearly, as strongly as variant A of question 11:** in the option label
-("clearly recommended", in German "klar empfohlen") **and** in a sentence of the chat message
-("I clearly recommend it"). The recommended option comes first. Still no automatic default: the
-user chooses.
-
-**The chat message** says three things, short, in plain words:
-
-1. What it is: a small add-on that shows a folder and the file with its name as one entry. A
-   click on the folder opens that file.
-2. The sketch below, with the real names of this project (the first chapter and two of its
-   sections, as the scaffold will name them).
-3. The recommendation, and that it can also be added later.
-
-```
-Without Folder notes:          With Folder notes:
-
-Introduction/                  Introduction     ← a click opens the chapter text
-   Introduction.md                Motivation
-   Motivation.md                  Problem Statement
-   Problem Statement.md
-```
-
-**If the answer to question 10 was one file per chapter,** the scaffold has no chapter folders
-yet. Keep the same sketch and say it applies as soon as a chapter gets its own folder.
-
-**Then AskUserQuestion with two options, letters in front, the sketch as `preview` on both**
-(the "without" half on B, the "with" half on A):
-
-- **`A: Yes, set it up (clearly recommended)`**: one entry per chapter, a click opens its text.
-- **`B: No`**: nothing is installed. Every chapter folder shows its folder note as an extra
-  entry. It can be added later.
-
-**What follows from the answer**
-
-| | A: yes | B: no |
-|---|---|---|
-| Download | as in "Install the Folder notes plugin" | nothing, no `.obsidian/plugins/folder-notes/` |
-| Activation steps in the report | Flexplorer (variant A) and Folder notes | Flexplorer only (variant A), none in variant B |
-| Folder notes points in "Wrap up" | all of them | none, only one sentence: it can be added later in Obsidian under Settings → Community plugins → Browse → "Folder notes" by **Lost Paul**, or by asking the assistant |
-
-## Chapters or sections (ask before the template)
+## Question 3 in detail — Chapters or sections
 
 This is the first real decision about the document, so present it properly — **no
 default**, the user should choose consciously. **Write everything in plain everyday
@@ -731,7 +1025,7 @@ Use a stem that carries that. In German the agreed wording is:
 In English, the same shape: *"Does your outline start with chapters or with sections?"* —
 the verb "start" does the work; it locates the decision at the top of the hierarchy without
 having to name a hierarchy at all. **Then explain the difference**, using the mockups and the
-list further down.
+difference list, both in the intro text below.
 
 **Say "your document", not "your work".** In German especially, *„deine Arbeit"* is too vague
 — it also just means *task*. *„dein Dokument"* is unambiguous and is what actually comes out
@@ -739,582 +1033,125 @@ at the end.
 
 ### How to ask it — the illustration is mandatory
 
-The two page mockups below are the point of this question; a text-only question fails it.
-Show them **twice**, both steps are required:
+The two page mockups in the intro text are the point of this question; a text-only question
+fails it. They stay inside their fenced code block, so the monospace alignment survives.
 
-1. **Print the side-by-side comparison as a normal chat message directly before calling
-   AskUserQuestion** (translated into the chat language, inside a fenced code block so the
-   monospace alignment survives). This guarantees the user sees it even if the interface
-   does not render option previews.
-2. **Then call AskUserQuestion with a `preview` on each of the two options** — the mockup
-   of that option plus a two-line caption. Both options must carry a `preview`; only then
-   does the dialog switch to the side-by-side layout with the mockup next to the list.
-   Never paste a mockup into `description` instead — `description` stays short (two or
-   three sentences, see the difference list below); the mockup belongs in `preview`.
+#### Intro text
 
-Keep the mockups roughly like this:
+Send it first, as written, translated into the chat language, mockups included;
+re-align the boxes after translating.
 
-*A — with chapters:*
-
-```
-┌────────────────────────┐
-│                        │
-│                        │
-│                        │
-│  2                     │
-│  Methods               │
-│  ──────────────────    │
-│                        │
-│  2.1 Data collection   │
-│  Lorem ipsum dolor …   │
-└────────────────────────┘
- always starts on a new
- page, title sits low
-```
-
-*B — without chapters:*
-
-```
-┌────────────────────────┐
-│  … previous text.      │
-│                        │
-│  2  Methods            │
-│                        │
-│  2.1 Data collection   │
-│  Lorem ipsum dolor     │
-│  sit amet, consetetur  │
-│  sadipscing elitr, …   │
-└────────────────────────┘
- runs on within the text,
- no page break
-```
-
-Put the differences below into the **chat message** of step 1, as a short list in the
-user's own words. Each option `description` gets only the two most decisive ones — the
-look and **the level consequence** — in two or three sentences; do not cram all five in.
-The level consequence belongs in the option itself, not only in the list: it is the half
-of this decision the mockups cannot show, and the reason the question is not about wording.
-Roughly:
-
-> *A — with chapters, like a book.* Each main part starts on a new page with a large number.
+> *Question 3 of 12*
+>
+> **Does your outline start with chapters or with sections?**
+>
+> This decides where your outline starts, and everything below it moves along. It is the
+> first real decision about your document, so there is no default here.
+>
+> ```
+> A  With chapters
+>
+> ┌────────────────────────┐
+> │                        │
+> │                        │
+> │                        │
+> │  2                     │
+> │  Methods               │
+> │  ──────────────────    │
+> │                        │
+> │  2.1 Data collection   │
+> │  Lorem ipsum dolor …   │
+> └────────────────────────┘
+>  always starts on a new
+>  page, title sits low
+>
+> B  With sections
+>
+> ┌────────────────────────┐
+> │  … previous text.      │
+> │                        │
+> │  2  Methods            │
+> │                        │
+> │  2.1 Data collection   │
+> │  Lorem ipsum dolor     │
+> │  sit amet, consetetur  │
+> │  sadipscing elitr, …   │
+> └────────────────────────┘
+>  runs on within the text,
+>  no page break
+> ```
+>
+> **A, with chapters, like a book.** Each main part starts on a new page with a large number.
 > Below it you still have section, subsection and more.
 >
-> *B — with sections, like an essay.* The main parts run on within the text, no page break.
+> **B, with sections, like an essay.** The main parts run on within the text, no page break.
 > One outline level less below.
-
-**The dialog labels carry the same letters**, `A: With chapters` and `B: With sections` (see
-"Option letters" above). This question has no recommendation, so the two orders match anyway —
-the letters are here because all four mockup questions use them, and a system that holds only
-sometimes is not one.
-
-- **Look:** with chapters, every chapter starts on a fresh page and its title sits far
-  down the page with a big number above it; without chapters, headings simply continue
-  in the running text.
-- **How many heading levels you get:** chapters add a level at the top, so a document with chapters
-  can go six heading levels deep and one without chapters five. Name both numbers and stop
-  there — which `#` becomes what, and how deep it is worth going, are not questions for this
-  point in the interview.
-- **Length of the document:** for a short paper (roughly under 30 pages) chapters create a
-  lot of empty space; from about 40–50 pages they give the document structure. A rule of
-  thumb, not a rule.
-- **Roman page numbers at the front:** with chapters, title page, abstract and the
-  tables of contents are numbered i, ii, iii and the numbering restarts at 1 with the
-  introduction — what a bound thesis usually looks like. Without chapters the page
-  numbers run through from 1.
-- **Figures, tables and page headers:** with chapters, figures are counted per chapter
-  (Figure 2.1, 2.2) and the page header shows the current chapter title; without
-  chapters they are counted straight through (Figure 1, 2, 3).
-
-**Send one tip with the chat message of step 1** (the element and its rules: see "Tips"
-above). It belongs directly under the difference list, because the large gap above a chapter
-title is the one thing in the mockup that looks final and is not:
-
+>
+> What else differs:
+>
+> - **Heading levels:** with chapters your document can go six levels deep, with sections five.
+> - **Length:** in a short document (roughly under 30 pages) chapters leave a lot of empty
+>   space. From about 40 to 50 pages on they give it structure. A rule of thumb, not a rule.
+> - **Page numbers:** with chapters, the pages before the introduction (title page, abstract,
+>   table of contents) are numbered i, ii, iii, and the count starts again at 1 with the
+>   introduction. That is what a bound thesis usually looks like. With sections, the page
+>   numbers run through from 1.
+> - **Figures and page headers:** with chapters, figures are counted per chapter (Figure 2.1,
+>   2.2) and the top of each page shows the current chapter. With sections they are counted
+>   straight through (Figure 1, 2, 3).
+>
+> Please choose with care: changing this later is real work, not a single click.
+>
 > 💡 **Tip, if you go with chapters:** That big gap above each chapter title is the classic
 > book look. If it feels too much like a book to you, tell me later and I will move the titles
 > up, for all chapters at once.
 
-**How you keep that promise** (do not explain this to the user): the line already sits in the
-preamble of both professional templates, commented out. Uncomment
+#### Options
+
+In the same chat message, directly under the intro text, translated into the chat language.
+No AskUserQuestion: end the reply after the last line and wait for the answer.
+
+```
+A: With chapters. Like a book: each main part starts on a new page with a large number. Below it you still have section, subsection and more.
+B: With sections. Like an essay: the main parts run on within the text, no page break. One outline level less below.
+Reply with the letter.
+```
+
+Each description carries only the two most decisive differences, the look and **the level
+consequence**; the rest stays in the intro text. The level consequence belongs in the option
+itself, not only in the intro: it is the half of this decision the mockups cannot show, and the
+reason the question is not about wording.
+
+**The options carry the same letters as the mockups** (see "Option letters" above). This
+question has no recommendation, so neither option is marked.
+
+#### Why the intro text says what it says
+
+Background, not for the user:
+
+- **Heading levels:** chapters add a level at the top. Name both numbers and stop there —
+  which `#` becomes what, and how deep it is worth going, are not questions for this point in
+  the interview.
+- **The tip** stands directly under the difference list, because the large gap above a
+  chapter title is the one thing in the mockup that looks final and is not.
+- **"Real work"** is meant literally: switching later affects the document setup, the
+  appendix and page-numbering switches, and the number of `#` signs in every chapter file.
+  Say it before they choose, never after.
+
+**How you keep the tip's promise** (do not explain this to the user): the line already sits in
+the preamble of both professional templates, commented out. Uncomment
 `\RedeclareSectionCommand[beforeskip=-1\baselineskip, afterskip=1\baselineskip]{chapter}`
 in `00 Document Setup.md`. It is a KOMA command, so it exists with chapters only.
 
-Also tell them honestly, before they choose: **changing this later is real work** — it
-affects the document setup, the appendix and page-numbering switches, and the number of
-`#` signs in every chapter file. Not a single click.
-
-## Splitting into folders (all templates)
-
-A top-level part can be **one file** or **a folder holding several files**. Ask this for
-**every** template. The skill produces the answer the same way for all of them: **copy the
-flat template, then build the folders from the rules below** ("Building it by rule").
-
-Every template therefore has two kinds of files:
-
-| Kind | Which files | What happens after copying |
-|---|---|---|
-| **Fixed** | `00 Document Setup.md`, and in `professional-thesis` everything in `Front Matter/` and `Back Matter/` plus `Switch to Main Matter.md` | the shape never changes. Only the gaps are filled in (cover data, citation style, language) |
-| **Chapters** (sections without chapters) | the body files: in `professional-thesis` the other files in `Main Matter/`, in the flat templates the files named in the table under "Building it by rule" | stay as they are for one file per part; become folders by rule for two or three levels |
-
-The fixed files hold the raw LaTeX (title page, lists, bibliography, the switches). They are
-copied and never rebuilt, because a model rewriting them loses backslashes (see "Hard
-rules"). The chapter files hold only headings and placeholder text, and nothing is lost when
-they are split.
-
-**Why one flat template and no second, nested one** (decided 26.09.2026): until v1.46.0
-`professional-thesis` shipped twice, flat and nested. The two copies drifted apart (the
-nested one had sections the flat one lacked), and every change had to be made twice. The flat
-template now carries every section as `##`, so the rules give exactly the old nested shape:
-measured with the converter, the LaTeX of both shapes is identical apart from the labels.
-
-**Every file that becomes a folder carries at least two `##` blocks, in all three templates**
-(since 27.09.2026). The rules only move text, they never invent it. Before, most body files of
-`simple-thesis` and `academic-paper` had no `##`, and the skill made up two placeholder
-sections per folder, so the result changed from run to run. A new body file in a template
-needs its `##` blocks too, or it becomes a folder with nothing but its folder note.
-
-**The third level is in the templates as well** (since 30.09.2026), but in **one section per
-template only**, so users with one or two levels do not have to delete a pile of `###`:
-`professional-thesis` Methodology → Data Collection (Interviews, Survey), `simple-thesis`
-Literature Review → Current State of Research (Topic A, Topic B), `academic-paper` Methods →
-Data (Sample, Variables). That matches the option C sketch: only a section that grew gets a
-folder. No fourth level: the skill builds at most three, so a `####` would only be clutter.
-
-**Why it matters — say this, in plain words:** a part grows. Once a file holds fifty
-pages, the smallest thing you can move around is the whole part, and rearranging your
-argument means cutting and pasting inside a wall of text. With a folder per part each
-section is its own small file, and you reorder them by dragging — Obsitex reads the level
-from where a file sits, so **moving a file never means editing its headings**.
-
-### The rule: a file never starts with more than one `#`
-
-**This is a hard rule for everything the skill writes.** A file's level comes from where it
-lies: a folder note's `#` is its folder's own level, every other file's `#` sits one level
-below the folder note of its folder. Every file therefore reads the same way regardless of how
-deep it sits,
-can be moved anywhere without touching its headings, and can be turned into a folder later
-without an edit.
-
-It follows that **splitting stops at the folder limit**: where no deeper folder is allowed,
-the file at that level absorbs its whole substructure as `##`, `###` — it does not hand it to
-sibling files. Sibling files starting with `##` are exactly what this rule forbids.
-
-**When a file becomes a folder, its level stays the same.** The folder takes the place where
-the file stood, and the file moves inside it under the folder's own name: its **folder note**,
-which keeps the level the single file had. Only the other files in the folder sit one level
-below that folder note. A folder without a folder note adds no
-level at all (`shared/headings.md`).
-
-**Two terms, used everywhere in this file:** a folder with a folder note is a **structure
-folder** (it adds a level); a folder without one is a **grouping folder** (it only groups
-files). A chapter folder is simply a structure folder on the chapter level.
-
-### How sections are placed
-
-Notation: **B** = a section *without* subsections (a leaf), **A** = a section *with*
-subsections (a branch).
-
-**One rule covers every case: a leaf is a file, a branch is a folder with its folder note.**
-Both sit directly in the folder of their parent, in document order. There is **no** extra folder
-between a chapter and its sections: the chapter's folder note already puts everything else in
-the folder one level lower.
-
-```
-BBABA   →   30 Introduction/
-                30 Introduction.md          # Introduction   → chapter (folder note)
-                10 Motivation.md            # Motivation     → section
-                20 Problem Statement.md     # …              → section
-                30 Research Design/                           ← a branch
-                    30 Research Design.md   # …              → section (folder note)
-                    10 Sampling.md          # …              → subsection
-                40 Scope.md                 # …              → section
-                50 Outlook/ …
-```
-
-**Why a branch gets a folder:** it takes its children along when it is moved. **Why a leaf
-gets none:** one folder per section would be pure packaging — that was the first design, and
-users reported it as too nested.
-
-**"After" and "below" follow from the tree.** A new section *after* X goes into the same folder
-as X. A new section *below* X goes into X's folder; if X is still a single file, it first
-becomes a folder (`X.md` → `X/X.md`, its `#` unchanged).
-
-**No grouping folder between a chapter and its sections.** Up to v1.45.0 this skill put the
-leaves into a folder `Subchapters` /
-`Unterkapitel` / `Subsections`, because the old converter rule needed it to create the section
-level. It no longer does, and with the Obsidian plugin Folder notes such a folder shows up in
-the file list as a level of its own that the PDF does not have. **Do not create one.** A vault
-that already has them works unchanged; leave them alone unless the user asks.
-
-**Elsewhere a grouping folder is fine** wherever the user wants one:
-`Front Matter`, `Main Matter`, `Back Matter`, or any folder just to keep files tidy. It adds no
-level (`shared/headings.md`), so it never changes the PDF.
-
-**Growing a section into a folder** is a move, not a rewrite: create a folder with the file's
-exact name next to it and move the file inside. It becomes the folder note, its `#` stays as
-it is. The new subsections go into that folder as files of their own; a `##` block cut out of
-the folder note into its own file loses one `#`. Tell the user this — it is the reason the
-structure exists.
-
-**The three area folders `Front Matter`, `Main Matter` and `Back Matter` are grouping folders
-as well** (`professional-thesis` only). They carry no folder note and add no level: every file
-directly inside them becomes a chapter, and a chapter folder inside `Main Matter` has its own
-folder note as usual. An appendix that outgrows one file may become a folder with its folder
-note right there in `Back Matter`. Its folder note stays a chapter, its parts become sections
-(`shared/headings.md`, "When an appendix outgrows one file"). **The one thing never to do
-there:** give a file the folder's own name. `Front Matter/Front Matter.md` would be a folder
-note and push everything else in `Front Matter` one level down. This is why the switch files
-are called `Switch to Front Matter` and `Switch to Main Matter`, never just `Front Matter`.
-
-**The options — three of them, default is two levels:**
-
-- **One file per chapter (flat).** Simplest to look at; a long chapter becomes a long file,
-  and its sections sit inside it as `##`. → the template as it is copied
-- **A folder per chapter, two levels (default).** The chapter is a folder with its own
-  folder note; the sections are separate files right next to it, in the same folder.
-  → the template, then "Building it by rule"
-- **Three levels.** As above, plus: a section that has subsections of its own becomes a
-  folder with its folder note, and its subsections are files inside it, so it takes its parts
-  along when moved.
-  → as above; the template carries the third level as `###` in one section per template, so
-  the rules build it too (step 4 of "Building it by rule").
-
-**A "level" here is a heading level that gets its own files** — not a folder in the tree.
-`Front Matter`, `Main Matter` and `Back Matter` are grouping folders and never count.
-
-The two-level shape mixes both styles on purpose: five chapters become folders with their
-sections as files inside, `80 Conclusion and Future Work.md` stays a single file with its two
-sections as `##` inside. Point that out — it shows that no chapter *has* to become a folder,
-and that both forms produce the same `\chapter` + `\section` in the PDF. Every file, in both
-forms, starts with a single `#`.
-
-### How to ask it — a sketch per option, then the depth note
-
-**Use the word from question 3**: "chapter" for the templates with chapters, "section" for the
-flat ones. A third word for the same thing is how this question loses people.
-
-**The chat message before the dialog** does two things: it puts the two shapes side by side,
-and it says they produce the **same PDF**. The second half is what takes the weight out of the
-question — the answer decides how the user works, not how the document looks.
-
-> A chapter grows. So the question is whether a chapter is one file, or a folder with several
-> files in it.
->
-> ```
-> A  A folder per chapter             B  One file per chapter
->
-> Introduction/                       Introduction.md
->    Introduction.md                      # Introduction
->    Motivation.md                        ## Motivation
->    Problem Statement.md                 ## Problem Statement
->
-> 3 files. Reorder without cutting.   1 file. Reorder by cutting and pasting.
->
-> C  Like A, one level deeper: a section that grows can have its own folder too.
-> ```
->
-> All three give exactly the same PDF:
->
-> ```
-> 1     Introduction
-> 1.1   Motivation
-> 1.2   Problem Statement
-> ```
->
-> So you are choosing how you work, not how the document looks. And if a section grows big
-> later, it gets its own folder then. Nothing has to be settled about that now.
-
-**No number prefixes in the message or in the three previews.** Variant A or B comes only in
-the next question, so the file names are not known yet, the same reason as for the sketches in
-the greeting and the project structure. A number the user will not get also pulls the eye away
-from the one thing asked here: file or folder. Measured 27.09.2026: two runs showed
-`30 Introduction/` and `10 Motivation.md`, and both users then chose drag & drop, which has no
-numbers at all.
-
-**C belongs in the message too, not only in the dialog.** It is a third of the choice, and a
-letter with nothing to point back to is worse than no letter. One line is enough — the full
-sketch is in its `preview`.
-
-**Then AskUserQuestion with three options, each carrying a `preview`.** The previews label the
-levels down the left edge — that is what makes "two levels" mean anything. The folder note is
-marked as the chapter's own text, right in the sketch. **The three sketches stand here in dialog
-order** (recommendation first), which is not the order of the chat message — that is exactly
-what the letters are for.
-
-*A — two levels (recommended):*
-
-```
-Level 1   Introduction/               ← the chapter
-             Introduction.md             its own text (named like the folder)
-Level 2      Motivation.md            ← a section, its own file
-             Problem Statement.md
-```
-
-*B — one file per chapter:*
-
-```
-Level 1   Introduction.md             ← the whole chapter
-             # Introduction
-             ## Motivation            ← a section, just a line inside
-             ## Problem Statement
-```
-
-*C — three levels:*
-
-```
-Level 1   Introduction/
-             Introduction.md
-Level 2      Motivation/              ← grew on its own, so it gets a folder
-                Motivation.md
-Level 3         Background.md
-             Problem Statement.md
-```
-
-Labels and `description`, two lines each, in dialog order:
-
-- **`A: A folder per chapter, two levels` (recommended)** — "Most sections become files of
-  their own, so you rearrange them without cutting text."
-- **`B: One file per chapter`** — "One file per chapter, with all its sections written inside
-  it. Reordering sections means cutting and pasting text."
-- **`C: Three levels`** — "Subsections can become files of their own too. For long work with a
-  fine structure."
-
-**Two things the first two lines deliberately do not say**, because both would be untrue:
-
-- **Not "every section".** A section with no structure of its own may stay inside the chapter
-  file — the two-level shape does exactly that with `80 Conclusion and Future Work.md` — and
-  the skill builds no folders in `Front Matter` and `Back Matter`, so sections there are always
-  inside their file. "Most" is the honest word.
-- **Not "reorder by dragging".** Dragging belongs to the drag & drop variant of **question 11**
-  — the next question, and not the same letters as the ones above. Pick the other one there
-  and the order comes from the number in the file name, so reordering is renaming. This option
-  must not promise something that has not been decided yet. All three lines therefore compare
-  the one thing that holds either way: whether you have to cut text.
-
-**After the answer, send the depth note** as plain chat text — not as a tip (a tip may only say
-"this is adjustable", see "Tips"). Hardly anyone wants every level as folders. The note is not
-there to sell the depth; it is there so the ceiling is visible and the system stops looking
-arbitrary.
-
-*With chapters:*
-
-> Deeper is possible. Folders nest as far down as your document class has headings.
->
-> **Your work has chapters, so there are six levels:** chapter, section, subsection,
-> sub-subsection, paragraph, subparagraph. LaTeX has nothing below that.
->
-> Folder depth and `#` lines add up: a file on level 2 with a `##` inside it sits on level 3.
->
-> Want to go deeper at some point? Tell me and I will set up what it takes.
-
-*Without chapters* — the same note, one level lower throughout, because the chapter in front is
-missing:
-
-> **Your work has no chapters, so there are five levels:** section, subsection, sub-subsection,
-> paragraph, subparagraph.
-
-**Keep the note to the levels themselves.** What "what it takes" means — numbering has to be
-deepened past level 3 or a cross-reference points at the wrong place, and from level 5 (level 4
-without chapters) the heading runs into the body text — is a LaTeX matter, not a folder matter.
-Two warnings about typesetting inside a question about folders is more than the user can hold,
-and the numbering was already settled in block 2. **Say it only if the user actually goes
-deeper**, and then follow "Sectioning depth" below.
-
-**Three levels is as deep as the skill builds.** Deeper is the user's own move later, and the
-note is what turns it into a move they can make instead of a wall they run into. Beyond three,
-the deepest files land where LaTeX stops setting headings as headings and the numbering
-question has to be reopened — see "Sectioning depth" below. Two levels leave room for a `##` or
-`###` inside the file before that line is reached, which is why two is the default.
-
-### Building it by rule — every template
-
-No nested template exists. Copy the flat template **verbatim** as always, then transform it.
-Everything below follows [[VAULT_BAUWEISE]] R1 to R6 (renumbered on 26.09.2026; the old
-grouping-folder rules are history there); nothing here is new mechanics.
-
-With chapters (`professional-thesis`) a file inside a chapter folder is a **section**. Without
-chapters (`simple-thesis`, `academic-paper`) `#` is already a `\section`, so the files inside a
-folder are **subsections**. When you talk about them, use the word that fits, never
-"subchapter".
-
-**Which files become folders** — body files only:
-
-| Template | becomes a folder | stays a single file |
-|---|---|---|
-| `professional-thesis` | in `Main Matter/`: `30 Introduction`, `40 Background and Related Work`, `50 Methodology`, `60 Results`, `70 Discussion` | `Switch to Main Matter`, `80 Conclusion and Future Work`, everything in `Front Matter/` and `Back Matter/` |
-| `simple-thesis` | `60 Introduction`, `70 Literature Review` | Title Page, Abstract, the three lists, `80 Conclusion`, Bibliography, Appendix |
-| `academic-paper` | `30 Introduction`, `40 Methods`, `50 Results`, `60 Discussion` | Title, Abstract, `70 Conclusion`, Bibliography |
-
-In `professional-thesis` the chapter folders are built **inside `Main Matter/`**, where the
-chapter files already lie. `Main Matter/` is a grouping folder and stays one; it never gets a
-file of its own name.
-
-**Conclusion deliberately stays flat** in every template — it shows the user that both shapes
-coexist in one document and produce the same output. Point that out; it is the cheapest way to
-teach the rule.
-
-Front matter, lists and the bibliography never become folders: they carry no substructure. The
-appendix stays one file too — an appendix nobody rearranges is better structured with `##`
-inside (see "When an appendix outgrows one file" in `shared/headings.md`).
-
-**The transformation, per file** (R2, R3, R1 in that order):
-
-1. Create the folder with the file's exact name: `60 Introduction/`.
-2. Move the file into it, name unchanged → it becomes the **folder note** and carries the
-   heading of that level (R3). Its single `#` stays a single `#`: a file that becomes a
-   folder keeps its level (R2).
-3. Move each `##` block out of the folder note into its own file **next to it, in the same
-   folder**, named after the heading, and **turn the `##` into a single `#`** (R1). Every
-   heading inside the block loses one `#` the same way: a `###` under it becomes `##`.
-   Anything above the first `##` — the lead-in — stays in the folder note. No extra folder in
-   between.
-4. **Three levels (option C) only:** repeat steps 1 to 3 one level down, for every section
-   file from step 3 that now holds `##` blocks (they were `###` in the template). Its folder
-   goes **inside the chapter folder**, and the section file becomes its folder note. Sections
-   without `##` stay files. For one or two levels skip this step: the `##` stays inside the
-   section file.
-5. **`professional-thesis` only: two remarks change with the shape.** In the flat template
-   they explain the `##`; in the folder shape they must explain the folder. Write them in the
-   chat language, like every remark.
-   - In the folder note `Introduction`, keep the first sentence of the remark ("Introduce the
-     topic: …"), **translated into the chat language like the rest**, as the first paragraph,
-     and replace the rest with the text below, also in the chat language. Keeping the first
-     sentence means keeping its content, not its English: kept literally, it leaves a remark
-     half in one language and half in the other. Use the real chapter name where the text
-     says "Introduction".
-
-     **This text is written from what the user sees, not from the files.** With Folder notes
-     the user never sees `Introduction.md` in the file list. They see an underlined folder,
-     click it, and this text opens. An earlier version explained the level through "the
-     folder I am in", which is true only for the folder note itself: the other files lie in
-     the same folder one level lower, and a user looking at them found the rule wrong.
-
-     ```
-     This is the start of the chapter "Introduction": its heading and its lead-in text.
-
-     This file is the folder note of its folder. It carries the folder's name. That is
-     why it opens when you click the folder, and why the folder is underlined. A folder
-     with a folder note is called a structure folder.
-
-     This is how the folder becomes a chapter:
-     - This file always comes first. Its # becomes the chapter heading, its text the
-       lead-in.
-     - The other files in the folder follow after it, in the order you see. They sit one
-       level lower: their # becomes a section.
-
-     That is why every file starts with exactly one #. Which level it becomes depends on
-     two things: which folder the file lies in, and whether it is that folder's folder
-     note.
-
-     Front Matter, Main Matter and Back Matter are grouping folders. They have no folder
-     note, only group files together and do not count as a level.
-
-     When a section gets subsections of its own, make it a structure folder: create a
-     folder with exactly the name of the section file and move the file into it. It
-     becomes the folder's folder note. Put the subsections next to it as new files. Or
-     tell me, and I will do it for you.
-
-     Always rename a structure folder inside Obsidian. Folder notes then renames its
-     folder note along with it. The file explorer of your operating system does not: the
-     folder loses its folder note, and everything in it moves up one level, without a
-     warning.
-     ```
-
-     The German wording (agreed 27.09.2026), for a German chat:
-
-     ```
-     Das ist der Anfang des Kapitels „Introduction“: die Überschrift und der
-     Einleitungstext.
-
-     Diese Datei ist die Folder Note des Ordners. Sie trägt seinen Namen. Darum öffnet
-     sie sich mit einem Klick auf den Ordner, und darum ist der Ordner unterstrichen.
-     Ein Ordner mit Folder Note heisst Gliederungsordner.
-
-     So wird aus dem Ordner ein Kapitel:
-     - Diese Datei kommt immer zuerst. Ihr # wird die Überschrift des Kapitels, ihr
-       Text die Einleitung.
-     - Die anderen Dateien im Ordner folgen danach, in der Reihenfolge, die du siehst.
-       Sie stehen eine Ebene tiefer: Ihr # wird ein Abschnitt.
-
-     Darum beginnt jede Datei mit genau einem #. Welche Ebene daraus wird, ergibt sich
-     aus zwei Dingen: in welchem Ordner die Datei liegt, und ob sie seine Folder Note
-     ist.
-
-     Front Matter, Main Matter und Back Matter sind Sammelordner. Sie haben keine
-     Folder Note, fassen nur Dateien zusammen und zählen nicht als Ebene.
-
-     Bekommt ein Abschnitt eigene Unterabschnitte, mach ihn zu einem Gliederungsordner:
-     Lege einen Ordner mit genau dem Namen der Abschnittsdatei an und verschiebe die
-     Datei hinein. Sie wird seine Folder Note. Die Unterabschnitte legst du als neue
-     Dateien daneben. Oder sag es mir, dann mache ich das für dich.
-
-     Benenne einen Gliederungsordner immer in Obsidian um. Dann benennt Folder notes
-     seine Folder Note automatisch mit. Im Datei-Explorer deines Computers passiert das
-     nicht: Der Ordner verliert seine Folder Note, und alles darin rutscht eine Ebene
-     hoch, ohne Warnung.
-     ```
-
-     **If the user said no to Folder notes (question 12),** three sentences change, because
-     nothing is underlined and nothing renames along: the second paragraph becomes "This file
-     carries the name of its folder, so it is the folder's folder note. A folder with a
-     folder note is called a structure folder." ("Diese Datei trägt den Namen ihres Ordners,
-     sie ist also seine Folder Note. Ein Ordner mit Folder Note heisst Gliederungsordner."),
-     and the last paragraph becomes "If you rename a structure folder, rename its folder note
-     with it, to exactly the same name. Otherwise the folder loses its folder note, and
-     everything in it moves up one level, without a warning." ("Benennst du einen
-     Gliederungsordner um, benenne seine Folder Note genau gleich mit. Sonst verliert der
-     Ordner seine Folder Note, und alles darin rutscht eine Ebene hoch, ohne Warnung.")
-
-   - In `Conclusion and Future Work`, which stays a file, add this below the existing text of
-     its remark:
-
-     ```
-     This chapter is a single file, not a folder. Both work: a chapter
-     can be a folder or a plain file. Both start with one # and both
-     become a chapter, because a file that becomes a folder keeps its
-     level.
-
-     Its two sections live inside this file as ##. That is allowed.
-
-     When it gets a new section, it becomes a folder: a folder named
-     like this file, with this file inside it. This file's own # stays
-     exactly as it is, and the ## inside it may stay too. The new
-     section becomes a file of its own in that folder.
-     ```
-
-   All other remarks keep their content. Their language still follows the chat language
-   (see "Scaffold", step 2).
-
-Number prefixes follow the ordering variant, decided in question 11: variant B numbers
-the new files `10 `, `20 `, `30 ` in steps of ten; variant A leaves them without prefixes.
-
-**Check before you finish:** every file starts with exactly one `#`, every new folder holds a
-file of the same name, and no structure folder sits inside another one, except with three
-levels, where exactly the sections from step 4 have one: two levels is
-the whole budget here (`#` in the folder note = the part itself, the other files in the folder
-= one level below). The area folders `Front Matter`, `Main Matter` and `Back Matter` are storage
-folders and do not count; a chapter folder inside `Main Matter` is where it belongs.
-
-**Folder depth is not document depth.** Files inside a folder may still use `##` and `###`
-for their own sub-structure; the level budget is the sum of both. Mention this so nobody
-thinks two levels caps the whole document at two.
-
-**Do not tie the numbering depth to this answer.** It used to be coupled here — three folder
-levels wrote `\setcounter{secnumdepth}{3}` — and that was wrong: the depth that matters comes
-from folders **plus** hashes, so a two-level user writing `###` fell through the same gap
-without ever being asked. Numbering is its own question now, see below.
-
-## Sectioning depth (all templates)
+## Questions 5 and 6 in detail — Sectioning depth
 
 Two questions, asked **after** the template is settled — the option labels and the
 recommendation depend on the document class.
 
-**Both are asked for every template.** They used to be skipped for `simple-thesis` and
-`academic-paper` on the grounds that `article`'s default is already right and the run-in
-repair is KOMA-only anyway. That was the same mistake as capping the options: a user of a
-flat template who writes `####` lands on `\paragraph` — unnumbered, and a `[[…]]` pointing
-there fails silently. Skipping the question does not prevent that; it only withholds the fix.
-The damage is the broken cross-reference, not the typography, and `\crefname` repairs it in
-`article` just as well.
+**Both are asked for every template.** A user of a flat template who writes `####` lands on
+`\paragraph` — unnumbered, and a `[[…]]` pointing there fails silently. Skipping the question
+would not prevent that; it would only withhold the fix. The damage is the broken
+cross-reference, not the typography, and `\crefname` repairs it in `article` just as well.
 
 ### Why this is asked at all
 
@@ -1328,9 +1165,9 @@ folder note starts at `\section`, so a `###` written while drafting lands on `\s
 past the line. In a flat template it takes one `#` more: `####` lands on `\paragraph`. Say
 this in plain words; it is the whole reason for the question.
 
-### Question A — numbering depth
+### Question 5 — numbering depth
 
-**The wording the user sees is in the interview list, question 5 (intro text and dialog).**
+**The wording the user sees is in the interview list, question 5 (intro text and options).**
 This section is the reasoning behind it. Change the wording there, and this section when the
 reasoning does.
 
@@ -1371,32 +1208,31 @@ into the body text instead of taking a line of their own.
 **With chapters** the skill repairs that run-in (see the block below), though no repair brings
 back a visible hierarchy. **Without chapters it cannot** — `\RedeclareSectionCommand` is a
 KOMA command and `article` does not have it (measured: undefined control sequence). Say so in
-the option text rather than letting the user discover it: the numbering and the cross-reference
+the intro text (question 5, the version without chapters) rather than letting the user
+discover it: the numbering and the cross-reference
 are fixed, the run-in look is not, and changing that would need the `titlesec` package.
 
 **Name the limitation with the recommendation:** at the recommended depth, links work down to
 `1.1.1` and no deeper. Whoever wants to link to finer sections needs the next option.
 
-**Send one tip with question A** (the element and its rules: see "Tips" above):
+**The tip of question 5** is part of its intro text in the interview list (the element and its
+rules: see "Tips").
 
-> 💡 **Tip:** Numbers that run deep quickly make a text look technical. If it bothers you once
-> you see the PDF, tell me and I will change the depth.
+### Question 6 — contents list depth
 
-### Question B — contents list depth
-
-**Opened after answer A is in** — answer A is what makes this question answerable at all. Like
-every question here it gets its own dialog (see "One question per dialog").
+**Opened after answer 5 is in** — answer 5 is what makes this question answerable at all. Like
+every question here it is asked on its own (see "One question per dialog").
 
 | Option | `tocdepth` |
 |---|---|
 | Same depth as the numbering | = `secnumdepth` |
 | One level shallower | = `secnumdepth` − 1 |
 
-**Label the options with the actual numbers, not with a comparison.** Option 1 is answer A's
+**Label the options with the actual numbers, not with a comparison.** Option 1 is answer 5's
 number as it stands; option 2 is that number with one segment taken off (`1.1.1` → `1.1`).
 That arithmetic is the same with and without chapters. The comparison belongs in the
 description line underneath, where it explains the number instead of replacing it. After
-answer A = `1.1.1`, in the chat language:
+answer 5 = `1.1.1`, in the chat language:
 
 > **Also down to 1.1.1** *(recommended)*
 > As deep as the numbering. Three levels stay easy to take in.
@@ -1404,7 +1240,7 @@ answer A = `1.1.1`, in the chat language:
 > **Only down to 1.1**
 > One level shallower than the numbering.
 
-**Exactly one option carries the recommendation, and answer A decides which:** at `1.1.1`
+**Exactly one option carries the recommendation, and answer 5 decides which:** at `1.1.1`
 recommend *same depth* (three levels are already sparse); at `1.1.1.1` or deeper recommend
 *one level shallower*, or the list outgrows a page and stops giving an overview. Never write
 both cases into the option texts — that is the conditional wording the split exists to avoid.
@@ -1470,9 +1306,9 @@ fewer, and no run-in repair available:
 
 Uncomment exactly the lines the answers call for, and leave the rest as it stands.
 
-**Answer A decides `secnumdepth` and the repair pairs:**
+**Answer 5 decides `secnumdepth` and the repair pairs:**
 
-| Answer A | `secnumdepth` with chapters | without chapters | repair lines to uncomment |
+| Answer 5 | `secnumdepth` with chapters | without chapters | repair lines to uncomment |
 |---|---|---|---|
 | 1.1.1 | — leave commented, the class default does this | — leave commented | — |
 | 1.1.1.1 | 3 | 4 | with chapters none · without chapters `paragraph` |
@@ -1482,13 +1318,13 @@ Uncomment exactly the lines the answers call for, and leave the rest as it stand
 Read the column for the class actually in use. The same printed number needs a **different**
 counter value in the two families — that is the one place where copying across is wrong.
 
-**Answer B decides `tocdepth`:** same as `secnumdepth`, or one lower. Write the line whenever
+**Answer 6 decides `tocdepth`:** same as `secnumdepth`, or one lower. Write the line whenever
 `secnumdepth` was written, so the pair stays visibly consistent; if `secnumdepth` stayed
 commented, write `tocdepth` only for *one level shallower*, and then the value is the class
 default minus one: **`1` with chapters** (`scrbook` default 2), **`2` without chapters**
 (`article` default 3). Never copy the `1` across. In an `article` it keeps only the `1.`
 entries, which is *two* levels shallower than `1.1.1` and not what the user picked
-(defaults measured for all six classes, `Gliederung_Dimensionen.md`).
+(defaults measured for all six classes).
 
 **The repair pairs are not optional** — they are consequences, not preferences, which is why
 they are never asked about (all measured):
@@ -1506,11 +1342,9 @@ if the document class is changed later; a written value does not, and would sile
 `1.1` after a switch to `article`.
 
 Never let the converter inject any of this — the preamble is the single source, and
-generating it here is the right place. Background and the measurements behind every claim:
-`Gliederung_Dimensionen.md` in the Obsidian docs, reproducible with
-`node dev/latexDepthProbes.mjs` in the app repo.
+generating it here is the right place.
 
-## Project scaffold (default)
+## Question 9 in detail — Project scaffold
 
 A thesis is more than its manuscript — the vault is the whole workspace (analyses,
 sources, interviews, planning). Obsitex converts exactly one selected folder, so the
@@ -1519,21 +1353,63 @@ automatically (no `skip: true` needed outside).
 
 ### How to ask it — point back, then show both folders
 
-The two terms are **not** introduced here. The greeting already did that, with the same sketch
-(see "Open with this"). Repeating the introduction reads as if the user had not been paying
+The two terms are **not** introduced here. The greeting already did that, with a sketch of the
+same folders (see "Open with this"). Repeating the introduction reads as if the user had not been paying
 attention. **Point back to it instead**, then let the two sketches carry the choice.
 
-The chat message before the dialog, in the chat language, roughly:
+#### Intro text
 
+Send it first, as written, translated into the chat language; the folder names
+in the sketches follow the table below.
+
+> *Question 9 of 12*
+>
+> **Should I lay out your whole project, or only the manuscript?**
+>
 > Back to the two folders from the beginning. Now you decide whether I actually lay them out
 > that way.
 >
 > The **project folder** holds everything. **The manuscript** is the one folder inside it that
 > becomes your PDF. Anything outside stays out of the document, without you doing a thing.
+>
+> ```
+> A  Full project scaffold (recommended)
+>
+> Master Thesis/   ←── your vault in Obsidian
+> ├── Organisation/
+> ├── Manuscript/  ←── this one becomes your PDF
+> ├── Research/
+> ├── Interviews/
+> ├── Data/
+> └── Exports/
+>
+> B  Manuscript only
+>
+> Master Thesis/   ←── vault and manuscript in one
+> ├── 00 Document Setup.md
+> ├── Introduction.md
+> ├── Methodology.md
+> └── …
+>
+> everything in here becomes your PDF
+> ```
+>
+> I recommend **A, the full project scaffold**: your notes, sources and data get their place
+> right away, and nothing of it can slip into the PDF by accident. With B you file all of that
+> somewhere else yourself.
 
-Then AskUserQuestion with **a sketch as `preview` on both options** — same mechanics as the
-chapters question: both options need one, or the dialog does not switch to the side-by-side
-layout. Folder numbers are left out (variant A or B is not settled yet).
+#### Options
+
+In the same chat message, directly under the intro text, translated into the chat language.
+No AskUserQuestion: end the reply after the last line and wait for the answer.
+
+```
+A: Full project scaffold (recommended). Six folders for the whole project. Only the manuscript becomes the PDF, everything else stays out by itself.
+B: Manuscript only. One folder, just the text files. Notes, sources and data you file somewhere else yourself.
+Reply with the letter.
+```
+
+Folder numbers are left out of the sketches (variant A or B is not settled yet).
 
 **Translate the folder names in both sketches into the chat language.** The sketch must show
 exactly the names the user will get, or they choose from a picture that is not what they
@@ -1552,42 +1428,14 @@ then got `Manuskript/`, `Recherche/`, `Daten/`. In German:
 
 **Do not translate the file names in sketch B** (`00 Document Setup.md`, `Introduction.md`,
 `Methodology.md`). They are files inside the manuscript, and those follow the template, not the
-chat (see "Which language governs what"). The comments in the sketches (`←── the vault …`)
+chat (see "Which language governs what"). The comments in the sketches (`←── your vault …`)
 follow the chat language like any other text.
 
-*A — full project scaffold (recommended):*
+**The intro text names the two sketches `A` and `B`**, and the options carry the same letters
+(see "Option letters"), so the sketch and the option are visibly the same thing. Keep the
+letters when you translate.
 
-```
-Master Thesis/          ←── the vault you open in Obsidian
-├── Organisation/
-├── Manuscript/         ←── this one becomes your PDF
-├── Research/
-├── Interviews/
-├── Data/
-└── Exports/
-```
-
-*B — manuscript only:*
-
-```
-Master Thesis/          ←── the vault, and the manuscript in one
-├── 00 Document Setup.md
-├── Introduction.md
-├── Methodology.md
-└── …
-
-everything in here becomes your PDF
-```
-
-Labels and `description`, two lines each:
-
-- **`A: Full project scaffold` (recommended)** — "Six folders for the whole project. Only the
-  manuscript becomes the PDF, everything else stays out by itself."
-- **`B: Manuscript only`** — "One folder, just the text files. Notes, sources and data you file
-  somewhere else yourself."
-
-**Name the two sketches `A` and `B` in the chat message as well** (see "Option letters"), so
-the sketch above and the button below are visibly the same thing.
+### What to build
 
 Unless the user opted out, create these six folders in the project folder. Folder names
 follow the **chat language** — see "Which language governs what" above; nobody but the author
@@ -1637,7 +1485,779 @@ ever sees them. The numbers below apply to **variant B**; in variant A drop them
 - **Do not put `.obsidian` into the manuscript** — it belongs in the project folder
   so the whole project is one vault; see "Install the Flexplorer plugin".
 
+## Question 10 in detail — Splitting into folders
+
+A top-level part can be **one file** or **a folder holding several files**. Ask this for
+**every** template. The skill produces the answer the same way for all of them: **copy the
+flat template, then build the folders from the rules below** ("Building it by rule").
+
+Every template therefore has two kinds of files:
+
+| Kind | Which files | What happens after copying |
+|---|---|---|
+| **Fixed** | `00 Document Setup.md`, and in `professional-thesis` everything in `Front Matter/` and `Back Matter/` plus `Switch to Main Matter.md` | the shape never changes. Only the gaps are filled in (cover data, citation style, language) |
+| **Chapters** (sections without chapters) | the body files: in `professional-thesis` the other files in `Main Matter/`, in the flat templates the files named in the table under "Building it by rule" | stay as they are for one file per part; become folders by rule for two or three levels |
+
+The fixed files hold the raw LaTeX (title page, lists, bibliography, the switches). They are
+copied and never rebuilt, because a model rewriting them loses backslashes (see "Hard
+rules"). The chapter files hold only headings and placeholder text, and nothing is lost when
+they are split.
+
+**One flat template, no second nested one.** The flat template carries every section as `##`,
+so the rules build every folder shape from it, and the LaTeX of both shapes is identical apart
+from the labels. A second, nested copy would drift apart from the flat one.
+
+**Every file that becomes a folder carries at least two `##` blocks, in all three templates.**
+The rules only move text, they never invent it. A new body file in a template needs its `##`
+blocks too, or it becomes a folder with nothing but its folder note.
+
+**The third level is in the templates as well**, but in **one section per
+template only**, so users with one or two levels do not have to delete a pile of `###`:
+`professional-thesis` Methodology → Data Collection (Interviews, Survey), `simple-thesis`
+Literature Review → Current State of Research (Topic A, Topic B), `academic-paper` Methods →
+Data (Sample, Variables). That matches the option C sketch: only a section that grew gets a
+folder. No fourth level: the skill builds at most three, so a `####` would only be clutter.
+
+**Why it matters** (background; the user hears it through the intro text of question 10): a
+part grows. Once a file holds fifty pages, the smallest thing you can move around is the whole
+part, and rearranging your argument means cutting and pasting inside a wall of text. With a
+folder per part each section is its own small file, and you rearrange them without cutting
+text — Obsitex reads the level from where a file sits, so **moving a file never means editing
+its headings**.
+
+### The rule: a file never starts with more than one `#`
+
+**This is a hard rule for everything the skill writes.** A file's level comes from where it
+lies: a folder note's `#` is its folder's own level, every other file's `#` sits one level
+below the folder note of its folder. Every file therefore reads the same way regardless of how
+deep it sits,
+can be moved anywhere without touching its headings, and can be turned into a folder later
+without an edit.
+
+It follows that **splitting stops at the folder limit**: where no deeper folder is allowed,
+the file at that level absorbs its whole substructure as `##`, `###` — it does not hand it to
+sibling files. Sibling files starting with `##` are exactly what this rule forbids.
+
+**When a file becomes a folder, its level stays the same.** The folder takes the place where
+the file stood, and the file moves inside it under the folder's own name: its **folder note**,
+which keeps the level the single file had. Only the other files in the folder sit one level
+below that folder note. A folder without a folder note adds no
+level at all (`shared/headings.md`).
+
+**Two terms, used everywhere in this file:** a folder with a folder note is a **structure
+folder** (it adds a level); a folder without one is a **grouping folder** (it only groups
+files). A chapter folder is simply a structure folder on the chapter level.
+
+### How sections are placed
+
+Notation: **B** = a section *without* subsections (a leaf), **A** = a section *with*
+subsections (a branch).
+
+**One rule covers every case: a leaf is a file, a branch is a folder with its folder note.**
+Both sit directly in the folder of their parent, in document order. There is **no** extra folder
+between a chapter and its sections: the chapter's folder note already puts everything else in
+the folder one level lower.
+
+```
+BBABA   →   30 Introduction/
+                30 Introduction.md          # Introduction   → chapter (folder note)
+                10 Motivation.md            # Motivation     → section
+                20 Problem Statement.md     # …              → section
+                30 Research Design/                           ← a branch
+                    30 Research Design.md   # …              → section (folder note)
+                    10 Sampling.md          # …              → subsection
+                40 Scope.md                 # …              → section
+                50 Outlook/ …
+```
+
+**Why a branch gets a folder:** it takes its children along when it is moved. **Why a leaf
+gets none:** one folder per section would be pure packaging — that was the first design, and
+users reported it as too nested.
+
+**"After" and "below" follow from the tree.** A new section *after* X goes into the same folder
+as X. A new section *below* X goes into X's folder; if X is still a single file, it first
+becomes a folder (`X.md` → `X/X.md`, its `#` unchanged).
+
+**No grouping folder between a chapter and its sections** (`Subchapters`, `Unterkapitel`,
+`Subsections`). With the Obsidian plugin Folder notes such a folder shows up in the file list
+as a level of its own that the PDF does not have. **Do not create one.** A vault
+that already has them works unchanged; leave them alone unless the user asks.
+
+**Elsewhere a grouping folder is fine** wherever the user wants one:
+`Front Matter`, `Main Matter`, `Back Matter`, or any folder just to keep files tidy. It adds no
+level (`shared/headings.md`), so it never changes the PDF.
+
+**Growing a section into a folder** is a move, not a rewrite: create a folder with the file's
+exact name next to it and move the file inside. It becomes the folder note, its `#` stays as
+it is. The new subsections go into that folder as files of their own; a `##` block cut out of
+the folder note into its own file loses one `#`. The interview does not explain this; the
+user learns it from the remark in the chapter's folder note (step 5 of "Building it by rule")
+or by asking.
+
+**The three area folders `Front Matter`, `Main Matter` and `Back Matter` are grouping folders
+as well** (`professional-thesis` only). They carry no folder note and add no level: every file
+directly inside them becomes a chapter, and a chapter folder inside `Main Matter` has its own
+folder note as usual. An appendix that outgrows one file may become a folder with its folder
+note right there in `Back Matter`. Its folder note stays a chapter, its parts become sections
+(`shared/headings.md`, "When an appendix outgrows one file"). **The one thing never to do
+there:** give a file the folder's own name. `Front Matter/Front Matter.md` would be a folder
+note and push everything else in `Front Matter` one level down. This is why the switch files
+are called `Switch to Front Matter` and `Switch to Main Matter`, never just `Front Matter`.
+
+**What each answer builds** (the letters are those of the options; labels and wording: "How to
+ask it" below):
+
+- **B, one file per chapter.** Simplest to look at; a long chapter becomes a long file,
+  and its sections sit inside it as `##`. → the template as it is copied
+- **A, a folder per chapter, two levels (recommended).** The chapter is a folder with its own
+  folder note; the sections are separate files right next to it, in the same folder.
+  → the template, then "Building it by rule"
+- **C, three levels.** As above, plus: a section that has subsections of its own becomes a
+  folder with its folder note, and its subsections are files inside it, so it takes its parts
+  along when moved.
+  → as above; the template carries the third level as `###` in one section per template, so
+  the rules build it too (step 4 of "Building it by rule").
+
+**A "level" here is a heading level that gets its own files** — not a folder in the tree.
+`Front Matter`, `Main Matter` and `Back Matter` are grouping folders and never count.
+
+The two-level shape mixes both styles on purpose: five chapters become folders with their
+sections as files inside, `80 Conclusion and Future Work.md` stays a single file with its two
+sections as `##` inside. It shows that no chapter *has* to become a folder, and that both
+forms produce the same `\chapter` + `\section` in the PDF. The remark in that file says so
+(step 5 of "Building it by rule"); do not add it to the intro text. Every file, in both
+forms, starts with a single `#`.
+
+### How to ask it — a sketch per option, then the depth note
+
+**Two finished versions**, for the intro text, the options and the depth note: one
+with chapters (`professional-thesis`), one without (`simple-thesis`, `academic-paper`). They
+differ in the word ("chapter" or "section") and in the names in the sketches. Send the one that
+matches answer 3 as written; never mix them and never change one into the other. A third word
+for the same thing is how this question loses people.
+
+**The intro text** does two things: it puts the shapes one below the other,
+and it says they produce the **same PDF**. The second half is what takes the weight out of the
+question — the answer decides how the user works, not how the document looks.
+
+#### Intro text
+
+Send it first, as written, translated into the chat language. Send **one** of the two
+versions, the one that matches answer 3.
+
+*With chapters:*
+
+> *Question 10 of 12*
+>
+> **Should a chapter be one file, or a folder of files?**
+>
+> A chapter grows. So the question is whether a chapter is one file, or a folder with several
+> files in it.
+>
+> ```
+> A  A folder per chapter
+>
+> Introduction/
+>    Introduction.md
+>    Motivation.md
+>    Problem Statement.md
+>
+> 3 files. Reorder without cutting.
+>
+> B  One file per chapter
+>
+> Introduction.md
+>    # Introduction
+>    ## Motivation
+>    ## Problem Statement
+>
+> 1 file. Reorder by cutting and pasting.
+>
+> C  Like A, one level deeper: a section
+>    that grows gets its own folder too.
+>
+> Introduction/
+>    Introduction.md
+>    Motivation/    ← grew, so it gets a folder
+>       Motivation.md
+>       Background.md
+>    Problem Statement.md
+> ```
+>
+> All three give exactly the same PDF:
+>
+> ```
+> 1     Introduction
+> 1.1   Motivation
+> 1.2   Problem Statement
+> ```
+>
+> So you are choosing how you work, not how the document looks. And if a section grows big
+> later, it gets its own folder then. Nothing has to be settled about that now.
+>
+> I recommend **A, a folder per chapter**: most sections become files of their own, so you
+> rearrange them without cutting text, and each file still has room for headings of its own.
+
+*Without chapters:*
+
+> *Question 10 of 12*
+>
+> **Should a section be one file, or a folder of files?**
+>
+> A section grows. So the question is whether a section is one file, or a folder with several
+> files in it.
+>
+> ```
+> A  A folder per section
+>
+> Introduction/
+>    Introduction.md
+>    Background.md
+>    Problem Statement.md
+>
+> 3 files. Reorder without cutting.
+>
+> B  One file per section
+>
+> Introduction.md
+>    # Introduction
+>    ## Background
+>    ## Problem Statement
+>
+> 1 file. Reorder by cutting and pasting.
+>
+> C  Like A, one level deeper: a subsection
+>    that grows gets its own folder too.
+>
+> Introduction/
+>    Introduction.md
+>    Background/    ← grew, so it gets a folder
+>       Background.md
+>       Earlier Studies.md
+>    Problem Statement.md
+> ```
+>
+> All three give exactly the same PDF:
+>
+> ```
+> 1     Introduction
+> 1.1   Background
+> 1.2   Problem Statement
+> ```
+>
+> So you are choosing how you work, not how the document looks. And if a subsection grows big
+> later, it gets its own folder then. Nothing has to be settled about that now.
+>
+> I recommend **A, a folder per section**: most subsections become files of their own, so you
+> rearrange them without cutting text, and each file still has room for headings of its own.
+
+**No number prefixes in the sketches.** Variant A or B comes only in
+the next question, so the file names are not known yet, the same reason as for the sketches in
+the greeting and the project structure. A number the user will not get also pulls the eye away
+from the one thing asked here: file or folder. Measured 27.09.2026: two runs showed
+`30 Introduction/` and `10 Motivation.md`, and both users then chose drag & drop, which has no
+numbers at all.
+
+**C has its own sketch in the intro text.** It is a third of the choice, and a letter with
+nothing to point back to is worse than no letter.
+
+#### Options
+
+In the same chat message, directly under the intro text, translated into the chat language.
+No AskUserQuestion: end the reply after the last line and wait for the answer.
+
+*With chapters:*
+
+```
+A: A folder per chapter, two levels (recommended). Most sections become files of their own, so you rearrange them without cutting text.
+B: One file per chapter. All its sections are written inside it. Reordering sections means cutting and pasting text.
+C: Three levels. Subsections can become files of their own too. For long work with a fine structure.
+Reply with the letter.
+```
+
+*Without chapters:*
+
+```
+A: A folder per section, two levels (recommended). Most subsections become files of their own, so you rearrange them without cutting text.
+B: One file per section. All its subsections are written inside it. Reordering subsections means cutting and pasting text.
+C: Three levels. Sub-subsections can become files of their own too. For long work with a fine structure.
+Reply with the letter.
+```
+
+**Two things the descriptions of A and B deliberately do not say**, because both would be
+untrue:
+
+- **Not "every section".** A section with no structure of its own may stay inside the chapter
+  file — the two-level shape does exactly that with `80 Conclusion and Future Work.md` — and
+  the skill builds no folders in `Front Matter` and `Back Matter`, so sections there are always
+  inside their file. "Most" is the honest word.
+- **Not "reorder by dragging".** Dragging belongs to the drag & drop variant of **question 11**
+  — the next question, and not the same letters as the ones above. Pick the other one there
+  and the order comes from the number in the file name, so reordering is renaming. This option
+  must not promise something that has not been decided yet. All three descriptions therefore
+  compare the one thing that holds either way: whether you have to cut text.
+
+#### After the answer: the depth note
+
+**Send the depth note after the answer** as plain chat text — not as a tip (a tip may only say
+"this is adjustable", see "Tips"). Hardly anyone wants every level as folders. The note is not
+there to sell the depth; it is there so the ceiling is visible and the system stops looking
+arbitrary.
+
+*With chapters:*
+
+> Deeper is possible. Folders nest as far down as your document class has headings.
+>
+> **Your document has chapters, so there are six levels:** chapter, section, subsection,
+> sub-subsection, paragraph, subparagraph. LaTeX has nothing below that.
+>
+> Folder depth and `#` lines add up: a file on level 2 with a `##` inside it sits on level 3.
+>
+> Want to go deeper at some point? Tell me and I will set up what it takes.
+
+*Without chapters* (one level fewer, because the chapter in front is missing):
+
+> Deeper is possible. Folders nest as far down as your document class has headings.
+>
+> **Your document has no chapters, so there are five levels:** section, subsection,
+> sub-subsection, paragraph, subparagraph. LaTeX has nothing below that.
+>
+> Folder depth and `#` lines add up: a file on level 2 with a `##` inside it sits on level 3.
+>
+> Want to go deeper at some point? Tell me and I will set up what it takes.
+
+**Keep the note to the levels themselves.** What "what it takes" means — numbering has to be
+deepened past level 3 or a cross-reference points at the wrong place, and from level 5 (level 4
+without chapters) the heading runs into the body text — is a LaTeX matter, not a folder matter.
+Two warnings about typesetting inside a question about folders is more than the user can hold,
+and the numbering was already settled in block 2. **Say it only if the user actually goes
+deeper**, and then follow "Questions 5 and 6 in detail".
+
+**Three levels is as deep as the skill builds.** Deeper is the user's own move later, and the
+note is what turns it into a move they can make instead of a wall they run into. Beyond three,
+the deepest files land where LaTeX stops setting headings as headings and the numbering
+question has to be reopened — see "Questions 5 and 6 in detail". Two levels leave room for a `##` or
+`###` inside the file before that line is reached, which is why two is the default.
+
+### Building it by rule — every template
+
+No nested template exists. Copy the flat template **verbatim** as always, then transform it.
+
+With chapters (`professional-thesis`) a file inside a chapter folder is a **section**. Without
+chapters (`simple-thesis`, `academic-paper`) `#` is already a `\section`, so the files inside a
+folder are **subsections**. When you talk about them, use the word that fits, never
+"subchapter".
+
+**Which files become folders** — body files only:
+
+| Template | becomes a folder | stays a single file |
+|---|---|---|
+| `professional-thesis` | in `Main Matter/`: `30 Introduction`, `40 Background and Related Work`, `50 Methodology`, `60 Results`, `70 Discussion` | `Switch to Main Matter`, `80 Conclusion and Future Work`, everything in `Front Matter/` and `Back Matter/` |
+| `simple-thesis` | `60 Introduction`, `70 Literature Review` | Title Page, Abstract, the three lists, `80 Conclusion`, Bibliography, Appendix |
+| `academic-paper` | `30 Introduction`, `40 Methods`, `50 Results`, `60 Discussion` | Title, Abstract, `70 Conclusion`, Bibliography |
+
+In `professional-thesis` the chapter folders are built **inside `Main Matter/`**, where the
+chapter files already lie. `Main Matter/` is a grouping folder and stays one; it never gets a
+file of its own name.
+
+**Conclusion deliberately stays flat** in every template — it shows the user that both shapes
+coexist in one document and produce the same output.
+
+Front matter, lists and the bibliography never become folders: they carry no substructure. The
+appendix stays one file too — an appendix nobody rearranges is better structured with `##`
+inside (see "When an appendix outgrows one file" in `shared/headings.md`).
+
+**The transformation, per file:**
+
+1. Create the folder with the file's exact name: `60 Introduction/`.
+2. Move the file into it, name unchanged → it becomes the **folder note** and carries the
+   heading of that level. Its single `#` stays a single `#`: a file that becomes a
+   folder keeps its level.
+3. Move each `##` block out of the folder note into its own file **next to it, in the same
+   folder**, named after the heading, and **turn the `##` into a single `#`**. Every
+   heading inside the block loses one `#` the same way: a `###` under it becomes `##`.
+   Anything above the first `##` — the lead-in — stays in the folder note. No extra folder in
+   between.
+4. **Three levels (option C) only:** repeat steps 1 to 3 one level down, for every section
+   file from step 3 that now holds `##` blocks (they were `###` in the template). Its folder
+   goes **inside the chapter folder**, and the section file becomes its folder note. Sections
+   without `##` stay files. For one or two levels skip this step: the `##` stays inside the
+   section file.
+5. **`professional-thesis` only: two remarks change with the shape.** In the flat template
+   they explain the `##`; in the folder shape they must explain the folder. Write them in the
+   chat language, like every remark.
+   - In the folder note `Introduction`, keep the first sentence of the remark ("Introduce the
+     topic: …"), **translated into the chat language like the rest**, as the first paragraph,
+     and replace the rest with the text below, also in the chat language. Keeping the first
+     sentence means keeping its content, not its English: kept literally, it leaves a remark
+     half in one language and half in the other. Use the real chapter name where the text
+     says "Introduction".
+
+     **This text is written from what the user sees, not from the files.** With Folder notes
+     the user never sees `Introduction.md` in the file list. They see an underlined folder,
+     click it, and this text opens. An earlier version explained the level through "the
+     folder I am in", which is true only for the folder note itself: the other files lie in
+     the same folder one level lower, and a user looking at them found the rule wrong.
+
+     ```
+     This is the start of the chapter "Introduction": its heading and its lead-in text.
+
+     This file is the folder note of its folder. It carries the folder's name. That is
+     why it opens when you click the folder, and why the folder is underlined. A folder
+     with a folder note is called a structure folder.
+
+     This is how the folder becomes a chapter:
+     - This file always comes first. Its # becomes the chapter heading, its text the
+       lead-in.
+     - The other files in the folder follow after it, in the order you see. They sit one
+       level lower: their # becomes a section.
+
+     That is why every file starts with exactly one #. Which level it becomes depends on
+     two things: which folder the file lies in, and whether it is that folder's folder
+     note.
+
+     Front Matter, Main Matter and Back Matter are grouping folders. They have no folder
+     note, only group files together and do not count as a level.
+
+     When a section gets subsections of its own, make it a structure folder: create a
+     folder with exactly the name of the section file and move the file into it. It
+     becomes the folder's folder note. Put the subsections next to it as new files. Or
+     tell me, and I will do it for you.
+
+     Always rename a structure folder inside Obsidian. Folder notes then renames its
+     folder note along with it. The file explorer of your operating system does not: the
+     folder loses its folder note, and everything in it moves up one level, without a
+     warning.
+     ```
+
+     The German wording (agreed 27.09.2026), for a German chat:
+
+     ```
+     Das ist der Anfang des Kapitels „Introduction“: die Überschrift und der
+     Einleitungstext.
+
+     Diese Datei ist die Folder Note des Ordners. Sie trägt seinen Namen. Darum öffnet
+     sie sich mit einem Klick auf den Ordner, und darum ist der Ordner unterstrichen.
+     Ein Ordner mit Folder Note heißt Gliederungsordner.
+
+     So wird aus dem Ordner ein Kapitel:
+     - Diese Datei kommt immer zuerst. Ihr # wird die Überschrift des Kapitels, ihr
+       Text die Einleitung.
+     - Die anderen Dateien im Ordner folgen danach, in der Reihenfolge, die du siehst.
+       Sie stehen eine Ebene tiefer: Ihr # wird ein Abschnitt.
+
+     Darum beginnt jede Datei mit genau einem #. Welche Ebene daraus wird, ergibt sich
+     aus zwei Dingen: in welchem Ordner die Datei liegt, und ob sie seine Folder Note
+     ist.
+
+     Front Matter, Main Matter und Back Matter sind Sammelordner. Sie haben keine
+     Folder Note, fassen nur Dateien zusammen und zählen nicht als Ebene.
+
+     Bekommt ein Abschnitt eigene Unterabschnitte, mach ihn zu einem Gliederungsordner:
+     Lege einen Ordner mit genau dem Namen der Abschnittsdatei an und verschiebe die
+     Datei hinein. Sie wird seine Folder Note. Die Unterabschnitte legst du als neue
+     Dateien daneben. Oder sag es mir, dann mache ich das für dich.
+
+     Benenne einen Gliederungsordner immer in Obsidian um. Dann benennt Folder notes
+     seine Folder Note automatisch mit. Im Datei-Explorer deines Computers passiert das
+     nicht: Der Ordner verliert seine Folder Note, und alles darin rutscht eine Ebene
+     hoch, ohne Warnung.
+     ```
+
+     **If the user said no to Folder notes (question 12),** three sentences change, because
+     nothing is underlined and nothing renames along: the second paragraph becomes "This file
+     carries the name of its folder, so it is the folder's folder note. A folder with a
+     folder note is called a structure folder." ("Diese Datei trägt den Namen ihres Ordners,
+     sie ist also seine Folder Note. Ein Ordner mit Folder Note heißt Gliederungsordner."),
+     and the last paragraph becomes "If you rename a structure folder, rename its folder note
+     with it, to exactly the same name. Otherwise the folder loses its folder note, and
+     everything in it moves up one level, without a warning." ("Benennst du einen
+     Gliederungsordner um, benenne seine Folder Note genau gleich mit. Sonst verliert der
+     Ordner seine Folder Note, und alles darin rutscht eine Ebene hoch, ohne Warnung.")
+
+   - In `Conclusion and Future Work`, which stays a file, add this below the existing text of
+     its remark:
+
+     ```
+     This chapter is a single file, not a folder. Both work: a chapter
+     can be a folder or a plain file. Both start with one # and both
+     become a chapter, because a file that becomes a folder keeps its
+     level.
+
+     Its two sections live inside this file as ##. That is allowed.
+
+     When it gets a new section, it becomes a folder: a folder named
+     like this file, with this file inside it. This file's own # stays
+     exactly as it is, and the ## inside it may stay too. The new
+     section becomes a file of its own in that folder.
+     ```
+
+   All other remarks keep their content. Their language still follows the chat language
+   (see "Scaffold", step 2).
+
+Number prefixes follow the ordering variant, decided in question 11: variant B numbers
+the new files `10 `, `20 `, `30 ` in steps of ten; variant A leaves them without prefixes.
+
+**Check before you finish:** every file starts with exactly one `#`, every new folder holds a
+file of the same name, and no structure folder sits inside another one, except with three
+levels, where exactly the sections from step 4 have one: two levels is
+the whole budget here (`#` in the folder note = the part itself, the other files in the folder
+= one level below). The area folders `Front Matter`, `Main Matter` and `Back Matter` are grouping
+folders and do not count; a chapter folder inside `Main Matter` is where it belongs.
+
+**Folder depth is not document depth.** Files inside a folder may still use `##` and `###`
+for their own sub-structure; the level budget is the sum of both. The depth note after
+question 10 tells the user ("Folder depth and `#` lines add up").
+
+**Do not tie the numbering depth to this answer.** The depth that matters comes from folders
+**plus** hashes, so a two-level user writing `###` reaches it too. Numbering is its own
+question, question 5.
+
+## Question 11 in detail — Ordering: variant A or B
+
+Obsitex converts the files in a set order. There are two ways to control it, and they lead
+to different file names — so the answer must be known before any file is written.
+
+**Do not tell the user that Obsitex converts "in the order Obsidian shows".** That holds
+for A only. With B, Obsidian's file list and the PDF disagree (folders on top, see below),
+and that sentence is exactly what made a user think the B sketch was a mistake.
+
+**Recommend A clearly** — not only as a parenthesis in the option label, but in the
+intro text as well (it ends with "I strongly recommend A"). Still no automatic default: the
+user chooses.
+
+The letters are the user's here too, not just the skill's shorthand — they go into the labels
+and above the two sketches, exactly as in the other mockup questions (see "Option letters").
+
+### Intro text
+
+Send it first, as written, translated into the chat language, no dashes; the
+sketches stay exactly as they are, file names included.
+
+> *Question 11 of 12*
+>
+> **How do you want to set the order of your files?**
+>
+> Obsitex puts your files into the PDF in a fixed order. There are two ways to set that
+> order, and they lead to different file names. So I need to know before I create any file.
+>
+> **A, drag & drop:** a small Obsidian add-on (Flexplorer) keeps the order. You move a file
+> with the mouse, and the PDF follows. File names stay clean, without numbers. I bring the
+> add-on along and show you how to switch it on.
+>
+> **B, numbers in the file names:** nothing to install. Every file gets a number in front
+> (10, 20, 30 …), and the order follows those numbers. The gaps let you squeeze in a new
+> chapter as 25 without renaming the others.
+>
+> ```
+> A  Drag & drop
+>
+> Obsidian shows = PDF gets
+>     00 Document Setup
+> [F] Front Matter
+> [F] Main Matter
+>         Switch to Main Matter
+>     [F] Introduction
+>     [F] Methodology
+>         Conclusion
+> [F] Back Matter
+>
+> B  Numbers in the file names
+>
+> Obsidian shows             PDF gets
+> [F] 10 Front Matter        00 Document Setup
+> [F] 20 Main Matter         10 Front Matter
+>     [F] 30 Introduction    20 Main Matter
+>     [F] 50 Methodology        10 Switch to Main…
+>         10 Switch to Main…    30 Introduction
+>         80 Conclusion         50 Methodology
+> [F] 90 Back Matter            80 Conclusion
+>     00 Document Setup      90 Back Matter
+>
+> [F] = folder
+> ```
+>
+> **With B you accept two things:**
+>
+> 1. **Reordering means renaming.** To move a chapter, you change the number in its name.
+>    That is work, but you can always do it.
+> 2. **Folders always sit on top.** Obsidian lists folders first and files after them. You
+>    cannot change this. So your file list never shows the real order. The PDF is still
+>    correct.
+>
+> With A, neither happens. I strongly recommend **A, drag & drop**.
+
+### Options
+
+In the same chat message, directly under the intro text, translated into the chat language.
+No AskUserQuestion: end the reply after the last line and wait for the answer.
+
+```
+A: Change the order freely by drag & drop (strongly recommended). File names stay clean, reordering is one drag. The order lives in a settings file of the add-on.
+B: Control the order through the file names. Nothing to install. Reordering means renaming, and Obsidian shows the folders on top, not in the real order.
+Reply with the letter.
+```
+
+**About the sketches in the intro text:** mark folders with `[F]` and nothing else. An emoji
+such as 📁 shifts the columns in a terminal, and the old `›` arrow at the line end was too easy
+to miss. Files carry four spaces in its place, so the names of one level stay aligned.
+
+Variant B's sketch must show **both columns**: Obsidian's list with the folders on top (that is
+what Obsidian really does without the add-on: folders first, files after them, each group
+sorted by name) and next to it the order the PDF gets. Side by side, the user sees the mismatch
+before choosing, not afterwards.
+
+**Why the intro text lists the costs of B one by one:** they are of a different kind. One can
+be fixed by hand, the other never.
+
+### What follows from the answer
+
+| | A | B |
+|---|---|---|
+| File names | no number prefixes — **except `00 Document Setup.md`**, which keeps its `00 ` | number prefixes in steps of ten, as the templates carry them |
+| Flexplorer | plugin files + seed `data.json`, then guided activation | not installed at all, no `data.json` |
+| Folder notes | on a yes to question 12: downloaded from its author, then guided activation | the same: it does not depend on the ordering |
+| Reordering | drag & drop in Obsidian | rename the file (see the renaming rules in the report) |
+
+In **variant A**, strip the leading `^\d+\s+` from every file and folder name after
+the splitting of question 10 — including the top-level folders (`Organisation`, `Manuscript`, `Research`, `Interviews`,
+`Data`, `Exports`) and the three area folders (`Front Matter`, `Main Matter`, `Back Matter`). The single
+exception is `00 Document Setup.md`: it must sort first even when the add-on is not running,
+because the converter reads its settings at the position where they stand. Mention this in
+the report in one sentence — it is the reason that one file looks different from the rest.
+
+**Watch the chapter folders while stripping.** When a chapter becomes a folder, the folder
+and its title file carry the same name (`30 Introduction/30 Introduction.md`). The converter
+recognises the title file *by* that match, so both must be stripped together
+(`Introduction/Introduction.md`). Strip only one and the file turns into an ordinary
+section — silently, with the chapter title landing on the wrong level. The trap is easy to
+hit, because the skill creates the folder and its file itself rather than copying them.
+
+## Question 12 in detail — Folder notes: ask, and recommend it clearly
+
+The Obsidian plugin **Folder notes** shows a folder and its folder note as **one** entry. What
+it does and how it is installed: "Install the Folder notes plugin" below. This section is only
+about asking.
+
+**Why it is asked at all.** It is third-party code in the user's vault, and Obsidian itself asks
+before running such code. Flexplorer is a choice (question 11), so Folder notes is one too.
+Without it nothing breaks and the PDF is the same. Only the file list shows every chapter
+folder with a second entry of the same name inside it.
+
+**Why it is recommended clearly.** Without it, the file list contradicts the structure the user
+has just chosen: the chapter looks like a folder *and* a file. That is the one view of the
+level rule the user sees every day.
+
+**Recommend it clearly, as strongly as variant A of question 11:** in the option label
+("clearly recommended", in German "klar empfohlen") **and** in a sentence of the chat message
+("I clearly recommend it"). The recommended option comes first. Still no automatic default: the
+user chooses.
+
+### Intro text
+
+Send it first, as written, translated into the chat language. Send **one** of the two
+versions, the one that matches answer 3, whatever the answer to question 10 was: the text says
+"as soon as", so it fits a project without folders yet as well.
+
+*With chapters:*
+
+> *Question 12 of 12*
+>
+> **Should a chapter folder show up as one entry?**
+>
+> As soon as a chapter is a folder, it holds a file with the same name: the chapter's own text.
+> Obsidian then shows the chapter twice, once as the folder and once as the file inside it.
+> A small add-on called Folder notes turns the two into one entry. A click on the folder
+> opens the chapter text.
+>
+> ```
+> A  With Folder notes:     B  Without Folder notes:
+>
+> Introduction  ← click     Introduction/
+>    Motivation                Introduction.md
+>    Problem Statement         Motivation.md
+>                              Problem Statement.md
+>
+> A click on "Introduction" opens the chapter text.
+> ```
+>
+> The add-on comes from an outside author, not from Obsidian itself. That is why Obsidian
+> asks before running it, and why I ask you too. Your PDF is the same either way.
+>
+> I clearly recommend **A, setting it up**: your file list then shows exactly the structure
+> your document has. You can also add it later.
+
+*Without chapters:*
+
+> *Question 12 of 12*
+>
+> **Should a section folder show up as one entry?**
+>
+> As soon as a section is a folder, it holds a file with the same name: the section's own text.
+> Obsidian then shows the section twice, once as the folder and once as the file inside it.
+> A small add-on called Folder notes turns the two into one entry. A click on the folder
+> opens the section text.
+>
+> ```
+> A  With Folder notes:     B  Without Folder notes:
+>
+> Introduction  ← click     Introduction/
+>    Background                Introduction.md
+>    Problem Statement         Background.md
+>                              Problem Statement.md
+>
+> A click on "Introduction" opens the section text.
+> ```
+>
+> The add-on comes from an outside author, not from Obsidian itself. That is why Obsidian
+> asks before running it, and why I ask you too. Your PDF is the same either way.
+>
+> I clearly recommend **A, setting it up**: your file list then shows exactly the structure
+> your document has. You can also add it later.
+
+### Options
+
+In the same chat message, directly under the intro text, translated into the chat language.
+No AskUserQuestion: end the reply after the last line and wait for the answer.
+
+*With chapters:*
+
+```
+A: Yes, set it up (clearly recommended). One entry per chapter, a click opens its text.
+B: No. Nothing is installed. Every chapter folder shows its folder note as an extra entry. It can be added later.
+Reply with the letter.
+```
+
+*Without chapters:*
+
+```
+A: Yes, set it up (clearly recommended). One entry per section, a click opens its text.
+B: No. Nothing is installed. Every section folder shows its folder note as an extra entry. It can be added later.
+Reply with the letter.
+```
+
+### What follows from the answer
+
+| | A: yes | B: no |
+|---|---|---|
+| Download | as in "Install the Folder notes plugin" | nothing, no `.obsidian/plugins/folder-notes/` |
+| Activation steps in the report | Flexplorer (variant A) and Folder notes | Flexplorer only (variant A), none in variant B |
+| Folder notes points in "Wrap up" | all of them | none, only one sentence: it can be added later in Obsidian under Settings → Community plugins → Browse → "Folder notes" by **Lost Paul**, or by asking the assistant |
+
 ## Scaffold
+
+**The order of work**, after the last answer:
+
+1. The project folders and their READMEs, unless the user opted out ("Question 9 in detail" →
+   "What to build").
+2. Copy the template and adapt it (steps 1 and 2 below).
+3. Split it into folders for answer 10 ("Question 10 in detail" → "Building it by rule").
+4. File names for answer 11 (step 3 below).
+5. The add-ons that were chosen: "Install the Flexplorer plugin" with "Seed the Flexplorer
+   order" (variant A), "Install the Folder notes plugin" (a yes to question 12).
+6. "Wrap up", which ends with the offer of the project `AGENTS.md`.
+
+The steps for copying and adapting:
 
 1. Copy every file of the chosen folder under `templates/` into the **manuscript**
    (project scaffold) or directly into the project folder (opt-out),
@@ -1679,13 +2299,12 @@ ever sees them. The numbers below apply to **variant B**; in variant A drop them
      sends you through the remarks. Measured 27.09.2026: such a run left eleven remarks
      English and the five chapter remarks half English, half German.
    - **Sectioning depth (every template):** write the depth block into
-     `00 Document Setup.md` according to the two answers — see "Sectioning depth" below for
+     `00 Document Setup.md` according to the two answers — see "Questions 5 and 6 in detail" for
      the two blocks (with and without chapters). One is written in **every** case; at the
      recommended depth all its lines stay commented out.
 3. **File names according to the ordering variant:** in **B** keep the number prefixes of
-   the templates (`00 `, `10 `, `20 `, … in steps of ten — the gaps are there so a chapter
-   can be inserted as `25` without renaming the rest); in **A** strip them everywhere
-   except from `00 Document Setup.md`. `simple-thesis` ends with `100 Appendix.md`: Obsitex
+   the templates; in **A** strip them. How, with its one exception and the chapter-folder
+   trap: "Question 11 in detail" → "What follows from the answer". `simple-thesis` ends with `100 Appendix.md`: Obsitex
    sorts numbers naturally, so `100` follows `90` (a plain `ls` shows it after `10`; that is
    the listing, not the document).
 
@@ -1715,9 +2334,6 @@ ever sees them. The numbers below apply to **variant B**; in variant A drop them
   `Back Matter/Switch to Appendix.md`, and their position then rests entirely on the
   Flexplorer order. `About Back Matter` holds only a remark: it controls nothing and produces
   nothing in the PDF.
-- **Never a file with the name of its area folder.** `Front Matter/Front Matter.md` would be a
-  folder note and push everything else in the folder one level down. That is why the switch
-  files are called `Switch to …`.
 - **The names of the three area folders and of the four structure files stay English in every
   chat language**, exactly as the older `Frontmatter` and `Backmatter` always did. They are
   fixed names that the assistant and the documentation refer to, not the author's own notes.
@@ -1735,7 +2351,7 @@ ever sees them. The numbers below apply to **variant B**; in variant A drop them
 
 | Where | Change |
 |---|---|
-| `00 Document Setup.md`, **babel** | option `english` → `english, main=ngerman`. `english` **stays in the list**, and `main=` names the document language explicitly so the order inside the brackets does not matter. Dropping `english` breaks the build under TeX Live 2026: varioref always executes its own `english` option, and without babel's English `\extrasenglish` is an empty shell (`\relax`) that varioref turns into an endless self-call at `\begin{document}`. Put the reason on the line so it can be removed later: `% english only for latex2e#2112 (varioref under TL2026), obsolete once v1.6j ships`. Fixed upstream in varioref v1.6j, LaTeX release 2026-11-01. |
+| `00 Document Setup.md`, **babel** | option `english` → `english, main=ngerman`. `english` **stays in the list**, and `main=` names the document language explicitly so the order inside the brackets does not matter. Dropping `english` breaks the build under TeX Live 2026: varioref always executes its own `english` option, and without babel's English `\extrasenglish` is an empty shell (`\relax`) that varioref turns into an endless self-call at `\begin{document}`. Put the reason on the line so it can be removed later: `% english only for latex2e#2112 (varioref under TL2026); remove only once the compiler has varioref v1.6j or newer`. The fix is announced for varioref v1.6j in the LaTeX release of 2026-11-01. A release alone does not make the workaround obsolete: it stays until the TeX installation that actually compiles the document (Overleaf, the Obsitex server) carries that version, which can take months. Until then removing it breaks the build, keeping it costs nothing. |
 | `00 Document Setup.md`, **varioref/cleveref** | option `english` → `ngerman` (these two really do switch over) |
 | `00 Document Setup.md`, **`\crefname` in the sectioning-depth block** | `{paragraph}{paragraph}{paragraphs}` → `{paragraph}{Absatz}{Absätze}`, and `{subparagraph}{subparagraph}{subparagraphs}` → `{subparagraph}{Unterabsatz}{Unterabsätze}`. These two words are **printed**, unlike the comments around them. Applies whether the lines are commented out or live — a commented line is the one someone uncomments later. All other levels need nothing: `cleveref` ships the German names and prints `Abschnitt 1.1.1` by itself. Measured 26.08.2026. |
 | `00 Document Setup.md`, dds block | `openingQuotationMark` → `„` and `closingQuotationMark` → `“` (German quotes) |
@@ -1783,7 +2399,7 @@ Diese Datei erklärt nur. Sie steuert nichts und darf gelöscht werden.
 Die Back Matter (Schlussteil) ist alles nach der eigentlichen Arbeit:
 Literaturverzeichnis, weitere Verzeichnisse und Anhang. Die Kapitel hier
 haben keine Nummer. Der Anhang beginnt erst mit "Switch to Appendix".
-Ab dort heissen die Kapitel A, B, C.
+Ab dort heißen die Kapitel A, B, C.
 ```
 
 `Switch to Appendix`:
@@ -1791,7 +2407,7 @@ Ab dort heissen die Kapitel A, B, C.
 ```
 Nicht löschen. Diese Datei muss vor dem ersten Anhang stehen.
 
-Ab hier beginnt der Anhang: Die Kapitel danach heissen A, B, C.
+Ab hier beginnt der Anhang: Die Kapitel danach heißen A, B, C.
 Die Überschrift "Appendix" oben ist das Trennblatt davor.
 ```
 
@@ -1827,15 +2443,8 @@ Three reasons, all of which have cost time before:
   own?") gave the wrong answer.
 - **A vault root above the project folder breaks self-containment.** `data.json` carries the
   order of the whole document. Outside the project folder it is not copied, archived or
-  versioned with it — and the planned Git layer (pendency S9, which tracks `data.json` on
-  purpose) could not work at all.
-
-*Historical note, so nobody re-adds it:* this rule existed from 20.07.2026 (`fcf1161`) and
-walked up from what was then called the "target folder" — the folder the user picked, which
-in those days **was** the manuscript, so the vault root really did lie above it. The project
-scaffold and the two-term vocabulary arrived one day later and made the project folder the
-vault. The walk-up lost its purpose then; it was only reworded, never removed, and so it kept
-contradicting the definition above it.
+  versioned with it — and a planned Git layer, which tracks `data.json` on purpose, could not
+  work at all.
 
 After scaffolding:
 
@@ -1846,7 +2455,8 @@ After scaffolding:
    The licence is MIT, and MIT asks for its notice in every copy, so it travels along.
 3. Write the seed `data.json` next to them — see "Seed the Flexplorer order" below.
 4. Do **not** write anything else under `.obsidian` — no `community-plugins.json`, no
-   app or workspace settings. Enabling the plugin is the user's click, see below. (The one
+   app or workspace settings. Enabling the plugin is the user's click, see "Switching the
+   add-ons on". (The one
    other thing that goes there is Folder notes, see "Install the Folder notes plugin".)
 
 **If the user wants their project inside a vault they already use**, that is a legitimate
@@ -1855,49 +2465,11 @@ literature notes. It is **not** offered here: it concerns a minority, it cannot 
 without explaining vaults to someone who may not know them, and the assistant can do it later
 on request. The knowledge lives in `shared/obsitex-conventions.md`.
 
-### Guide the activation, then let the user confirm
-
-Plugin files and seed are written **together, before the first activation** — never
+**Plugin files and seed are written together, before the first activation** — never
 afterwards. Reason: if the plugin starts without a seed, it builds its own reversed order
 immediately, and the user would see exactly the broken state we are preventing (plus a
-restart, plus the risk that the running plugin overwrites our file).
-
-The clicks themselves are the user's — you have no access to Obsidian's UI. Walk them
-through it in the chat, in their language, and sketch the path so it is easy to follow:
-
-```
-Obsidian  ⚙ Settings (bottom left)
-   └─ Community plugins
-        ├─ [Turn on community plugins]     ← only on a new vault, with a security notice
-        └─ Installed plugins
-             ├─ Flexplorer            ( ●— )   ← switch on
-             └─ Folder notes          ( ●— )   ← switch on, if it was installed
-
-then: Ctrl+P (Mac: Cmd+P) → "Reload app without saving"   ← without this the order stays hidden
-```
-
-The command is called "Anwendung neu laden ohne zu speichern" in a German Obsidian. Typing
-"reload" (or "neu laden") into the palette finds it. Closing Obsidian and opening it again works
-just as well; the reload is simply quicker (measured 25.09.2026, both plugins, first activation).
-
-Explain the security notice instead of glossing over it: community plugins are third-party
-code, Obsidian asks once whether they may run at all — that consent is deliberate and must
-never be pre-set through a config file.
-
-**The reload is part of the instruction, not an afterthought.** Switching the add-on on
-leaves the file tree exactly as it was — folders on top, everything alphabetical — because
-the tree was already built. Say this *before* the user looks, otherwise the unchanged sidebar
-reads as a broken setup (measured 16.08.2026: it did).
-
-Only **then ask for confirmation**: does `00 Document Setup` sit at the top, with the chapters
-in document order? If the user is unsure whether the plugin is running at all, a simpler
-check: right-click a file — the entries *Pin* and *Hide* only appear with Flexplorer active.
-
-**If the order is wrong,** ask first whether the reload was really done — that is the
-common cause, and rewriting the file fixes nothing. If it was, have the user close Obsidian
-completely and open it again once. Only if the order is still wrong: have the user close
-Obsidian **completely** (a running plugin rewrites the file on the next save), write the
-`data.json` again, then reopen Obsidian.
+restart, plus the risk that the running plugin overwrites our file). The activation itself:
+"Switching the add-ons on" below.
 
 ## Seed the Flexplorer order
 
@@ -1952,9 +2524,10 @@ Rules for building it:
 - Keys are folders only — never files. The project folder is the key `"/"`; every other key
   is a folder path relative to it, with `/` separators (e.g. `Manuscript/Back Matter`).
 - The example is shortened with chapters left out. The real seed lists every child.
-- **Each switch file comes first in its folder, and `About Back Matter.md` first in
-  `Back Matter`.** In variant A nothing but this seed keeps `\frontmatter` and `\mainmatter`
-  in front of the chapters.
+- **`Switch to Front Matter.md` and `Switch to Main Matter.md` come first in their folders,
+  `About Back Matter.md` first in `Back Matter`, and `Switch to Appendix.md` directly before
+  the first appendix, not at the top.** In variant A nothing but this seed keeps
+  `\frontmatter` and `\mainmatter` in front of the chapters.
 - The names must match what was actually written to disk — in variant A the stripped form
   shown above, with `00 Document Setup.md` as the one exception that keeps its number.
 - **Order only folders the scaffold created.** The project folder is the vault, so the `"/"`
@@ -1970,9 +2543,9 @@ Rules for building it:
   "Problem Statement.md", "Research Questions.md"]`. Obsitex puts it first anyway; the
   seed only makes the file list agree.
 - Include only folders where the order matters. Skip the project folders that hold just a
-  README (`20 Research`, `30 Interviews`, …) — there is nothing to sort there.
+  README (`Research`, `Interviews`, …) — there is nothing to sort there.
 - With the manuscript-only opt-out, the manuscript files are the children of `"/"` and the
-  subfolder keys lose the `10 Manuscript/` prefix.
+  subfolder keys lose the `Manuscript/` prefix.
 - Keep `"newItemPlacement": "bottom"` — it is the actual cause of the reversal and also
   makes files the user adds later appear at the bottom instead of jumping to the top.
 - Names must match the files on disk exactly (including the German renames, if applied).
@@ -1986,7 +2559,7 @@ folder note as **one** entry, with everything in the folder indented below it, w
 exactly how the converter assigns levels (`shared/headings.md`). Its "Sync folder name"
 renames folder and folder note together and so guards the one silent trap of that rule. It is
 installed when the user answers **yes to question 12**, in both ordering variants. On a no,
-skip this whole section (see "Folder notes: ask, and recommend it clearly").
+skip this whole section (see "Question 12 in detail").
 
 **Download it from its author. Never bundle it.** Folder notes is AGPL-3.0. Shipping its
 `main.js` from this repository would oblige us to keep its source available; downloading it
@@ -2007,6 +2580,9 @@ After scaffolding:
 
    Use `curl -fsSL -o <file> <url>`; curl ships with Windows 10 and later, macOS and Linux.
    The `-f` matters: without it a missing file is saved as an error page instead of failing.
+   **If `curl` is missing** (some Linux installations), use `wget -q -O <file> <url>` with the
+   same URLs: it fails on a missing file as well, and the hash check below catches anything
+   else. Never fetch the files from another source.
 3. **Check the SHA256 of all three** (`sha256sum`, on macOS `shasum -a 256`, in PowerShell
    `Get-FileHash -Algorithm SHA256`):
 
@@ -2023,12 +2599,205 @@ After scaffolding:
    list looks less tidy. Do not retry in a loop, and do not fetch the files from anywhere else.
 5. Write nothing else. **No `data.json`:** the plugin's defaults are exactly what Obsitex needs
    (name template `{{folder_name}}`, storage location "Inside the folder", "Sync folder name"
-   on). No `community-plugins.json` either; switching it on is the user's click (see "Wrap up").
+   on). No `community-plugins.json` either; switching it on is the user's click (see "Switching the add-ons on").
 
 **The pin does not need to chase upstream.** The plugin id `folder-notes` is registered in
 Obsidian's community store, so Obsidian's plugin manager offers updates once the user has
 switched it on. Change the pinned version only for a reason, and change the three hashes in
 the same edit.
+
+## Wrap up
+
+Report to the user, in the chat language:
+
+- The created file tree, **one line of purpose per folder**, naming the two terms again:
+  which one is the project folder, which one is the manuscript.
+- **`professional-thesis` only: the three areas, in two or three plain sentences.** The
+  manuscript is split into front matter (everything before the first chapter), main matter
+  (the actual work, from the introduction to the conclusion) and back matter (bibliography and
+  appendix). Front matter and main matter each start with a switch file: it must stay first and
+  must not be deleted. In the back matter the switch file `Switch to Appendix` stands directly
+  before the first appendix, not at the top. `About Back Matter` only explains and may be
+  deleted. (Never say "each area starts with a switch file": it is wrong for the back matter,
+  and a user who believes it drags `Switch to Appendix` to the top. Its "Appendix" divider page
+  then stands before the bibliography, which ends up inside the appendix. Both runs on
+  27.09.2026 said it.) In a German chat add the
+  German term in brackets: Front Matter (Vorspann), Main Matter (Hauptteil), Back Matter
+  (Schlussteil).
+- **The one thing that surprises people** (project scaffold only) — explain it, never assume
+  it is obvious: Obsidian works on the **whole project folder**, so the order you see and
+  drag around is stored once for the entire project. Obsitex, in contrast, converts **only
+  the manuscript** — but takes the order of those files from that same project-level
+  setting. In short: *the order is managed one level above the folder that gets converted.*
+  Sketch it, using the real names:
+
+```
+Projektordner      ← Obsidian opens this (vault)
+├── .obsidian/…/data.json
+│       ← the order of everything below
+├── Organisation
+├── Manuskript     ← Obsitex converts only this
+│   ├── 00 Document Setup
+│   ├── Einleitung   … order comes from above
+│   └── …
+├── Recherche
+└── …
+```
+
+  Consequence for the user: reorder wherever it feels natural in Obsidian — it is the same
+  setting either way. In Obsitex still pick the manuscript, not the project folder; the app
+  finds the order by itself. (Variant B: same picture, only the order sits in the file
+  names instead of that file.)
+- **Chat language and document language differ:** say the one sentence from "Which language
+  governs what": the folders and notes are in the chat language, because that is the language
+  you are speaking; the user says so if they would rather have them in the document language.
+  Leave it out when both languages are the same. (A run on 27.09.2026 with a German chat and
+  an English document left it out and nobody learned why the folders were German.)
+- **State it as a fact, in one sentence:** the project folder is now their Obsidian vault.
+  No options, no "unless" — it is simply what was built. Do **not** raise the possibility of
+  moving the project into some other vault; that concerns a minority and cannot be explained
+  without teaching vaults to someone who may not need the concept at all. The assistant
+  handles it if they ever ask.
+- Next steps: open the project folder in Obsidian as a vault, fill in
+  the chapters top-down, replace `refs.bib` with their own export (e.g. from Zotero), then
+  run Obsitex — sign in, **pick the manuscript** (`Manuscript` / `10 Manuscript`; with the
+  opt-out, the project folder itself), Convert, and export (Overleaf / download).
+- **Switching the add-ons on** (Flexplorer in variant A, Folder notes whenever it was
+  installed): walk the user through it as "Switching the add-ons on — guide, then confirm"
+  describes, with the sketch, the four steps, what they will see, and the follow-up for each
+  add-on. If the Folder notes download failed, say that instead, with the way to install it by
+  hand (see "Install the Folder notes plugin", step 4). **If the user said no to question 12,**
+  say one sentence only: it can be added later, in Obsidian under Settings → Community
+  plugins → Browse → "Folder notes" by Lost Paul, or by asking the assistant.
+- **Variant A only — where the order lives:** the seed file written next to the plugin now
+  holds the order of the whole work. It is worth keeping: do not delete it, and include it
+  in backups or version control. Should it ever be lost, the files fall back to
+  alphabetical order, which then has to be rebuilt by drag & drop. `00 Document Setup.md` keeps
+  its number for exactly this reason — it must stay first even without the add-on, because
+  the converter reads the document settings from it.
+- **Variant B only — how to reorder:** rename the file; the numbers go in steps of ten so
+  a new chapter fits in between (e.g. `25`) without touching the others. Obsidian lists
+  folders above files, so the visible order differs from the document order — the
+  conversion follows the numbers.
+- **Renaming rules** (both variants, important): rename **inside Obsidian**, because only
+  then are the wikilinks pointing to that file updated as well. Obsidian asks once whether
+  to update them — answer **"Always update"**. Never rename in the file explorer of the
+  operating system: the links keep pointing to the old name, and clicking such a link makes
+  Obsidian create a **new empty file** under the old name, which hides the damage. If a
+  suspiciously empty file with an old name turns up, that is what happened — delete it and
+  fix the link.
+- A file is excluded from the document with `skip: true` in its frontmatter.
+- **Last, and the only question in the report:** offer the project `AGENTS.md`, clearly
+  recommended, at the very end, after everything else has been reported. Nothing else in the
+  report asks the user to answer or to report back. Use the wording in "The project `AGENTS.md`"
+  below: both reasons, as two points. Write it only if they say yes.
+- **After that answer, and only then: a new chat for the writing** (since 12.10.2026, v1.65.0).
+  This chat is now full of the interview, and everything in it is carried along with every later
+  message: slower and more expensive, with nothing gained for the writing. Nobody tells the user
+  this on their own. **What you say depends on the answer to the `AGENTS.md` question**, because
+  a new chat only knows today's decisions if that file exists:
+  - **Yes, the file was written:** recommend it plainly, in the chat language:
+
+    > For the writing itself, close this chat and start a new one in the project folder. It
+    > knows everything we decided today from `AGENTS.md`, and it is faster and cheaper than
+    > this long one.
+
+    German original:
+
+    > Zum Schreiben schließt du diesen Chat am besten und startest einen neuen im
+    > Projektordner. Er kennt alles, was wir heute entschieden haben, aus der `AGENTS.md`, und
+    > er ist schneller und günstiger als dieser lange Chat.
+
+  - **No file:** do not recommend a new chat. Say in one sentence that a new chat would not
+    know today's decisions, and that they can still ask for the `AGENTS.md` any time.
+
+  **"In the project folder" is the point, not a detail:** `AGENTS.md` is read only by a chat
+  that starts there. Never name a command for it (`/clear` and its kind differ between AI tools
+  and may not reload the file).
+
+## Switching the add-ons on — guide, then confirm
+
+**Which add-ons:** Flexplorer in variant A, Folder notes whenever it was installed (a yes to
+question 12), in both variants. Nothing installed, nothing to switch on: skip this section.
+**When:** in the wrap-up report, after every file is written (see "Wrap up").
+
+**Folder notes also with one level, when no folder exists yet.** The plugin stays off until
+the user switches it on, and on the day a section grows into a folder it must already be
+running; nobody will tell them then. "Nothing to show yet" is therefore no reason to leave the
+steps out (measured 30.09.2026: a one-level run did exactly that).
+
+The clicks themselves are the user's — you have no access to Obsidian's UI, only to the
+files. Walk them through it in the chat, in their language. Sketch the path first, so it is
+easy to follow, and list only the add-ons that were installed:
+
+```
+⚙ Settings (bottom left)
+└─ Community plugins
+   ├─ [Turn on community plugins]
+   │     ← only on a new vault
+   └─ Installed plugins
+      ├─ Flexplorer     ( ●— )  ← switch on
+      └─ Folder notes   ( ●— )  ← switch on
+
+then: Ctrl+P (Mac: Cmd+P)
+   → "Reload app without saving"
+     ← without this the order stays hidden
+```
+
+Then give this exact sequence:
+
+1. Settings (gear icon, bottom left) → "Community plugins" ("Community-Erweiterungen") in the
+   left sidebar.
+2. If a restricted-mode notice is shown ("Community-Erweiterungen ... können ... Sicherheit
+   ... gefährden"), click "Turn on community plugins" ("Community-Erweiterungen aktivieren").
+   **Explain the notice instead of glossing over it:** community plugins are third-party
+   code, and Obsidian asks once whether they may run at all. That consent is deliberate and
+   must never be pre-set through a config file.
+3. Under "Installed plugins", switch on "Flexplorer" (variant A) and "Folder notes" (if it was
+   installed).
+4. **Reload Obsidian once:** Ctrl+P (Mac: Cmd+P), type "reload" (German: "neu laden"), choose
+   "Reload app without saving" ("Anwendung neu laden ohne zu speichern"). Closing Obsidian and
+   opening it again works just as well; the reload is simply quicker (measured 25.09.2026,
+   both plugins, first activation).
+
+**The reload is part of the instruction, not an afterthought. Say what the user will see
+before they look**, or the unchanged sidebar reads as a broken setup (measured 16.08.2026: it
+did). Switching an add-on on leaves the file tree exactly as it was, folders on top and
+everything alphabetical, because the tree was already built. The order itself is ready and
+correct from the moment the files are written; the reload is what makes it visible. Until
+then each folder note also still shows as a line of its own; that is expected.
+
+**Flexplorer: then say what they will see, as a statement, not a question.** After the reload,
+`00 Document Setup` sits at the top, with the chapters in document order. If they are unsure
+whether the plugin is running at all, a simpler check: right-click a file — the entries *Pin*
+and *Hide* only appear with Flexplorer active. Add that they can tell you if the order looks
+wrong. Do not ask them to report back: the report asks one question only, the `AGENTS.md`
+offer at its end, and a second open question leaves the user unsure which one to answer
+(measured 18.10.2026: a run asked both, then sent the user to a new chat while still waiting
+for the first answer). Afterwards the order can be changed by drag & drop. Updates come through Obsidian's
+plugin manager; deleting `.obsidian/plugins/flexplorer/` removes the plugin entirely.
+
+**If the order is wrong,** ask first whether the reload was really done — that is the
+common cause, and rewriting the file fixes nothing. If it was, have the user close Obsidian
+completely and open it again once. Only if the order is still wrong: have the user close
+Obsidian **completely** (a running plugin rewrites the file on the next save), write the
+`data.json` again, then reopen Obsidian.
+
+**Folder notes: then say three things**, briefly, **in this order and all three** (the second
+is the one that matters most; never drop it to shorten):
+
+- **leave its settings as they are.** That alone makes the buttons "Rename existing folder
+  notes" and "Switch" harmless: each one applies the setting next to it (name template,
+  storage location), so with the defaults unchanged there is nothing to apply;
+- **never press "Create folder notes for all folders".** It needs no changed setting: one
+  click puts a folder note into every folder, `attachments` included, and everything in those
+  folders moves one level down, without a warning;
+- never Ctrl-click `Front Matter`, `Main Matter`, `Back Matter` or `attachments`: that click
+  creates a folder note there, and inside `Front Matter` it would push every file one level
+  down.
+
+Measured 30.09.2026: a run that listed the buttons as three equal items kept only "Rename"
+and dropped "Create folder notes for all folders", the one that does harm by itself.
 
 ## The project `AGENTS.md` — what the next session will not know
 
@@ -2042,8 +2811,9 @@ things follow, and the second is the one that bites.
    quotation marks. An `AGENTS.md` in the project folder is loaded on its own, independently
    of that matching: by Codex, OpenCode and other tools, and by Claude Code since v2.1.277.
    **One catch in Claude Code:** it skips `AGENTS.md` as soon as a `CLAUDE.md` sits in the
-   project folder or anywhere above it. That case is handled in "Never overwrite an existing
-   `AGENTS.md` or `CLAUDE.md`" below.
+   project folder or anywhere above it. A `CLAUDE.md` in the project folder therefore gets a
+   line that imports `AGENTS.md`; the folders above are never looked at. See "Never overwrite
+   an existing `AGENTS.md` or `CLAUDE.md`" below.
 2. **A file tree shows a state, never a rule.** A later session sees flat files and cannot
    tell "deliberately flat" from "nobody has tidied up yet". It helpfully creates a subfolder
    and breaks a decision it never saw.
@@ -2070,7 +2840,7 @@ German chat:
 > KI-Assistent liest sie bei jedem neuen Chat in diesem Ordner zuerst. Sie sorgt für zwei Dinge:
 > - **Jeder neue Chat kennt die Eckwerte deiner Arbeit:** Aufbau, Ebenen, Reihenfolge und was
 >   wir heute entschieden haben.
-> - **Jeder neue Chat weiss, dass es mich als Obsitex-Assistenten gibt.** So bekommst du die
+> - **Jeder neue Chat weiß, dass es mich als Obsitex-Assistenten gibt.** So bekommst du die
 >   richtige Formatierung, auch wenn du nicht ausdrücklich danach fragst.
 >
 > Soll ich sie anlegen?
@@ -2085,7 +2855,7 @@ chat may write without the formatting rules unless they ask for formatting. Then
 ### What goes in, and what must not
 
 The file has to survive years in a vault you can never reach again. **An outdated rule is
-worse than no rule, because it actively teaches something false.** Three sorts of knowledge,
+worse than no rule, because it actively teaches something false.** Four sorts of knowledge,
 and only two of them belong in the file:
 
 | Sort | Examples | In the file? |
@@ -2126,26 +2896,24 @@ obsitex-created: 2026-09-03
 | Key | Meaning |
 |---|---|
 | `obsitex-manuscript` | folder name of the manuscript, as it is on disk |
-| `obsitex-template` | `professional-thesis`, `simple-thesis`, `academic-paper`. (Projects built before v1.47.0 may carry `professional-thesis-nested`: the same template, then shipped as a second copy. It means `professional-thesis`; the shape is in `obsitex-levels`.) |
+| `obsitex-template` | `professional-thesis`, `simple-thesis`, `academic-paper` |
 | `obsitex-ordering` | `A` (Flexplorer carries the order) or `B` (number prefixes carry it) |
 | `obsitex-scaffold` | `true` with the project folders, `false` with the opt-out |
 | `obsitex-levels` | the answer to question 10, **counted exactly as its sketches count**: `1` one file per chapter (B), `2` a folder per chapter (A), `3` three levels (C). A grouping folder (`Front Matter`, `Main Matter`, `Back Matter`) is **never** a level |
+| `obsitex-chat-language` | the language the user works in, which is also the language of the folder names |
+| `obsitex-created` | the date of this run |
 
 **`obsitex-levels` uses the scale of question 10 and no other.** The user chose a number of
-*levels* in a dialog that labels them down the left edge. Counting folders on disk gives a
+*levels* in question 10 (A two, B one, C three). Counting folders on disk gives a
 different number for the same answer (option A has one folder on the path but two *levels*;
 option B has no folder and is level 1). Two scales for one key make the check below fire on a
 vault that is exactly as agreed. **How to measure it on disk:** take the deepest Markdown file,
 count the folders above it that have a folder note (a file with the folder's own name inside),
 then add one. A folder note does not count its own folder. Grouping folders (`Front Matter`,
-`Main Matter`, `Back Matter`, in older vaults `Frontmatter` and `Backmatter`, and the
-`Unterkapitel`-style grouping folders of vaults built before v1.46.0) have no folder note, so
-they never count. That is exactly how Obsitex itself finds the level.
+`Main Matter`, `Back Matter`) have no folder note, so they never count. That is exactly how
+Obsitex itself finds the level.
 `Einleitung.md` → 1 · `Einleitung/Einleitung.md` → 1 · `Einleitung/Motivation.md` → 2 ·
-`Main Matter/Einleitung/Motivation.md` → 2 · `Einleitung/Motivation/Hintergrund.md` → 3 · in an
-older vault `Einleitung/Unterkapitel/Motivation.md` → 2.
-| `obsitex-chat-language` | the language the user works in, which is also the language of the folder names |
-| `obsitex-created` | the date of this run |
+`Main Matter/Einleitung/Motivation.md` → 2 · `Einleitung/Motivation/Hintergrund.md` → 3.
 
 ### The body — six to ten lines, in the chat language
 
@@ -2195,12 +2963,11 @@ already holds `.md` files" stop at the top of this skill does **not** catch the 
 and their file may hold months of their own instructions. Losing it is the worst outcome this
 section can produce, so the procedure is fixed:
 
-**Step 1 — look, always.** Before anything else, list the project folder and check for an
-`AGENTS.md` and a `CLAUDE.md`. Not from memory, not from what the scaffold wrote: read the
-directory. **Look in every folder above it as well, up to the drive** — with the box shape (a
-project folder inside a larger vault) the user's own files can sit in a parent. A file up there
-is never touched. The personal `~/.claude/CLAUDE.md` does not count here: it sits in the
-`.claude` folder, not on the path, and does not stop Claude Code from reading `AGENTS.md`.
+**Step 1 — look, always, and only in the project folder.** Before anything else, list the
+project folder and check for an `AGENTS.md` and a `CLAUDE.md`. Not from memory, not from what
+the scaffold wrote: read the directory. **Never look in the folders above it** (see "Install
+the Flexplorer plugin": everything up there is outside the working directory and costs the
+user a permission prompt). A `CLAUDE.md` up there stays unknown, and that is accepted.
 
 **Step 2 — `AGENTS.md` in the project folder, by what you found.**
 
@@ -2209,14 +2976,15 @@ is never touched. The personal `~/.claude/CLAUDE.md` does not count here: it sit
 | no `AGENTS.md` | the whole file as above | `Write` |
 | an `AGENTS.md` is there | **only** a block between two markers | `Read` first, then `Edit` |
 
-**Step 3 — the `@AGENTS.md` line, so Claude Code reads it too.** Claude Code reads `AGENTS.md`
-on its own only while there is no `CLAUDE.md` in the project folder or above it.
+**Step 3 — the `@AGENTS.md` line, only where a `CLAUDE.md` already exists.** Claude Code reads
+`AGENTS.md` on its own only while there is no `CLAUDE.md` in the project folder or above it.
+A `CLAUDE.md` in the project folder would hide it, so that one file gets the bridge. Never
+create a `CLAUDE.md` that is not there.
 
-| Found | What you do |
+| Found in the project folder | What you do |
 |---|---|
-| no `CLAUDE.md` anywhere (project folder or above) | nothing. No `CLAUDE.md` is needed |
-| a `CLAUDE.md` in the project folder | `Read` it. Holds `@AGENTS.md` already (inside or outside the markers)? Leave it. Otherwise `Edit`: append the marker block with the one line `@AGENTS.md` |
-| a `CLAUDE.md` only in a folder **above** | `Write` a new `CLAUDE.md` in the project folder holding only the marker block with `@AGENTS.md`. The one above stays untouched; Claude Code reads both |
+| no `CLAUDE.md` | nothing. Do not create one |
+| a `CLAUDE.md` | `Read` it. Holds `@AGENTS.md` already (inside or outside the markers)? Leave it. Otherwise `Edit`: append the marker block with the one line `@AGENTS.md` |
 
 ```
 <!-- obsitex:start -->
@@ -2224,15 +2992,11 @@ on its own only while there is no `CLAUDE.md` in the project folder or above it.
 <!-- obsitex:end -->
 ```
 
-**Projects from before 06.10.2026** have the Obsitex facts in a marker block inside
-`CLAUDE.md`. On such a project, write `AGENTS.md` as in step 2, then replace what is between
-the markers in `CLAUDE.md` with the one line `@AGENTS.md`. Everything outside the markers stays.
-
 Rules for both files:
 
 - **`Write` on an existing file is forbidden.** It replaces the file completely, and the
   user's own instructions are gone without a trace. The same goes for any shell redirection
-  (`>`, `>>`, `tee`) — the "never write a `.md` through the shell" rule below covers that
+  (`>`, `>>`, `tee`) — the "never write a `.md` through the shell" rule in "Hard rules" covers that
   anyway, and here the reason is a second one.
 - **On an existing file:** leave every line of it untouched. Append the marker block at the
   end. On a later run, replace what is between the markers and nothing else, never the file
@@ -2241,247 +3005,11 @@ Rules for both files:
   in their frontmatter if the file sits inside the manuscript.
 - **Markers already present?** Then a previous run wrote them. Replace only what is between
   them and leave the rest, however much of it there is.
-- **A new `CLAUDE.md` from step 3 gets `skip: true` frontmatter too**, above the marker block,
-  for the same reason as `AGENTS.md`: with the opt-out it sits inside the manuscript.
 
 Obsidian does not display HTML comments, so the two marker lines stay invisible to the user.
 
 **Step 4 — say what you did, in one or two sentences.** For `AGENTS.md`: "I wrote a new
 `AGENTS.md`" or "you already had one, so I only appended a block to it". For `CLAUDE.md`, only
-if you touched or created one: "your `CLAUDE.md` stays yours; I only added the line
-`@AGENTS.md` so Claude Code reads both". The user cannot check what they cannot see.
+if you touched one: "your `CLAUDE.md` stays yours; I only added the line `@AGENTS.md` so Claude
+Code reads both". The user cannot check what they cannot see.
 
-## Hard rules
-
-- **Never write a `.md` file through the shell.** An unquoted heredoc (`<<EOF`), `echo`,
-  `printf` or a `sed` replacement eats one backslash of every pair: `\\` silently becomes
-  `\`. In a ` ```latex ` block that deletes the forced line break the `\\` stands for, and in
-  a ` ```dds ` block it breaks the JSON. **Nothing warns**, because damaged LaTeX still
-  compiles: on the title page the three `tabbing` lines then print on top of each other
-  (measured 24.08.2026, professional-thesis). Use the file tools (Write, Edit) for every
-  `.md` file. Copy templates with a plain `cp`, which does not touch the content, and edit
-  the copy afterwards. Whenever you touched a file that holds a ` ```latex ` or ` ```dds `
-  block, compare it against its template before you report done:
-  `grep -c '\\\\' "<file>"` must give the same number for both.
-- **Write every paragraph as ONE unbroken line.** A single newline inside a paragraph
-  becomes `\\` in the output — a forced line break in the middle of the printed sentence.
-  Wrapping prose at 80 or 90 columns is a reflex almost everywhere else, and it is wrong
-  here. Obsidian soft-wraps the display, so a wrapped paragraph and a single-line one look
-  identical on screen; the damage is visible only in the PDF. This holds for the templates
-  and for any body text written later. Wrapping is fine inside ` ```remark `, ` ```latex `
-  and ` ```dds ` blocks. It applies to LIST ITEMS too - a wrapped item gets the same forced break.
-- **German is written with real umlauts: ä, ö, ü, Ä, Ö, Ü. Never ae, oe, ue.** This holds for
-  every file you write (remarks, READMEs, `AGENTS.md`) and for the chat. The file tools write
-  UTF-8 and handle umlauts correctly, so there is no reason to avoid them. **And translate the
-  meaning, not the words:** "Introduce the topic" is "Führe in das Thema ein", never
-  "Introduziere das Thema". Measured 27.09.2026: in one run two files came out in ae/oe/ue
-  while all others had real umlauts, one of them with "Introduziere".
-- **Never `Write` over an `AGENTS.md` or `CLAUDE.md` that already exists.** Look for both
-  before you write, in the project folder and above it. Found one? Then `Read` it and `Edit`
-  only the block between the two markers. It may hold months of the user's own instructions,
-  and `Write` replaces the whole file without a trace. The Obsitex facts go into `AGENTS.md`;
-  a `CLAUDE.md` only ever gets the line `@AGENTS.md`. Procedure: "Never overwrite an existing
-  `AGENTS.md` or `CLAUDE.md`" above.
-- **Ask the twelve questions in their numbered order.** No question is held back for the end
-  because it feels like a good closing question. The cover data (8) is the one this happens to,
-  and it happened: asked after question 11, as "almost done, one more thing". It belongs in
-  block 2, before a single file question.
-- **One question per dialog, from question 3 on.** Never two in one AskUserQuestion, however
-  well they seem to pair. Each one is prepared by a chat message written for it; a second tab
-  arrives with nothing in front of it. The language pair is the only exception, and it is the
-  next rule.
-- **Every question starts with a visible intro text in the chat, before its dialog.** Never
-  only in your thinking, never a dialog without it. Details: the section of that name at the
-  top of this file.
-- **The first dialog always carries both language questions.** Chat language and document
-  language, together, before anything else. Reading the chat language off what the user has
-  written so far is an offer for the top option, never a reason to drop the question: it also
-  names the folders on disk. One question alone in that dialog means the rule was broken.
-- Only supported Markdown (see `shared/obsitex-conventions.md` and the topic files it points
-  to). **If a construct appears in none of them, it is unsupported** — do not invent it, tell
-  the user Obsitex does not know it and offer the nearest thing that works.
-- **Never write a `.md` file whose first heading has more than one `#`.** A folder note's `#`
-  is its folder's own level, every other file's `#` one level below. Where the folder limit stops the splitting, the file at
-  that level takes its whole substructure inside itself as `##`, `###` — never as sibling
-  files. This holds for every template and for anything the skill generates later.
-- **Every folder meant as a level gets its folder note**, the file with the folder's exact
-  name; that is what makes it a structure folder. Without it the folder adds no level, silently. Rename folder and folder note together.
-  **Never give a file inside `Front Matter`, `Main Matter`, `Back Matter` or any other storage
-  folder that folder's name** — it would turn the grouping folder into a level and push
-  everything else in it one level down.
-- **In `professional-thesis` the switch files stay first:** `Switch to Front Matter` at the top
-  of `Front Matter`, `Switch to Main Matter` at the top of `Main Matter` (above every chapter
-  folder), `Switch to Appendix` before the first appendix chapter.
-- **Never create a grouping folder** (`Subchapters`, `Unterkapitel`, `Subsections`) between a
-  chapter and its sections. Sections are files directly in the chapter folder.
-- **A heading needs no blank line before it** (since 2026-08-04). A `#` line ends the running
-  paragraph on its own, exactly as in Obsidian and CommonMark. The one exception: a `#` line
-  directly under a **list item** is still swallowed by the list — put a blank line there.
-- **Write attachment links the way Obsidian's autocomplete would** — shortest path that is
-  still unambiguous: bare name while the name is unique in the vault, vault-root folder in
-  front of it as soon as it is not (`![[Kapitel 2/aufbau.png]]`). You have no autocomplete
-  correcting you, so this is on you. **Never `../`** (Obsitex does not resolve it and falls
-  back to the bare name, silently hitting the wrong file) and **never drop the extension**
-  (`![[aufbau]]` finds nothing in Obsidian, but Obsitex may embed `aufbau.pdf` instead of the
-  picture). When naming files, prefer distinct names over a second `aufbau.png`: a bare-name
-  link written today becomes ambiguous the day a namesake appears, and nothing warns.
-  Details → `shared/obsitex-conventions.md`, "How to write an attachment link".
-- Raw LaTeX only inside ` ```latex ` blocks, always with a leading `%` comment line saying
-  what the block does. Prefer Markdown wherever it can express the same thing.
-- Never put backslash commands or bare special characters (`_`, `~`, `^`) in inline
-  backticks — inline code is passed through raw and breaks or distorts the LaTeX output.
-- Do not add preamble packages beyond the template on your own. If the user asks for a
-  feature that needs one, add the `\usepackage` line to `00 Document Setup.md` with an inline
-  `%` comment explaining what it is for — never inject silently.
-- Guidance for the user belongs in ` ```remark ` blocks (ignored by the converter).
-  Visible placeholder text must be obviously replaceable ("Replace this paragraph with …").
-
-Write your answers without dashes, neither the long one (em dash) nor the short one (en dash).
-Use a full stop, a comma, a colon or brackets instead. A dash pushes a side thought into the
-middle of a sentence, and the sentence then has to be read twice. Hyphens in compound words
-are fine. This applies to what you say, never to what the user has written.
-
-## Wrap up
-
-Report to the user, in the chat language:
-
-- The created file tree, **one line of purpose per folder**, naming the two terms again:
-  which one is the project folder, which one is the manuscript.
-- **`professional-thesis` only: the three areas, in two or three plain sentences.** The
-  manuscript is split into front matter (everything before the first chapter), main matter
-  (the actual work, from the introduction to the conclusion) and back matter (bibliography and
-  appendix). Front matter and main matter each start with a switch file: it must stay first and
-  must not be deleted. In the back matter the switch file `Switch to Appendix` stands directly
-  before the first appendix, not at the top. `About Back Matter` only explains and may be
-  deleted. (Never say "each area starts with a switch file": it is wrong for the back matter,
-  and a user who believes it drags `Switch to Appendix` to the top. Its "Appendix" divider page
-  then stands before the bibliography, which ends up inside the appendix. Both runs on
-  27.09.2026 said it.) In a German chat add the
-  German term in brackets: Front Matter (Vorspann), Main Matter (Hauptteil), Back Matter
-  (Schlussteil).
-- **The one thing that surprises people** (project scaffold only) — explain it, never assume
-  it is obvious: Obsidian works on the **whole project folder**, so the order you see and
-  drag around is stored once for the entire project. Obsitex, in contrast, converts **only
-  the manuscript** — but takes the order of those files from that same project-level
-  setting. In short: *the order is managed one level above the folder that gets converted.*
-  Sketch it, using the real names:
-
-```
-Projektordner                   ← Obsidian opens this one (the vault)
-├── .obsidian/…/data.json       ← the order is stored here — for everything below
-├── Organisation
-├── Manuskript                  ← Obsitex converts only this folder …
-│   ├── 00 Document Setup
-│   ├── Einleitung                   … and takes its order from above
-│   └── …
-├── Recherche
-└── …
-```
-
-  Consequence for the user: reorder wherever it feels natural in Obsidian — it is the same
-  setting either way. In Obsitex still pick the manuscript, not the project folder; the app
-  finds the order by itself. (Variant B: same picture, only the order sits in the file
-  names instead of that file.)
-- **Chat language and document language differ:** say the one sentence from "Which language
-  governs what": the folders and notes are in the chat language, because that is the language
-  you are speaking; the user says so if they would rather have them in the document language.
-  Leave it out when both languages are the same. (A run on 27.09.2026 with a German chat and
-  an English document left it out and nobody learned why the folders were German.)
-- **State it as a fact, in one sentence:** the project folder is now their Obsidian vault.
-  No options, no "unless" — it is simply what was built. Do **not** raise the possibility of
-  moving the project into some other vault; that concerns a minority and cannot be explained
-  without teaching vaults to someone who may not need the concept at all. The assistant
-  handles it if they ever ask.
-- Next steps: open the project folder in Obsidian as a vault, fill in
-  the chapters top-down, replace `refs.bib` with their own export (e.g. from Zotero), then
-  run Obsitex — sign in, **pick the manuscript** (`Manuscript` / `10 Manuscript`; with the
-  opt-out, the project folder itself), Convert, and export (Overleaf / download).
-- **Variant A only — switching the add-on on:** the plugin files are copied in but Obsidian
-  will not run them until the user does this by hand (you cannot — no UI access to the app, only
-  the filesystem). Give this exact sequence:
-  1. Settings (gear icon, bottom left) → "Community plugins" ("Community-Erweiterungen")
-     in the left sidebar.
-  2. If a restricted-mode notice is shown ("Community-Erweiterungen ... können ...
-     Sicherheit ... gefährden"), click "Turn on community plugins" ("Community-
-     Erweiterungen aktivieren"). This consent screen is intentional — never try to
-     pre-set it via a config file.
-  3. Under "Installed plugins", find "Flexplorer" in the list and toggle it on, and
-     "Folder notes" as well if it was installed.
-  4. **Reload Obsidian once:** Ctrl+P (Mac: Cmd+P), type "reload", choose "Reload app
-     without saving" ("Anwendung neu laden ohne zu speichern"). Switching the add-on on is not
-     enough — the file tree has already been built by then, and the prepared order only takes
-     effect after a reload. (Closing and reopening Obsidian does the same.)
-  **Say what the user will see, or they will think the setup failed** (measured 16.08.2026 —
-  it did read as a defect): until step 4, the explorer keeps showing folders above files in
-  alphabetical order, exactly as before. The order itself is ready and correct from the
-  moment the files are written; the reload is what makes it visible. Afterwards it can be
-  changed by drag & drop. Updates come through Obsidian's plugin manager; deleting
-  `.obsidian/plugins/flexplorer/` removes the plugin entirely.
-- **Folder notes, whenever it was installed — also with one level, when no folder exists
-  yet.** The plugin stays off until the user switches it on, and on the day a section grows
-  into a folder it must already be running; nobody will tell them then. "Nothing to show yet"
-  is therefore no reason to leave the steps out (measured 30.09.2026: a one-level run did
-  exactly that). In variant B give steps 1 to 4 above for "Folder notes" alone. Until the reload in step 4 each folder note still shows as a line of
-  its own; that is expected. Then say three things, briefly, **in this order and all three**
-  (the second is the one that matters most; never drop it to shorten):
-  - **leave its settings as they are.** That alone makes the buttons "Rename existing folder
-    notes" and "Switch" harmless: each one applies the setting next to it (name template,
-    storage location), so with the defaults unchanged there is nothing to apply;
-  - **never press "Create folder notes for all folders".** It needs no changed setting: one
-    click puts a folder note into every folder, `attachments` included, and everything in those
-    folders moves one level down, without a warning;
-  - never Ctrl-click `Front Matter`, `Main Matter`, `Back Matter` or `attachments`: that click
-    creates a folder note there, and inside `Front Matter` it would push every file one level
-    down.
-
-  Measured 30.09.2026: a run that listed the buttons as three equal items kept only "Rename"
-  and dropped "Create folder notes for all folders", the one that does harm by itself.
-
-  If the download failed, say that instead, with the way to install it by hand (see "Install
-  the Folder notes plugin", step 4). **If the user said no to question 12,** leave all of this
-  out and say one sentence only: it can be added later, in Obsidian under Settings →
-  Community plugins → Browse → "Folder notes" by Lost Paul, or by asking the assistant.
-- **Variant A only — where the order lives:** the seed file written next to the plugin now
-  holds the order of the whole work. It is worth keeping: do not delete it, and include it
-  in backups or version control. Should it ever be lost, the files fall back to
-  alphabetical order, which then has to be rebuilt by drag & drop. `00 Document Setup.md` keeps
-  its number for exactly this reason — it must stay first even without the add-on, because
-  the converter reads the document settings from it.
-- **Variant B only — how to reorder:** rename the file; the numbers go in steps of ten so
-  a new chapter fits in between (e.g. `25`) without touching the others. Obsidian lists
-  folders above files, so the visible order differs from the document order — the
-  conversion follows the numbers.
-- **Renaming rules** (both variants, important): rename **inside Obsidian**, because only
-  then are the wikilinks pointing to that file updated as well. Obsidian asks once whether
-  to update them — answer **"Always update"**. Never rename in the file explorer of the
-  operating system: the links keep pointing to the old name, and clicking such a link makes
-  Obsidian create a **new empty file** under the old name, which hides the damage. If a
-  suspiciously empty file with an old name turns up, that is what happened — delete it and
-  fix the link.
-- A file is excluded from the document with `skip: true` in its frontmatter.
-- **Last, and as a question:** offer the project `AGENTS.md`, clearly recommended, at the very
-  end, after everything else has been reported. Use the wording in "The project `AGENTS.md`"
-  above: both reasons, as two points. Write it only if they say yes.
-- **After that answer, and only then: a new chat for the writing** (since 12.10.2026, v1.65.0).
-  This chat is now full of the interview, and everything in it is carried along with every later
-  message: slower and more expensive, with nothing gained for the writing. Nobody tells the user
-  this on their own. **What you say depends on the answer to the `AGENTS.md` question**, because
-  a new chat only knows today's decisions if that file exists:
-  - **Yes, the file was written:** recommend it plainly, in the chat language:
-
-    > For the writing itself, close this chat and start a new one in the project folder. It
-    > knows everything we decided today from `AGENTS.md`, and it is faster and cheaper than
-    > this long one.
-
-    German original:
-
-    > Zum Schreiben schliesst du diesen Chat am besten und startest einen neuen im
-    > Projektordner. Er kennt alles, was wir heute entschieden haben, aus der `AGENTS.md`, und
-    > er ist schneller und günstiger als dieser lange Chat.
-
-  - **No file:** do not recommend a new chat. Say in one sentence that a new chat would not
-    know today's decisions, and that they can still ask for the `AGENTS.md` any time.
-
-  **"In the project folder" is the point, not a detail:** `AGENTS.md` is read only by a chat
-  that starts there. Never name a command for it (`/clear` and its kind differ between AI tools
-  and may not reload the file).

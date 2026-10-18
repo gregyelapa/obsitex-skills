@@ -5,3 +5,5 @@
 /CLAUDE.md export-ignore
 # shared/ is the source the maintainer edits; every skill carries its own copy (tools/sync-shared.mjs)
 /shared export-ignore
+# notes about the skills that the skills never read (history, stored variants)
+/maintainer export-ignore
