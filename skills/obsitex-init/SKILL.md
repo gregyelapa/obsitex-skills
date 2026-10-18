@@ -177,11 +177,15 @@ The other four are yours to fill as you go. Nothing you put in them ever reaches
 that is exactly the point: your notes, your data and your transcripts stay out of the document
 without any effort from you.
 
-A few short questions and I will lay it out for you.
+A few questions and I will lay it out for you.
 
 <!-- /greeting -->
 
-## Interview — keep it short
+## Interview — twelve questions, each with its intro
+
+**Few questions, never short intros.** The interview is kept to these twelve questions, then
+defaults. That is the only sense in which it is short. Every question still starts with its
+intro text (see "Every question starts with a visible intro text" at the top).
 
 **Assume the user does not know LaTeX.** Everything they read — questions, option
 descriptions, the final report — must be plain everyday language: talk about pages,
