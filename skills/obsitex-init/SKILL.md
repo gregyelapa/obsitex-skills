@@ -206,6 +206,14 @@ cover data. Each one is written out at its own question.
   the copy afterwards. Whenever you touched a file that holds a ` ```latex ` or ` ```dds `
   block, compare it against its template before you report done:
   `grep -c '\\\\' "<file>"` must give the same number for both.
+- **Paths and file names contain spaces.** The project folder often does ("Master Thesis",
+  "Template with OpenCode"), and the template files always do (`00 Document Setup.md`,
+  `Front Matter/Switch to Front Matter.md`). Quote every path in a shell command, and loop
+  over files with `find … -print0 | while IFS= read -r -d '' f`, never with `for f in
+  $(find …)`. An unquoted path is cut into words, and every word comes back as "No such
+  file". Measured 18.10.2026, two runs in a row with two models: once while reading the
+  template, once in the check "one `#` per file", whose result was then worthless until it
+  was run again.
 - **Write every paragraph as ONE unbroken line.** A single newline inside a paragraph
   becomes `\\` in the output — a forced line break in the middle of the printed sentence.
   Wrapping prose at 80 or 90 columns is a reflex almost everywhere else, and it is wrong
