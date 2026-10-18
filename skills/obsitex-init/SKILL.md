@@ -860,11 +860,13 @@ Reply with the letter.
 
 #### Question 7 — Citation style
 
-Numeric (default), author–year, APA, or verbose. Maps to the biblatex
-`style=` option in the preamble. **APA is an option of its own, not a flavour of
-author–year:** psychology, education, the social sciences and often business ask for it by
-name, and its reference list follows rules `authoryear` does not (titles in sentence case,
-"&" between two authors).
+Numeric (default), APA, or verbose: **one style per family, so every option looks different
+in the text.** Maps to the biblatex `style=` option in the preamble. **APA stands for the
+author–year family** because students search for it by name: psychology, education, the
+social sciences and often business ask for it. Plain author–year ("Harvard") is no option of
+its own since 18.10.2026. In the text it differs from APA only by a comma
+(`(Meier 2020, p. 12)` against `(Meier, 2020, p. 12)`, measured), so the two side by side
+read as the same thing twice. It stays available on request; the tip names it.
 
 ##### Intro text
 
@@ -874,44 +876,47 @@ Send it first, translated; keep the example citations exactly as they are.
 >
 > **How should sources appear in your text?**
 >
-> There are four common styles. They differ in what the reader sees at the point where you
+> There are three common styles. They differ in what the reader sees at the point where you
 > cite:
 >
 > ```
-> Numbers       … as shown in [1].
-> Author-year   … as shown in (Meier 2020).
-> APA           … as shown in (Meier, 2020).
-> Footnotes     … as shown in.¹
->   ¹ Hans Meier: Title, Publisher 2020, p. 12.
+> Numbers     … as shown in [1, p. 12].
+> APA         … as shown in (Meier, 2020, p. 12).
+> Footnotes   … as shown in.¹
+>   ¹ Hans Meier. Writing a Thesis. Publisher, 2020, p. 12.
 > ```
 >
-> Your university often prescribes one. If it does not, numbers or author-year are both a
-> good choice.
+> Your university often prescribes one.
 >
-> 💡 **Tip:** If your university asks for a different style, just tell me. It is one word in
-> the setup and every citation in the document follows.
+> 💡 **Tip:** Your university asks for a different style, such as Harvard
+> (Meier 2020, p. 12) or IEEE? Just tell me. It is one word in the setup and every citation
+> in the document follows.
 
 ##### Options
 
 In the same chat message, directly under the intro text, translated into the chat language.
 No AskUserQuestion: end the reply after the last line and wait for the answer.
 
-**The four options, in this order, as `A` to `D`**, each with its label and description on one
-line, then "Reply with the letter." Translate them, but keep the example citations exactly as
-they are:
+**The three options, in this order, as `A` to `C`**, each with its label and description on
+one line, then "Reply with the letter." Translate them, but keep the example citations
+exactly as they are:
 
-- **`Numbers [1]` (default)** — "The source appears as a number in square brackets. Common
-  in engineering, computer science and the natural sciences."
-- **`Author-year (Meier 2020)`** — "Name and year in parentheses. A good choice when your
-  university prescribes nothing."
-- **`APA (Meier, 2020)`** — "The style of the American Psychological Association. Common in
-  psychology, education and the social sciences."
+- **`Numbers [1, p. 12]` (default)** — "The source appears as a number in square brackets.
+  Common in engineering, computer science and the natural sciences."
+- **`APA (Meier, 2020, p. 12)`** — "Name and year in parentheses, following the rules of the
+  American Psychological Association. Common in psychology, education, business and the
+  social sciences."
 - **`Footnotes`** — "The full source in a footnote at the bottom of the page, shortened when
   it comes again. Common in history, law and philosophy."
 
 **Why the example sits in the label:** "numeric" and "verbose" mean nothing to a student,
-and an example is understood at a glance. APA and author-year look almost alike in the text;
-the comma and the line below are the only visible difference, so neither may be dropped.
+and an example is understood at a glance. **Every example carries a page number** (`p. 12`),
+because a student cites pages and should see where the page goes in each style. The examples
+are measured output of the real styles (18.10.2026); do not tidy them.
+
+**A style named in the answer that is not among the options** (Harvard, author-year, IEEE)
+is a valid answer, not a misunderstanding. Map it
+with the table in step 2 of the setup and confirm it in the next message's opening line.
 **The subjects are a rule of thumb, never a rule.** Write "common in", never "required in"
 or "used in", and never steer the user towards a style because of their subject. What their
 university asks for decides, and the tip covers that.
@@ -935,8 +940,8 @@ Send it first, translated. The field list matches the template.
 > **What goes on the title page?**
 >
 > The title page shows six things: title, subtitle, type of work (for example Master
-> Thesis), degree program, your name and your supervisor. You can fill them in now, or
-> leave the placeholders and fill them in later.
+> Thesis), degree program, your name and your supervisor. You can leave the placeholders
+> and fill them in later, or fill them in now.
 >
 > 💡 **Tip:** No final title yet? Leave the placeholders standing. Tell me any time and I
 > will fill them in.
@@ -948,8 +953,8 @@ Send it first, translated. The field list matches the template.
 > **What goes into the title block?**
 >
 > The first page shows: title, subtitle, the authors with their institution, the e-mail of
-> the corresponding author, and the date. You can fill them in now, or leave the
-> placeholders and fill them in later.
+> the corresponding author, and the date. You can leave the placeholders and fill them in
+> later, or fill them in now.
 >
 > 💡 **Tip:** No final title yet? Leave the placeholders standing. Tell me any time and I
 > will fill them in.
@@ -964,12 +969,13 @@ runs did both wrong things: one asked for the data straight away with no choice,
 dialog around an invented option ("Master Thesis, details via Other", 17.10.2026). So:
 
 1. **Exactly these two options**, in this order, then "Reply with the letter.":
-   `A: Fill in now` and `B: Keep the placeholders for now`. The intro text above names the
-   fields of this template, so the user knows what "now" means. Nothing else goes into the
-   list.
-2. **On A**, ask for the fields in plain chat, as a short list, and wait for the reply. A
-   field the user leaves out keeps its placeholder; do not ask again for it. **On B**, go
-   straight on to question 9.
+   `A: Keep the placeholders for now` and `B: Fill in now`. The placeholders come first
+   (maintainer's decision, 18.10.2026); keep that order. The intro
+   text above names the fields of this template, so the user knows what "now" means.
+   Nothing else goes into the list.
+2. **On A**, go straight on to question 9. **On B**, ask for the fields in plain chat, as a
+   short list, and wait for the reply. A field the user leaves out keeps its placeholder; do
+   not ask again for it.
 
 ### Block 3 — how Obsitex lays the files out and orders them (questions 9 to 12)
 
@@ -2266,15 +2272,21 @@ The steps for copying and adapting:
 2. Then adapt in place **with the Edit tool, never through the shell** (see "Hard rules":
    the shell eats one backslash of every `\\` pair and silently flattens the title page):
    - **Citation style:** in `00 Document Setup.md`, set the biblatex option — **and, for the
-     three non-default styles, add the matching redefinition on the next line.** The converter
+     styles that need it, add the matching redefinition on the next line.** The converter
      always emits `\cite{…}`, and `\cite` means something different in every biblatex style:
 
      | Answer | biblatex option | Extra line — **required** |
      |---|---|---|
-     | numeric (default) — "Numbers [1]" | `style=numeric-comp` | none |
-     | author–year — "Author-year (Meier 2020)" | `style=authoryear` | `\let\cite\parencite % author-year: source in parentheses` |
-     | APA — "APA (Meier, 2020)" | `style=apa` | `\let\cite\parencite % APA: source in parentheses` |
+     | numeric (default) — "Numbers [1, p. 12]" | `style=numeric-comp` | none |
+     | APA — "APA (Meier, 2020, p. 12)" | `style=apa` | `\let\cite\parencite % APA: source in parentheses` |
      | verbose — "Footnotes" | `style=verbose` | `\let\cite\footcite % verbose: source in a footnote` |
+     | *on request:* author–year, Harvard | `style=authoryear` | `\let\cite\parencite % author-year: source in parentheses` |
+     | *on request:* IEEE | `style=ieee` | none |
+
+     IEEE (measured 18.10.2026) looks like numeric in the text, `[1, p. 12]`, but numbers the
+     sources in the order of first citation, abbreviates first names, and writes article
+     titles in sentence case like APA. The `.bib` advice for APA titles in
+     `shared/bibliography.md` therefore applies to IEEE as well.
 
      **Without the extra line the output is broken, and it still compiles** (measured
      14.08.2026, APA 07.10.2026): `authoryear` prints `… a long tradition Knuth 1984.` with no
