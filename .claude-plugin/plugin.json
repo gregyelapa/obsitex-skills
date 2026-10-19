@@ -1,8 +1,0 @@
-{
-  "name": "obsitex",
-  "description": "Set up and write a thesis or paper as an Obsidian vault that Obsitex converts to LaTeX and PDF.",
-  "version": "1.74.1",
-  "author": {
-    "name": "Gregor Masshardt"
-  }
-}

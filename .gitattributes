@@ -7,3 +7,6 @@
 /shared export-ignore
 # notes about the skills that the skills never read (history, stored variants)
 /maintainer export-ignore
+# plugin manifest: holds the version for tools/sync-shared.mjs and runs the maintainer's own
+# plugin install; not published since 19.10.2026, users read skills/<skill>/VERSION instead
+/.claude-plugin export-ignore

@@ -49,12 +49,12 @@ Claude Code reads skills from the folder `~/.claude/skills/`. Send this message 
 Code chat:
 
 ```
-Install the Obsitex skills for Claude Code. No git is needed. Download https://github.com/gregyelapa/obsitex-plugin/archive/refs/heads/main.zip, unpack it, and copy the folders skills/obsitex-init and skills/obsitex-assistant into ~/.claude/skills/, replacing older copies. If claude plugin list shows an Obsitex plugin, remove it first with claude plugin uninstall obsitex@obsitex and claude plugin marketplace remove obsitex. If no download tool works, tell me how to do it by hand. At the end, show the contents of ~/.claude/skills/obsitex-init/VERSION. Then tell me to restart Claude Code before I use the skills.
+Install the Obsitex skills for Claude Code. No git is needed. Download https://github.com/gregyelapa/obsitex-skills/archive/refs/heads/main.zip, unpack it, and copy the folders skills/obsitex-init and skills/obsitex-assistant into ~/.claude/skills/, replacing older copies. If claude plugin list shows an Obsitex plugin, remove it first with claude plugin uninstall obsitex@obsitex and claude plugin marketplace remove obsitex. If no download tool works, tell me how to do it by hand. At the end, show the contents of ~/.claude/skills/obsitex-init/VERSION. Then tell me to restart Claude Code before I use the skills.
 ```
 
 **If you installed Obsitex as a Claude Code plugin before** (up to version 1.66): the message
-removes the old plugin first, so the skills do not exist twice. The plugin needed git, and a
-plugin installed without git never received an update.
+removes the old plugin first, so the skills do not exist twice. The plugin needed git, and it
+no longer receives updates.
 
 **Start:** `/obsitex-init` in the folder where the vault should be created.
 
@@ -63,7 +63,7 @@ plugin installed without git never received an update.
 Both read skills from the folder `~/.agents/skills/`. Send this message in the chat:
 
 ```
-Install the Obsitex skills. No git is needed. Download https://github.com/gregyelapa/obsitex-plugin/archive/refs/heads/main.zip, unpack it, and copy the folders skills/obsitex-init and skills/obsitex-assistant into ~/.agents/skills/, replacing older copies. If no download tool works, tell me how to do it by hand. At the end, show the contents of ~/.agents/skills/obsitex-init/VERSION. Then tell me to restart this tool before I use the skills.
+Install the Obsitex skills. No git is needed. Download https://github.com/gregyelapa/obsitex-skills/archive/refs/heads/main.zip, unpack it, and copy the folders skills/obsitex-init and skills/obsitex-assistant into ~/.agents/skills/, replacing older copies. If no download tool works, tell me how to do it by hand. At the end, show the contents of ~/.agents/skills/obsitex-init/VERSION. Then tell me to restart this tool before I use the skills.
 ```
 
 **Start:** in Codex, `$obsitex-init` (or `/skills` and pick it from the list). In OpenCode,
@@ -72,7 +72,7 @@ it on its own when you only describe what you want.
 
 ### By hand
 
-1. Download https://github.com/gregyelapa/obsitex-plugin/archive/refs/heads/main.zip and
+1. Download https://github.com/gregyelapa/obsitex-skills/archive/refs/heads/main.zip and
    unpack it.
 2. Copy the two folders `skills/obsitex-init` and `skills/obsitex-assistant` into your tool's
    skills folder:
@@ -126,7 +126,6 @@ skills/
     ├── SKILL.md
     ├── VERSION
     └── shared/                 the same converter knowledge
-.claude-plugin/                 kept for earlier plugin installations, so they still update
 ```
 
 ## Terms used throughout

@@ -26,6 +26,21 @@ Bulleted and numbered lists, nested to any depth, plus Obsidian task lists.
 
 Becomes `\begin{itemize}` / `\begin{enumerate}`; sub-points become nested lists.
 
+**A list needs no blank line before it** (since 19.10.2026). It may follow a sentence
+directly, as in Obsidian:
+
+```markdown
+Three cities took part:
+- Zurich
+- Basel
+```
+
+This works only where Obsidian also shows a list: a bullet followed by text, or a numbered
+item that starts at `1.` (or `1)`). A line such as `2. Step two` or `2026. was a year` directly
+under a sentence stays part of the sentence's paragraph, in Obsidian and in the PDF. If a
+numbered list must start at another number, the user's Obsidian shows it as text too, so the
+two agree.
+
 ## Task lists
 
 Obsidian task lists reach the PDF as printed boxes:

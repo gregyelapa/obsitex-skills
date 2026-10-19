@@ -76,7 +76,7 @@ neither produces an error:
 
 **An appendix needs two lines after `\appendix`** (measured 07.10.2026). Without them a
 reference to an appendix says "chapter B" instead of "appendix B", in every class and every
-language. `Switch to Appendix` carries them since plugin v1.62.2; older vaults lack them. The
+language. `Switch to Appendix` carries them since version 1.62.2; older vaults lack them. The
 names `appendix` and `subappendix` in them are internal; the printed word ("Anhang",
 "annexe") comes from the `cleveref` language option like every other type word. Details and
 what to offer the user: `headings.md`, "Switch to Appendix".

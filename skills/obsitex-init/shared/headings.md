@@ -303,7 +303,7 @@ Back Matter/
   to an appendix says "chapter B" instead of "appendix B" (and "section B.1" instead of
   "appendix B.1"), in every class and every language. Number and page stay right, only the
   word is wrong. The cause is in LaTeX itself, not in Obsitex: the kernel's repair for the
-  old `cleveref` ignores what `\appendix` tells it. Vaults set up before plugin v1.62.2 lack
+  old `cleveref` ignores what `\appendix` tells it. Vaults set up before version 1.62.2 lack
   the two lines. When a user sees "chapter B" for an appendix, offer to add them there.
 - **`About Back Matter` only explains.** It produces nothing in the PDF.
 - **New chapters go into `Main Matter`**, below its switch file. New front matter (a preface, a
