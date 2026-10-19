@@ -4,8 +4,7 @@ Obsitex sets up your thesis or paper as an Obsidian vault and stays with you whi
 it, so that the Markdown you produce converts cleanly to LaTeX and PDF.
 
 These are two **Agent Skills** for an AI coding tool such as Claude Code, Codex or OpenCode.
-They are **not an Obsidian plugin** and never show up in Obsidian's interface. They work *on*
-your vault, next to Obsidian.
+They work on your vault, whether your AI tool runs inside Obsidian or in its own window.
 
 ## What they do
 
@@ -132,10 +131,6 @@ skills/
 
 - **Project folder:** the whole workspace. `.obsidian` lives here.
 - **Manuscript:** the subfolder Obsitex turns into the document.
-
-When both come up, the name goes first and the environment last: the **Flexplorer** plugin
-**in Obsidian** versus the **Obsitex** skills **in your AI tool**. The bare word "plugin" is
-ambiguous.
 
 ## Licence
 
