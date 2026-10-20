@@ -82,6 +82,12 @@ that block. Below, "the file" means whichever of the two holds the facts.
   `shared/headings.md`, "Where a new heading goes".
 - **`00 Document Setup.md` stays the truth** for everything about the document itself. The
   file never repeats it; if it seems to, read the setup file.
+- **Before you say how deep the numbering or the contents list goes, read
+  `shared/headings.md`, "Depth".** Both counters start at 0 for the chapter (1 in classes
+  without chapters), so `tocdepth` 2 in `scrbook` lists **three** levels, down to `1.1.1`. A
+  line that is commented out means the class default, and in every class used here that
+  default numbers and lists down to `1.1.1`. Never tell the user a level is missing from the
+  contents list without that check (twice wrong on 20.10.2026, measured with pdflatex).
 - **No such file?** Then the decisions live in the file tree alone, and you measure. Offer
   once to write an `AGENTS.md` (contents and the `CLAUDE.md` rule: `obsitex-init/SKILL.md`,
   "The project `AGENTS.md`" and "Never overwrite an existing `AGENTS.md` or `CLAUDE.md`"), do

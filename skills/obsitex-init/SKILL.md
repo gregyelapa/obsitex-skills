@@ -1286,11 +1286,12 @@ Placed above that line it is an undefined control sequence.
 
 ```latex
 % --- Sectioning depth ---
-% Without a setting, the document class default applies (scrbook: numbered to 1.1.1).
+% Without a setting, the document class default applies (scrbook: numbered to 1.1.1,
+% and the contents list also goes down to 1.1.1).
 % Values up to 5 are possible:
 %   3 = 1.1.1.1    4 = 1.1.1.1.1    5 = 1.1.1.1.1.1
 %\setcounter{secnumdepth}{3}  % number deeper - adjust the value as needed
-%\setcounter{tocdepth}{2}     % keep the contents list shallower than the numbering
+%\setcounter{tocdepth}{2}     % contents list: 0 = 1, 1 = 1.1, 2 = 1.1.1 (class default)
 % From value 4 on these are needed too (\paragraph otherwise runs into the body text,
 % and a cross-reference to it prints "??"):
 %\RedeclareSectionCommand[runin=false,afterskip=.5\baselineskip]{paragraph}
@@ -1305,11 +1306,12 @@ fewer, and no run-in repair available:
 
 ```latex
 % --- Sectioning depth ---
-% Without a setting, the document class default applies (article: numbered to 1.1.1).
+% Without a setting, the document class default applies (article: numbered to 1.1.1,
+% and the contents list also goes down to 1.1.1).
 % Values up to 5 are possible:
 %   4 = 1.1.1.1    5 = 1.1.1.1.1
 %\setcounter{secnumdepth}{4}  % number deeper - adjust the value as needed
-%\setcounter{tocdepth}{3}     % keep the contents list shallower than the numbering
+%\setcounter{tocdepth}{3}     % contents list: 1 = 1, 2 = 1.1, 3 = 1.1.1 (class default)
 % From value 4 on this is needed too, or a cross-reference prints "??" instead of the name:
 %\crefname{paragraph}{paragraph}{paragraphs}
 % At value 5 the same again for \subparagraph:
