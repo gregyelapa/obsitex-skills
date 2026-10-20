@@ -91,6 +91,11 @@ that block. Below, "the file" means whichever of the two holds the facts.
   own instructions, and `Write` replaces all of it without a trace. If it has no
   `<!-- obsitex:start -->` block, the whole file is theirs: append one rather than editing
   their lines. **A `CLAUDE.md` never receives Obsitex facts**, only the line `@AGENTS.md`.
+- **Never suggest creating a `CLAUDE.md`.** Claude Code loads `AGENTS.md` on its own since
+  v2.1.277, as long as no `CLAUDE.md` sits in the project folder or above it. An `AGENTS.md`
+  without a `CLAUDE.md` is the intended setup, not a gap: do not report it as one, and do not
+  tell the user that "Claude Code only reads `CLAUDE.md`". Only a `CLAUDE.md` that already
+  exists in the project folder needs the line `@AGENTS.md`.
 
 ## Working in the user's vault
 
