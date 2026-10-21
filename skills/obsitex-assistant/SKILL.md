@@ -117,9 +117,14 @@ that block. Below, "the file" means whichever of the two holds the facts.
   named it.
 - **One exception: a single file becomes a folder for a new heading.** When a new heading
   needs `X.md` to become `X/X.md` (`shared/headings.md`, "Where a new heading goes"), that move
-  is part of the request. Do it yourself, on disk. The file name stays the same, so a link that
-  names the note only (`[[X]]`) keeps working. In the same step, update every link that spells
-  out the old path, and the Flexplorer entry.
+  is part of the request. Move the file on disk yourself. **Do not use the Obsidian command
+  line for it, and do not stop because the command line is off or because Obsidian is
+  running.** Obsidian's link updates are not needed here: the file name stays the same, and
+  both Obsitex and Obsidian find a link that names the note only (`[[X]]`) by that name
+  (measured for Obsitex 21.10.2026). In the same step, update every link that spells out the
+  old path. If Obsidian is running, read the folder's Flexplorer order right after the move and
+  put the entry back at its old place, then give the restart note (see "Entering a new note in
+  the Flexplorer order").
 - **Two layouts of a professional thesis exist, and both are right.** Since v1.47.0 the
   manuscript has three area folders, `Front Matter/`, `Main Matter/` and `Back Matter/`, each
   with its switch file first (`Switch to Front Matter`, `Switch to Main Matter`). Older vaults
