@@ -123,8 +123,7 @@ that block. Below, "the file" means whichever of the two holds the facts.
   both Obsitex and Obsidian find a link that names the note only (`[[X]]`) by that name
   (measured for Obsitex 21.10.2026). In the same step, update every link that spells out the
   old path. If Obsidian is running, read the folder's Flexplorer order right after the move and
-  put the entry back at its old place, then give the restart note (see "Entering a new note in
-  the Flexplorer order").
+  put the entry back at its old place (see "Entering a new note in the Flexplorer order").
 - **Two layouts of a professional thesis exist, and both are right.** Since v1.47.0 the
   manuscript has three area folders, `Front Matter/`, `Main Matter/` and `Back Matter/`, each
   with its switch file first (`Switch to Front Matter`, `Switch to Main Matter`). Older vaults
@@ -171,7 +170,7 @@ procedure, and both branches were measured on 28.08.2026:
 
 | Obsidian | What happens by itself | What you do |
 |---|---|---|
-| **running** | Flexplorer appends the new file to `customOrder` **within a second**, at the **end** of its folder. It does this even when the folder is collapsed and never opened. | Nothing, **if the end is where the file belongs**. Say that it landed at the end. Otherwise write the position yourself and read the restart note below. |
+| **running** | Flexplorer appends the new file to `customOrder` **within a second**, at the **end** of its folder. It does this even when the folder is collapsed and never opened. | Nothing, **if the end is where the file belongs**. Say that it landed at the end. Otherwise write the position yourself; the sidebar follows on its own (below). |
 | **closed** | **nothing at all** | Write the entry yourself, at the position the user asked for. It survives the next start unchanged, at that position. |
 
 The deletion is symmetrical: with Obsidian running, removing a `.md` file removes its entries
@@ -186,14 +185,14 @@ within a second too.
   any more; with Obsidian closed it is the normal outcome of writing a file and stopping there.
 - **A pinned file goes ahead of the whole `customOrder`** — in the document too, not only in
   the sidebar.
-- **Writing into a running Obsidian is not overwritten on the spot** (measured, 45 seconds
-  untouched). The risk is later and it is the reason for the restart note: Flexplorer reads
-  `data.json` at start and keeps the order in memory, so **the sidebar still shows the old
-  place, and the next drag & drop in that folder writes the remembered order back over our
-  entry.** The conversion is unaffected — Obsitex reads the stored `data.json`, never what
-  Obsidian holds in memory, so the PDF is right at once, which is exactly why the mismatch goes
-  unnoticed. **So whenever you write into a running Obsidian, tell the user to close it
-  completely and reopen it.** Measured 15.08.2026.
+- **Writing into a running Obsidian needs no restart.** Flexplorer 4.0.5, the version
+  `obsitex-init` installs, reloads `data.json` by itself as soon as it changes on disk, and the
+  sidebar shows the new order without a click. A drag & drop afterwards keeps our entry.
+  Measured twice on 21.10.2026 (Windows, written straight to disk; Ubuntu, written through a
+  sync folder). So do not tell the user to restart Obsidian. Only if they report that the
+  sidebar still shows the old order (an older Flexplorer may lack this), ask them to run
+  "Reload app without saving" from the command palette. The conversion is unaffected either
+  way: Obsitex reads the stored `data.json`.
 - **Do not invent a reason not to write.** A session once skipped the entry and explained that
   Flexplorer would otherwise overwrite it. The outcome was right by luck, the reason was made
   up, and the file silently went to the end (28.08.2026). If you are unsure what happens, read
