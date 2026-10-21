@@ -109,11 +109,17 @@ that block. Below, "the file" means whichever of the two holds the facts.
   place in the Flexplorer order, and **who puts it there depends on whether Obsidian is
   running** — procedure below, check before you act. Ask first where it goes, and ask for the
   **position inside the folder** as well; do not choose folder, position and name yourself.
-  Appending it and saying "drag it if you want it elsewhere" is choosing.
+  Appending it and saying "drag it if you want it elsewhere" is choosing. **Unless the request
+  says to decide:** then place it by the rules in `shared/headings.md` and say where it went.
 - **Do not rename or move a note on your own.** Both break every wikilink pointing at it
   (resolution is file-name based, `links.md`), on top of the `data.json` entry. Only on an
   explicit request, and then all three in one operation: file, entry, and every link that
   named it.
+- **One exception: a single file becomes a folder for a new heading.** When a new heading
+  needs `X.md` to become `X/X.md` (`shared/headings.md`, "Where a new heading goes"), that move
+  is part of the request. Do it yourself, on disk. The file name stays the same, so a link that
+  names the note only (`[[X]]`) keeps working. In the same step, update every link that spells
+  out the old path, and the Flexplorer entry.
 - **Two layouts of a professional thesis exist, and both are right.** Since v1.47.0 the
   manuscript has three area folders, `Front Matter/`, `Main Matter/` and `Back Matter/`, each
   with its switch file first (`Switch to Front Matter`, `Switch to Main Matter`). Older vaults

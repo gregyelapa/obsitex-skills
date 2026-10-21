@@ -117,7 +117,9 @@ lay, inside `Main Matter`.
 - **A file cannot go between two `##` blocks.** If the new heading has to sit between headings
   that stay inside the folder note, write it there as `##`, at its place, and say why.
 - **The file order goes along.** With number prefixes the names carry it: give the new file a
-  number after its siblings. With the Flexplorer plugin in Obsidian, the parent folder's
+  free number between the two files it goes between (`35` between `30` and `40`), or after
+  the last one when it goes to the end. Never renumber the other files. If no number is free
+  between the two, ask the user. With the Flexplorer plugin in Obsidian, the parent folder's
   `customOrder` names files with `.md` and folders without (`"80 Conclusion.md"` →
   `"80 Conclusion"`, same position), and the new folder gets its own entry with the folder note
   first. Procedure and the running-Obsidian case: the assistant skill, "Entering a new note in
