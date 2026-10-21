@@ -113,7 +113,8 @@ element off what surrounds them:
 
 - a table: inside any **cell**, which leaves the row and the column count intact
 - an image, an embedded PDF, a quotation: on **its line**
-- a heading: at the **end of its line**
+- a heading: on **its line**, or anywhere in the text below it, up to the next heading. A
+  marker in a paragraph means the heading above it. That is no reason to ask.
 - a list: in one of its **items**
 
 A marker inside a table cell means the table, not the cell. A marker on the line of an image
