@@ -284,7 +284,8 @@ a warning:
   Ask whether the subheadings should lose their numbers too; usually they should.
 - **A `[[link]]` to it prints the wrong number.** The label takes the preceding numbered
   heading's number (see *The part that actually breaks* above). Search the vault for links to
-  the note and name them.
+  the note and name them. Offer to give such a link its own display text, `[[Note|text]]`: it
+  prints that text and no number, and stays clickable.
 
 The older `latex-title:` / `latex-numbered:` frontmatter keys no longer exist. Use the
 attributes.
