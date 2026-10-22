@@ -269,6 +269,23 @@ section level emits `\addchap` / `\addsec` — unnumbered, ToC entry, running he
 **In the front matter no attribute is needed:** chapters between `\frontmatter` and
 `\mainmatter` are unnumbered with a ToC entry automatically.
 
+**Two side effects to report whenever a heading loses its number** — neither gives an error or
+a warning:
+
+- **Its numbered subheadings repeat numbers.** `{-}` does not step the counter, so a `##` below
+  an unnumbered chapter counts on from the last numbered chapter. Measured, scrbook:
+  ```
+  1     Eins
+  1.1     Eins-A
+  1.2     Eins-B
+  —     Vorwort {-}
+  1.1     Unter dem Vorwort      ← same number as Eins-A
+  ```
+  Ask whether the subheadings should lose their numbers too; usually they should.
+- **A `[[link]]` to it prints the wrong number.** The label takes the preceding numbered
+  heading's number (see *The part that actually breaks* above). Search the vault for links to
+  the note and name them.
+
 The older `latex-title:` / `latex-numbered:` frontmatter keys no longer exist. Use the
 attributes.
 
