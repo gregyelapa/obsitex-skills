@@ -145,7 +145,8 @@ that block. Below, "the file" means whichever of the two holds the facts.
   file then goes on to the branch above — which note does it belong in.
 - **"Here", "at my cursor", "an dieser Stelle", "the table where my cursor stands in Obsidian", "the text I
   selected in Obsidian": read the cursor, do not ask where.** A running Obsidian can tell you
-  the file, the spot, the table and the marked text, even while it is not focused. The
+  the file, the spot, the table and the marked text, even while it is not focused. In VS Code,
+  the extension Obsitex for VS Code writes them into a file. The
   obvious ways to ask it fail quietly (inside a table the plain cursor can name the wrong
   cell), and a text sent through the shell loses its backslashes, so use exactly the
   procedure in **`shared/cursor.md`**. A marker in the vault still wins over the cursor,

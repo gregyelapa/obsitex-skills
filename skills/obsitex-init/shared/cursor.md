@@ -1,6 +1,7 @@
-# The cursor in Obsidian
+# The cursor in Obsidian and in VS Code
 
-Finding the spot where the user's cursor stands in Obsidian, and writing there.
+Finding the spot where the user's cursor stands in Obsidian, and writing there. For VS Code with
+the extension Obsitex for VS Code, see "The cursor in VS Code" below: there a file says it.
 
 > The marker rules (`TABLE HERE`, the short marker beside an element) are in
 > `obsitex-conventions.md`, "Which element the user means: the marker". A marker wins over the
@@ -221,11 +222,87 @@ Obsidian. Two things to watch:
   no `#` line above the cursor means asking. For an image or an
   embedded PDF the line is not measured; name the element you found and confirm it.
 
+## The cursor in VS Code
+
+The extension **Obsitex for VS Code** (version 0.2.0 or later) writes the cursor into a file, on
+every cursor move and every key typed, from VS Code's text editor and from its own Obsitex
+editor, for the notes of the open project:
+
+```
+~/.obsitex/cursor.json        (Windows: C:\Users\<name>\.obsitex\cursor.json)
+```
+
+Read it with the Read tool. It looks like this:
+
+```
+{
+  "project": "c:/Users/anna/Thesis",
+  "file": "Main Matter/Methods.md",
+  "editor": "obsitex",
+  "line": 9,
+  "ch": 20,
+  "before": "The sample comprised",
+  "after": " 120 people from three cantons and more ",
+  "selection": { "from": { "line": 9, "ch": 4 }, "to": { "line": 9, "ch": 20 }, "length": 16, "text": "sample comprised" },
+  "unsaved": false,
+  "time": "2026-10-22T12:00:00.000Z"
+}
+```
+
+`file`, `line`, `ch`, `before`, `after` and `selection` mean what they mean in step 1 (path from
+the project root, counting from 0, up to 40 characters on either side, `text` cut at 2000
+characters). There is no `table` shape: inside a table, the plain cursor is right in VS Code.
+The other fields:
+
+- `project`: the project folder, with forward slashes. **Compare it, in lower case, with the
+  vault you work on.** Another folder means the cursor is in another project: ask.
+- `editor`: `text` (VS Code's text editor) or `obsitex` (the Obsitex editor). Both count the same.
+- `unsaved`: `true` while the note has changes that are not saved yet. See below, it decides
+  whether you may write.
+- `time`: the last cursor move or key, in UTC.
+
+### Which cursor: Obsidian or VS Code
+
+1. **The request names Obsidian** ("where my cursor stands in Obsidian"): Obsidian, step 1.
+2. **Otherwise, and VS Code is running** (`Get-Process Code`) **and the file's `project` is this
+   vault:** use the file.
+3. **Obsidian runs too** and both could be meant: ask, and name both spots.
+4. **VS Code is not running:** the file is old, whatever it says. Do not use it.
+
+**A `time` older than a few minutes** is where the user last was, not necessarily where they
+want the text. Name the spot and confirm, as for a cursor found by accident. Step 2 applies as
+well (for example `line 0, ch 0` right after opening a note).
+
+### Writing there
+
+VS Code has no `eval` from outside. You write into the **file on disk**, with the Edit tool.
+
+- **`unsaved: true`: do not write.** VS Code keeps its unsaved text, and a change on disk does
+  not show in the editor (measured 22.10.2026); a later save would throw one of the two away.
+  Ask the user to save (Ctrl+S), then read the cursor file again and go on only with
+  `unsaved: false`.
+- **`unsaved: false`:** edit the file. VS Code shows the change at once, in both editors
+  (measured 22.10.2026).
+- **Check the spot in the file first.** Read the note; the Read tool counts lines from 1, so the
+  cursor line is `line + 1`. It must contain `before` followed by `after`. If not, the note
+  changed after the cursor file was written: read the cursor file again, or ask.
+- Insert at `ch` of that line, with the same rules for the text as in step 3 (one empty line
+  between a table and the text around it, a leading space after a word, one line per
+  paragraph). Marked text: replace from `selection.from` to `selection.to`, after checking that
+  the file holds `selection.text` there (step 3b for what the replacement must contain).
+- Read the lines around the spot back and check the neighbours, as in step 3.
+
+### Claude Code in VS Code sees only the text editor's selection
+
+Claude Code receives the marked text from VS Code's **text editor** by itself, not from the
+Obsitex editor. When a request says "the text I selected" and no selection came with it, read
+the cursor file: it holds the selection from both editors.
+
 ## What this does not cover
 
-- **The cursor in VS Code or any other editor.** Claude Code receives a **selection** from
-  VS Code, never a bare cursor. If the manuscript is open there, ask the user to mark one
-  character.
+- **The cursor in other editors, and in VS Code without the extension.** There Claude Code
+  receives a **selection** from VS Code, never a bare cursor. If the manuscript is open there,
+  ask the user to mark one character.
 - **Writing while a table cell is open.** Step 3 inserts at `getCursor()`, and inside a cell
   it is not measured where that lands. When step 1 answers with `table`, never insert; ask.
 - **An image or an embedded PDF at the cursor.** Obsidian draws both as a picture in the

@@ -79,7 +79,7 @@ Read the matching file **when the topic comes up** — not in advance. Each is s
 | The 22 document settings, field by field | `dds.md` |
 | A different font, the line spacing | `page-look.md` |
 | Constructs that silently go wrong, and what to write instead | `not-supported.md` |
-| "Here", "at my cursor": finding and writing at the cursor in a running Obsidian | `cursor.md` |
+| "Here", "at my cursor": finding and writing at the cursor in a running Obsidian, or in VS Code with the extension Obsitex for VS Code | `cursor.md` |
 | Anything the plain syntax cannot express | see "Answering a formatting wish" below |
 | Which table, image or heading the user means, and how far a change reaches | see "Which element the user means" below |
 
