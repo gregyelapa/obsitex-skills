@@ -186,10 +186,11 @@ If no number is free, ask. A rename breaks every link that names the old
 file (`[[50 Results]]`), so update all of them in the same step.
 
 If the other chapter sits in another folder, the file has to move there.
-Move it on disk yourself. Do not use the Obsidian command line, and do not
-stop because it is off. Take the entry out of the old folder's
+First check whether the move changes the level of its headings
+(`headings.md`, "The folder note: what makes a folder a level"). If it
+does, stop: say what the heading becomes and ask before you move anything.
+Only then move it on disk yourself. Do not use the Obsidian command line,
+and do not stop because it is off. Take the entry out of the old folder's
 `customOrder` and put it into the new one. A link that names the note only
 (`[[Methods]]`) still works; update every link that spells out the old
-path. A folder can change the level of every heading in the file
-(`headings.md`, "The folder note: what makes a folder a level"). If it
-would, say so and ask before you move it.
+path.

@@ -39,7 +39,7 @@ files is something the converter actually understands.
    | writes or changes a table | `tables.md` |
    | writes or changes an image or a figure | `images.md` |
    | embeds a PDF | `pdf-embeds.md` |
-   | writes a wikilink or a cross-reference, or renames a note | `links.md` |
+   | writes a wikilink or a cross-reference, or renames or moves a note | `links.md` |
    | writes a citation | `bibliography.md` |
    | writes a footnote | `footnotes.md` |
    | writes a list | `lists.md` |
