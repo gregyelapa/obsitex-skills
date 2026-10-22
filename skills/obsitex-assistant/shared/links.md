@@ -168,3 +168,28 @@ to click their own references while writing, or when a caption is still in flux.
   quietly becomes plain text in the PDF.
 - **`[Text][id]` reference links are not supported**, and their definition line is printed as
   a paragraph. See `not-supported.md`.
+
+## Moving a chapter
+
+Moving a chapter changes its position, not its file. With the Flexplorer
+plugin, change only the folder's `customOrder` in `data.json`: take the
+entry out and put it back before the other chapter. Leave the files where
+they are and keep their names. No link breaks, so there is nothing to
+repair. Say so in the answer. Writing `data.json` needs no Obsidian command
+line and no restart (assistant skill, "Entering a new note in the
+Flexplorer order").
+
+With number prefixes and no Flexplorer, the name carries the order, so
+moving means renaming. Give the file a free number between its new
+neighbours (`35` between `30` and `40`). Never renumber the other files.
+If no number is free, ask. A rename breaks every link that names the old
+file (`[[50 Results]]`), so update all of them in the same step.
+
+If the other chapter sits in another folder, the file has to move there.
+Move it on disk yourself. Do not use the Obsidian command line, and do not
+stop because it is off. Take the entry out of the old folder's
+`customOrder` and put it into the new one. A link that names the note only
+(`[[Methods]]`) still works; update every link that spells out the old
+path. A folder can change the level of every heading in the file
+(`headings.md`, "The folder note: what makes a folder a level"). If it
+would, say so and ask before you move it.
