@@ -102,6 +102,7 @@ There are two, and they answer different questions:
 | `TABLE HERE` on a line of its own | where a **new** element goes | before asking |
 | a short marker beside an element | which **existing** element is meant | before asking |
 | the same short marker inside a sentence | where something that sits **in running text** goes (a cross-reference) | before asking |
+| the same short marker twice, before and after a passage | which **text** is meant (to become a list, a quotation, a footnote) | before asking |
 
 **The second marker is the user's own setting, and the prompt always names it.** The tool
 suggests `<<<`, but anyone can change it, so a prompt may say `@@@`, `yyy` or something
@@ -122,7 +123,9 @@ means that figure, not the paragraph around it.
 
 **The request says which of the two it is.** "The table marked with `<<<`" means the element;
 "where the mark `<<<` stands in my text" means **that exact spot**: write the new text in place
-of the characters, keeping the spaces around them, so the sentence reads on.
+of the characters, keeping the spaces around them, so the sentence reads on. "The text between
+the two marks `<<<`" means **everything from the first to the second**, across lines and
+paragraphs if need be. The two are one pointer: delete both, and do not ask which one is meant.
 
 **Four rules, and they do not change with the element:**
 
@@ -135,7 +138,8 @@ of the characters, keeping the spaces around them, so the sentence reads on.
    and the heading it sits under, so the question can be answered without scrolling. For a
    **new** element, read the cursor first if Obsidian is running (`cursor.md`) and offer
    that spot in the question.
-4. **More than one marker? Ask which one**, the same way.
+4. **More than one marker? Ask which one**, the same way. When the request says "between the
+   two marks", a pair is expected and counts as one. Ask only if there are more or fewer than two.
 
 **The reach of a change is in the prompt too, and it stands at the front.** The same tool has
 a switch for how far a change goes, so a request opens with "the table marked with `<<<` …",
