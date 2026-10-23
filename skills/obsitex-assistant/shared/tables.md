@@ -51,6 +51,26 @@ No template change, no fixed widths, no package. Commands at the start of the ce
 `` `\rowcolor{…}` ``, `` `\midrule` ``, `` `\endhead` ``) still act on the row. Measured with a
 shaded heading row, three lines and a long table: 0 errors.
 
+**A list inside a cell does not exist**, neither in Markdown nor in Obsidian: a cell holds
+lines, not a list. For lines that look like one, put each point after a `<br>` and start it with
+`•` (or `–`, or a number such as `1.` that the author types):
+
+```markdown
+| Topic | Points |
+|---|---|
+| Method | • First point<br>• Second point |
+```
+
+Obsidian and the PDF then show the same: each point on its own line. Prefer `•` over
+`` `\textbullet{}` ``, because Obsidian shows the bullet instead of code. Three limits, say them
+when they matter (measured 23.10.2026):
+
+- **A long point wraps in Obsidian, in the PDF only with fixed column widths.** In an ordinary
+  table it stays on one line and the table runs off the page (see "Traps").
+- **Where it wraps, the second line starts under the bullet, not under the text**, in Obsidian
+  as in the PDF.
+- **No second level:** spaces at the start of a line are dropped, so `◦` cannot be indented.
+
 **Until 23.10.2026 the break was lost without a word** in ordinary columns: Obsidian showed two
 lines, the PDF one. A table that was switched to fixed `p{…}` columns back then for this reason
 alone can go back to the normal template now; offer it, do not do it unasked.
