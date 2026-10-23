@@ -152,10 +152,20 @@ decision the user made before sending, not a guess to second-guess. **Where a ca
 single element, the sentence before it never says "every" or "all"** — so a plural in the
 opening really does mean the whole manuscript.
 
-**"Every table in this file" is not the document setup.** A file-wide change is a ` ```dds ` block
-at the top of that file plus a second one at the end that puts the value back, exactly as for a
-single element, only wider. Touch `00 Document Setup.md` when, and only when, the request says
+**"Every table in this file" is not the document setup.** A file-wide change of a setting is a
+` ```dds ` block at the top of that file plus a second one at the end that puts the value back,
+exactly as for a single element, only wider. A change made by a mark inside each element (a
+shaded heading row, see `tables.md`) needs no block: it goes into every element of the file. Touch `00 Document Setup.md` when, and only when, the request says
 the whole document.
+
+**A change for the whole document also has to reach the blocks that put a value back.** Earlier
+changes for one element left ` ```dds ` pairs in the notes (a pinned table, a long table, one
+table with other lines). The second block of each pair restores the value the document had at
+the time. After you change that value in `00 Document Setup.md`, those blocks restore the OLD
+value, and every element after them silently loses the change. So search the manuscript for
+every ` ```dds ` block that sets a key you changed. Where its value equals the old document-wide
+value, it is a put-back block: give it the new value. Leave the first block of each pair alone,
+it is the deliberate exception. Say in the closing line how many blocks you brought in line.
 
 ## Answering a formatting wish
 

@@ -242,6 +242,51 @@ Both verified through the converter and pdflatex: they compile clean and the col
 **Prefer this over a raw block.** The author keeps a table they can edit, and Obsidian keeps
 rendering it — only the one backtick span shows as code.
 
+### A shaded heading row (since 23.10.2026)
+
+The Blueprints card "Shade the heading row" (`table-colour`) names one of four colours, or the
+user's own. Use these values:
+
+| The user asks for | Value |
+|---|---|
+| light grey | `gray!25` |
+| light blue | `blue!12` |
+| light green | `green!12` |
+| light yellow | `yellow!35` |
+| another colour | the nearest `xcolor` name, mixed light (`!12` to `!35`). Say which value you took |
+
+Light grey survives a black and white print best; the others turn into a similar grey there.
+Measured 23.10.2026, all four 0 errors, the column lines stay visible.
+
+**How far the request reaches** decides where the colour goes:
+
+| The request | Where |
+|---|---|
+| one table | the mark `` `\rowcolor{…}` `` at the start of its first heading cell |
+| every table in one file | the same mark in every table of that file, no ` ```dds ` block |
+| every table in the document | **no marks:** `\rowcolor{…}` in `tableEnvironmentText` of `00 Document Setup.md`, right before `%tablebody%` (after `\toprule` where tables have three lines). Every table, and every table written later, gets the colour by itself |
+
+For the whole document, the setting looks like this (the template's own environment with one
+addition):
+
+````markdown
+"tableEnvironmentText": "\\begin{table}[!htbp]\n    \\centering\n    \\begin{tabular}{%columnspec%}\n        \\rowcolor{gray!25}\n        %tablebody%\n    \\end{tabular}\n    \\caption{%caption%}\n    \\label{tab:%label%}\n\\end{table}\n\n"
+````
+
+Measured 23.10.2026 with a full grid, with three lines and with no lines: 0 errors, the top line
+stays, a table after a put-back block is plain again.
+
+**Long tables are the exception: never put `\rowcolor` into a long table's template.** In a
+`longtable` it lands right after the caption row and turns the first heading cell **black**,
+text gone, no error (measured 23.10.2026). A long table keeps the marks instead, also when the
+rest of the document is shaded by the setting: `` `\rowcolor{…}` `` in its first heading cell,
+and in its copied heading row the same colour at the end of the mark (see "Long tables").
+
+**Taking the colour away** means removing every mark in the tables concerned, or the
+`\rowcolor{…}` from the setting, in the same edit. Where tables have three lines, a thin white
+strip stays above and below the colour (see "Three lines"); say so in one sentence. Where the
+colour comes from a mark, say that Obsidian shows it as code in the first heading cell.
+
 ## Packages: tables usually need none
 
 The standard preamble already carries `array`, `booktabs`, `tabularx`, `longtable` and
