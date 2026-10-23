@@ -98,7 +98,7 @@ why a table moves".
 | Field | Default | Effect |
 |---|---|---|
 | `createTableEnvironment` | `true` | Off: a bare `tabular` without the surrounding environment |
-| `tableGridHorizontal` | `true` | Draws the `\hline` rules |
+| `tableGridHorizontal` | `true` | Draws the `\hline` rules, one under every row. Three lines instead: `tables.md`, "Lines: four looks" |
 | `tableGridVertical` | `true` | Draws the `\|` rules |
 | `tableAlignment` | `"l"` | Alignment for columns with no `:` marker |
 | `tableEnvironmentText` | `\begin{table}[!htbp] \centering \begin{tabular}{%columnspec%} %tablebody% \end{tabular} \caption{%caption%} \label{tab:%label%} \end{table}` | The whole environment |

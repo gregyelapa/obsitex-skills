@@ -79,7 +79,7 @@ A LaTeX `tabular`. The exact look comes from four DDS keys, not from the convert
 
 With a full grid the column spec becomes `{|l|c|r|}`. Full field catalogue: `dds.md`.
 
-**Changing the look from here on** — a ` ```dds ` block before the table, and one after it to
+**Changing the look from here on:** a ` ```dds ` block before the table, and one after it to
 put the value back, or every later table inherits the change:
 
 ````markdown
@@ -87,6 +87,84 @@ put the value back, or every later table inherits the change:
 {"tableGridVertical": false}
 ```
 ````
+
+Which values give which lines, and the look most users mean, is in the next section.
+
+## Lines: four looks (since 23.10.2026)
+
+The templates start with a **full grid**. Users ask for one of four looks. The Blueprints card
+"Change the lines in tables" (`table-look`) spells them out in exactly these words:
+
+| The user asks for | `tableGridHorizontal` | `tableGridVertical` | Also needed |
+|---|---|---|---|
+| a full grid | `true` | `true` | nothing |
+| lines between the rows only, no lines between the columns | `true` | `false` | nothing |
+| three lines: one above the table, one under the heading row and one at the bottom | `false` | `false` | `\toprule` and `\bottomrule` in `tableEnvironmentText`, and a mark in every table, see "Three lines" |
+| no lines at all | `false` | `false` | nothing |
+
+**"Horizontal lines only" is the second row: a line under every row.** If a user's own words
+could mean the second or the third look ("only horizontal lines", "like in a journal"), ask
+which one and name both. The third is the look of most published papers (the `booktabs` style).
+
+### Three lines
+
+The converter hands all rows to `tableEnvironmentText` in one piece (`%tablebody%`). So the
+environment can draw a line above the table and one below it, but not the line between the
+heading row and the first data row. That one comes from a **mark at the start of the first
+cell of the first data row**, a LaTeX command in backticks, exactly like `\rowcolor` under
+"Colour":
+
+````markdown
+```dds
+{"tableGridHorizontal": false, "tableGridVertical": false, "tableEnvironmentText": "\\begin{table}[!htbp]\n    \\centering\n    \\begin{tabular}{%columnspec%}\n        \\toprule\n        %tablebody%\n        \\bottomrule\n    \\end{tabular}\n    \\caption{%caption%}\n    \\label{tab:%label%}\n\\end{table}\n\n"}
+```
+
+| Group | Count | Share |
+|:------|------:|------:|
+| `\midrule` A | 12 | 40 % |
+| B | 18 | 60 % |
+table: Groups by size
+````
+
+- **Build the environment from this vault's own `tableEnvironmentText`**, not from the
+  example. Copy it out of `00 Document Setup.md` (or out of the last ` ```dds ` block above the
+  table) and add only `\toprule` before `%tablebody%` and `\bottomrule` after it.
+- **`\toprule`, `\midrule` and `\bottomrule` come from the `booktabs` package.** All three
+  templates load it. Check the user's own preamble all the same (see "Packages"). If it is
+  missing, add `\usepackage{booktabs}` with a `%` comment saying what it is for, and tell the
+  user.
+- **The block after the table puts back all three values** this vault had at that spot,
+  character for character, as under "Placement".
+- **Say to the author in one sentence:** Obsidian shows `\midrule` as code in the first data
+  cell. That is expected, the PDF shows a line there.
+
+Measured 23.10.2026 through the converter and pdflatex: 0 errors.
+
+**How far the request reaches** decides where the values go and which tables get the mark:
+
+| The request | The three values | The mark |
+|---|---|---|
+| one table | a block before it, a block after it | in that table |
+| every table in one file | a block before the first table, a block after the last | in every table between the two blocks |
+| every table in the document | in `00 Document Setup.md`, no blocks | in every table of the manuscript, **and in every table written from then on** (see "Fixed, in all three ways") |
+
+**Leaving three lines means removing every mark** in the tables concerned, in the same edit. A
+`\midrule` left in a table with any other look draws a second line under the heading row, and
+in a full grid the column lines break off there (measured 23.10.2026). It still compiles, so
+nothing warns.
+
+**Together with the other table cases** (each measured 23.10.2026, 0 errors):
+
+- **Shaded heading row:** `\rowcolor` stays in the first heading cell, `\midrule` goes into the
+  first data cell. A thin white strip stays above and below the grey, because `booktabs` leaves
+  room around its lines and the colour does not fill it. Say so in one sentence.
+- **Line break in a cell:** the `p{…}` environment from "Multi-paragraph cells", without the
+  `|` and with `\toprule` and `\bottomrule` added.
+- **Long table:** its own two templates and marks, see "Long tables". The heading row and both
+  of its lines repeat on every page. The pages in between end without a line at the foot, which
+  is usual for this look.
+- **Pinned table:** nothing extra. Copying the vault's environment and changing only the
+  placement letters (see "Placement") carries the two lines along.
 
 ## Placement: why a table moves
 
@@ -281,6 +359,26 @@ number ("Table 2" for the first captioned one). This template takes the count ba
 Both measured 18.09.2026 through the converter and pdflatex: 60 rows over two pages, 0 errors,
 the List of Tables and the numbering of a later table correct.
 
+**Where tables have three lines** (see "Lines: four looks"), take these two instead. They add
+`\toprule` and `\bottomrule` and are otherwise the same. If this one table alone gets three
+lines, its block also sets `tableGridHorizontal` and `tableGridVertical` to `false`, and the
+block after it puts all three values back.
+
+````markdown
+```dds
+{"tableEnvironmentText": "\\begin{longtable}{%columnspec%}\n    \\caption{%caption%}\\label{tab:%label%}\\\\\n    \\toprule\n    %tablebody%\n    \\bottomrule\n\\end{longtable}\n\n"}
+```
+````
+
+````markdown
+```dds
+{"tableEnvironmentText": "\\addtocounter{table}{-1}\n\\begin{longtable}{%columnspec%}\n    \\toprule\n    %tablebody%\n    \\bottomrule\n\\end{longtable}\n\n"}
+```
+````
+
+Measured 23.10.2026, 60 rows over three pages each, 0 errors, one List of Tables entry, a later
+table numbered correctly. The marks for three lines are in the table below.
+
 ### Repeating the header row on every page
 
 A long table repeats its header row on every following page, **but only if you mark where the
@@ -322,6 +420,7 @@ The mark in the copy depends on the vault, so build it from what you read:
 | `tableGridHorizontal: true` (the templates) | `` `\endfirsthead\hline` `` |
 | `tableGridHorizontal: false` | `` `\endfirsthead` `` |
 | header row shaded with `\rowcolor{…}` | the same `\rowcolor{…}` added at the end of the mark, e.g. `` `\endfirsthead\hline\rowcolor{gray!25}` `` |
+| three lines | `` `\midrule\endfirsthead\toprule` ``. And `` `\endhead` `` becomes `` `\midrule\endhead` ``, with or without a caption |
 
 The copy carries the header text **character for character**, only the mark in front differs.
 All of this measured 18.09.2026 through converter and pdflatex, 60 rows over two pages: header
@@ -469,6 +568,9 @@ colour, a different placement) comes from the author, never from you.
 - **Keep the author's wording character for character**, typos included. If something looks
   like a typo, leave it and ask in the closing line.
 - **Grid:** whatever `tableGridHorizontal` / `tableGridVertical` are set to in this vault.
+  **Where the vault draws three lines** (its `tableEnvironmentText` carries `\toprule`), the new
+  table gets the mark `` `\midrule` `` at the start of its first data row, see "Three lines".
+  Without it the line under the heading row is missing, and nothing warns.
 - **Placement:** leave `tableEnvironmentText` alone. The one exception is a table that runs over
   more than one page: then use a template from "Long tables" above, and only that.
 - **Header row:** the first row, as a normal row. The Markdown table has no separate header
