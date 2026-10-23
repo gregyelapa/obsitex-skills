@@ -347,6 +347,40 @@ Four things worth knowing:
 - **No caption means no `\caption{}` either.** The empty value takes the whole command with
   it. A table without a caption looks exactly as it did before.
 
+### Where the caption stands (since 23.10.2026)
+
+The templates put the caption **below** the table. Many guidelines want it **above**, APA
+above with its own look. It is a style of the **whole document**: one table with the caption on
+top and the next with it below would look wrong. The Blueprints card "Give a table a caption"
+(`table-caption`) says it in one sentence ("Put every table caption in my document …").
+
+| The request says | `tableEnvironmentText` in `00 Document Setup.md` | Preamble |
+|---|---|---|
+| below its table | the template's own: `\caption` and `\label` after `\end{tabular}` | nothing |
+| above its table | `\caption{%caption%}` and `\label{tab:%label%}` moved before `\begin{tabular}`, `\centering` stays | nothing |
+| above its table in APA style | the same, **without** `\centering`: the table stands flush left, like its caption | `\captionsetup[table]{labelsep=newline, labelfont=bf, textfont=it, justification=raggedright, singlelinecheck=false}` right after `\usepackage{caption}`, with a `%` comment |
+
+````markdown
+"tableEnvironmentText": "\\begin{table}[!htbp]\n    \\centering\n    \\caption{%caption%}\n    \\label{tab:%label%}\n    \\begin{tabular}{%columnspec%}\n        %tablebody%\n    \\end{tabular}\n\\end{table}\n\n"
+````
+
+- **A request that names no position leaves it as it is.** Giving one table a caption never
+  moves the captions of the others.
+- **Build from this vault's own environment** and move only the two lines (for APA, drop
+  `\centering` too). The `caption` package comes with all three templates; check the user's own
+  preamble all the same and add `\usepackage{caption}` with a comment if it is missing.
+- **The put-back blocks in the notes** (pinned tables and the like) restore the old environment.
+  Bring them in line, see `obsitex-conventions.md`.
+- **Long tables** keep their caption above in any case (see "Long tables"); with "below" say so
+  in one sentence. In APA style a long table also stands flush left:
+  `\begin{longtable}[l]{%columnspec%}` in both of its templates, or it stands centred under a
+  caption flush left.
+- **Figures stay as they are:** `[table]` limits the APA line to tables.
+
+Measured 23.10.2026 through the converter and pdflatex: all three positions, the APA line in the
+preamble with a normal and a long table, a figure next to them, 0 errors, the List of Tables
+correct.
+
 Two tables sharing one caption get `_2`, `_3` on the label. Table labels live in their own
 pot, separate from figure labels: `tab:` and `fig:` are different namespaces in LaTeX.
 
