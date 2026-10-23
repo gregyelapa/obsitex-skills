@@ -3,7 +3,7 @@
 Finding the spot where the user's cursor stands in Obsidian, and writing there. For VS Code with
 the extension Obsitex for VS Code, see "The cursor in VS Code" below: there a file says it.
 
-> The marker rules (`TABLE HERE`, the short marker beside an element) are in
+> The marker rules (on a line of its own for a new element, beside an existing one) are in
 > `obsitex-conventions.md`, "Which element the user means: the marker". A marker wins over the
 > cursor. This file is the second way: for a request that names the cursor or the marked text
 > in Obsidian, and for when there is no marker.

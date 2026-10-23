@@ -377,8 +377,9 @@ but the files on disk. So a table with no stated position lands wherever you jud
 correct table in the wrong section still reads as a failure to the author.
 
 The standard way, and the one the Blueprints tool hands the user, is a **marker line**: the
-author types `TABLE HERE` on a line of its own at the spot they want. Write the table in
-place of that line and delete the line.
+author types their marker (`<<<` unless they changed it; the request names it) on a line of its
+own at the spot they want. Write the table in place of that line and delete the line. Until
+23.10.2026 the marker line read `TABLE HERE`; a request that still says so means the same.
 
 **Search the whole vault for the marker. Do not ask which file it is in.** The cards
 deliberately do not carry a file name: the author knows where they typed the marker, not

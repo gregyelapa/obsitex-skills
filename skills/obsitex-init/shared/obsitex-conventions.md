@@ -95,16 +95,19 @@ be asked for its cursor (`cursor.md`), but the marker comes first.
 say "where my cursor stands in Obsidian", "the table where my cursor stands in Obsidian" or "the text I selected in
 Obsidian". Then there is no marker: do not search for one, read the cursor (`cursor.md`).
 
-There are two, and they answer different questions:
+There is one marker, written by the user before asking, and the request says what it marks:
 
-| Marker | Question it answers | Written by the user |
-|---|---|---|
-| `TABLE HERE` on a line of its own | where a **new** element goes | before asking |
-| a short marker beside an element | which **existing** element is meant | before asking |
-| the same short marker inside a sentence | where something that sits **in running text** goes (a cross-reference) | before asking |
-| the same short marker twice, before and after a passage | which **text** is meant (to become a list, a quotation, a footnote) | before asking |
+| Where the marker stands | Question it answers |
+|---|---|
+| on a line of its own | where a **new** element goes (a table) |
+| beside an element | which **existing** element is meant |
+| inside a sentence | where something that sits **in running text** goes (a cross-reference) |
+| twice, before and after a passage | which **text** is meant (to become a list, a quotation, a footnote) |
 
-**The second marker is the user's own setting, and the prompt always names it.** The tool
+Until 23.10.2026 a new table had a marker of its own, the line `TABLE HERE`. A request that
+still says so means the same as the first row.
+
+**The marker is the user's own setting, and the prompt always names it.** The tool
 suggests `<<<`, but anyone can change it, so a prompt may say `@@@`, `yyy` or something
 else. Read the characters out of the request you were given. Never assume `<<<`.
 
@@ -121,8 +124,9 @@ element off what surrounds them:
 A marker inside a table cell means the table, not the cell. A marker on the line of an image
 means that figure, not the paragraph around it.
 
-**The request says which of the two it is.** "The table marked with `<<<`" means the element;
-"where the mark `<<<` stands in my text" means **that exact spot**: write the new text in place
+**The request says which one it is.** "The table marked with `<<<`" means the element;
+"where the mark `<<<` stands on a line of its own" means a **new** element goes in place of
+that line, and the line goes; "where the mark `<<<` stands in my text" means **that exact spot**: write the new text in place
 of the characters, keeping the spaces around them, so the sentence reads on. "The text between
 the two marks `<<<`" means **everything from the first to the second**, across lines and
 paragraphs if need be. The two are one pointer: delete both, and do not ask which one is meant.
