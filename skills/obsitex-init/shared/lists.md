@@ -63,7 +63,8 @@ package.**
 
 ## Traps
 
-All three were measured on 14.08.2026, not inferred.
+All measured, not inferred: the line and heading traps on 14.08.2026, the blank lines and
+numbers on 23.10.2026.
 
 **One item = one line.** A continued line without a list marker *is* appended to the item —
 but with a `\\` in front of it, the same forced break as in a paragraph:
@@ -75,19 +76,35 @@ and continues on this line
 
 The paragraph rule therefore applies inside lists too. Do not wrap items to a column width.
 
-**A blank line inside a list silently restarts the numbering.** It closes the list and opens
-a new one, and LaTeX numbers every `enumerate` from 1:
+**Blank lines and numbers: the PDF follows Obsidian's reading view** (since 23.10.2026, measured
+case by case against Obsidian's own renderer). Until then a blank line restarted the count; it
+no longer does. What holds now:
+
+- A blank line between two items does not end the list, however many blank lines there are.
+  `1. 2. ⏎⏎ 3. 4.` is one list from 1 to 4.
+- Two lists that both start at `1.`, with only blank lines between, are **one** list from 1 to
+  4, as in Obsidian. Two separate lists need text between them.
+- A numbered list starts at the number its first item carries. A paragraph between items
+  therefore does not reset the count when the next item says `3.`:
 
 ```markdown
 1. Alpha
 2. Beta
 
-3. Gamma          ← prints as 1., not 3.
+A paragraph between them.
+
+3. Gamma          ← prints as 3.
 4. Delta
 ```
 
-Nothing warns, and it compiles. If a numbered list must be interrupted by a paragraph, tell
-the user the count will restart.
+- A list goes on only with the same kind of marker: `- a ⏎⏎ * b` and `1. a ⏎⏎ 1) b` are two
+  lists, `1. a ⏎⏎ - b` too. A sub-item after a blank line (indented) stays a sub-item.
+
+**Two cases still differ (N100).** A paragraph indented under an item (`    text` after a blank
+line) belongs to that item in Obsidian but prints as an ordinary paragraph between the items;
+the numbers after it still run on. And a sub-list that starts at a number other than 1 right
+under an item line (`1. a ⏎    3. b`) is plain text in Obsidian but a sub-list in the PDF.
+Advise against both: put the paragraph into the item's own line, start a sub-list at 1.
 
 **A `#` heading directly under a list item is swallowed by the list** and does not become a
 heading. This is the one place where a blank line before a heading is still required.
