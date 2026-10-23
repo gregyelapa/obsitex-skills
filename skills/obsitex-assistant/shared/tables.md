@@ -555,13 +555,69 @@ errors, no "multiply defined" warnings.
   the footnote restriction under "Traps". It is already loaded in the standard preamble; check
   the author's own preamble all the same (see "Packages").
 
+## A table too wide for the page (since 23.10.2026)
+
+Obsidian fits a table to the window, the PDF does not: an ordinary column never wraps, so a
+table with long cells runs off the right edge of the page. Nothing warns. The Blueprints card
+"Make a wide table fit" (`wide-table`) names one of three ways, always for **one** table, the
+one the author marked (only the author sees which table runs off; you do not see the PDF):
+
+| The request says | What you write |
+|---|---|
+| let the columns with long text wrap | `tabularx` over the text width: the columns with long text become `>{\raggedright\arraybackslash}X`, the others keep their `l`/`c`/`r` |
+| put the table on a page of its own in landscape format | `\begin{landscape}` … `\end{landscape}` around the whole `table` environment (package `pdflscape`) |
+| shrink the whole table to the text width | `\resizebox{\textwidth}{!}{…}` around the `tabular` (package `graphicx`) |
+
+Each is a ` ```dds ` pair around that one table, built from this vault's own
+`tableEnvironmentText` (caption position, lines and the rest stay as they are). Examples from
+the template's environment:
+
+````markdown
+```dds
+{"tableEnvironmentText": "\\begin{table}[!htbp]\n    \\centering\n    \\begin{tabularx}{\\textwidth}{|l|>{\\raggedright\\arraybackslash}X|>{\\raggedright\\arraybackslash}X|r|}\n        %tablebody%\n    \\end{tabularx}\n    \\caption{%caption%}\n    \\label{tab:%label%}\n\\end{table}\n\n"}
+```
+````
+
+````markdown
+```dds
+{"tableEnvironmentText": "\\begin{landscape}\n\\begin{table}[!htbp]\n    \\centering\n    \\begin{tabular}{%columnspec%}\n        %tablebody%\n    \\end{tabular}\n    \\caption{%caption%}\n    \\label{tab:%label%}\n\\end{table}\n\\end{landscape}\n\n"}
+```
+````
+
+````markdown
+```dds
+{"tableEnvironmentText": "\\begin{table}[!htbp]\n    \\centering\n    \\resizebox{\\textwidth}{!}{\\begin{tabular}{%columnspec%}\n        %tablebody%\n    \\end{tabular}}\n    \\caption{%caption%}\n    \\label{tab:%label%}\n\\end{table}\n\n"}
+```
+````
+
+- **Wrapping writes the column spec by hand**, so `%columnspec%` is gone: one letter per column,
+  in the table's order, with `|` between them where the vault draws column lines. Which columns
+  wrap is your decision: the ones with the longest text. Name them in the closing line. A
+  `<br>` in such a table becomes a paragraph break, which an `X` column breaks as intended.
+- **A landscape page stands on its own.** The text before it ends its page, which can leave a
+  gap; say so in one sentence.
+- **A landscape page gives about half as much width again, not more.** A table wider than
+  that still runs into the margin, without an error (measured: the probe table still 1.9 cm too
+  wide, `Overfull \hbox (52pt too wide)` in the log). If the table is far too wide, say so and
+  offer wrapping instead.
+- **Shrinking makes the text small**, the more columns the smaller. Say so in one sentence,
+  and that wrapping keeps the size.
+- **A smaller font alone** (`\small`) was measured too and is not offered: in the probe table
+  it was not enough.
+- All three packages are in the templates' preamble; check the user's own preamble (see
+  "Packages").
+
+Measured 23.10.2026 through the converter and pdflatex with a four-column table that ran
+300pt (10.6 cm) off the page: wrapping and shrinking fit exactly, landscape left it 52pt too
+wide, `\small` 254pt; 0 errors in all of them. The log line `Overfull \hbox` is the only trace
+of a table that runs off.
+
 ## Traps
 
 - **A footnote inside a `tabular` cell is swallowed by LaTeX itself.** Not an Obsitex bug —
   put the remark before or after the table instead. `longtable` does not have this problem.
-- **Very wide tables overflow the text block.** LaTeX does not wrap them automatically. Set
-  `tableEnvironmentText` to a `tabularx` or `longtable` environment — both packages are
-  already loaded.
+- **Very wide tables overflow the text block** without a warning. The three ways out are in
+  "A table too wide for the page".
 - **Inline backticks cut both ways.** Their content goes to LaTeX unescaped. That is what
   makes `` `\rowcolor{gray!25}` `` work — and it is why `` `snake_case` `` or `` `a^b` ``
   in a cell breaks the build or silently turns into maths. Use backticks in a cell **only**
