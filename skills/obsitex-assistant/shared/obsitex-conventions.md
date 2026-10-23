@@ -215,10 +215,8 @@ These are the dangerous ones: Obsidian renders them, the PDF does not. Nothing w
 | `<https://example.com>` | the link works, but the angle brackets stay visible |
 | `*italic **bold** italic*` (nested emphasis) | unreliable — avoid |
 
-`<br>` is the one exception: it works **inside a table cell** and nowhere else — but only
-with a paragraph-column table template. With the default `l`/`c`/`r` columns the line break
-is dropped silently. Before promising a multi-line cell, read `tables.md`,
-"Multi-paragraph cells".
+`<br>` is the one exception: it works **inside a table cell** and nowhere else, in every
+table since 23.10.2026 (`tables.md`, "Line breaks inside a cell").
 
 **What to write instead, in each case: `not-supported.md`.** Do not improvise a replacement —
 `<sub>`/`<sup>` in particular have a correct answer that needs no package.
@@ -377,7 +375,7 @@ second `aufbau.png`) rather than relying on the link being rewritten.
 ## Block elements
 
 - Paragraphs, nested lists (`-` / `1.`), task lists (`- [ ]` / `- [x]`), GFM tables
-  (multi-paragraph cells via `<br>`, needs a `p{…}` column — `tables.md`)
+  (a line break in a cell via `<br>`, `tables.md`)
 - `> quote` → quote environment · `> [!note] Title` callout → shaded box
 - `---` / `***` / `___` alone on a line → horizontal rule (careful: `---` as the very
   first line of a file starts YAML frontmatter instead)

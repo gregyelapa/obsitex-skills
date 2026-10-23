@@ -30,9 +30,10 @@ Obsitex turns them into a LaTeX `tabular`.
 - The column count comes from the header row. Missing cells are filled in empty; extra
   cells are dropped.
 
-## Multi-paragraph cells
+## Line breaks inside a cell
 
-A cell cannot contain a blank line. To break a line inside a cell, use `<br>`:
+A cell cannot contain a blank line. To break a line inside a cell, use `<br>`, exactly as
+Obsidian shows it:
 
 ```markdown
 | Topic | Notes |
@@ -41,19 +42,22 @@ A cell cannot contain a blank line. To break a line inside a cell, use `<br>`:
 ```
 
 `<br>` is the **one** HTML tag that works here. Everywhere else in the document HTML tags
-land raw in the PDF — see `not-supported.md`.
+land raw in the PDF, see `not-supported.md`. `<br><br>` gives an empty line between the two,
+as in Obsidian.
 
-**It needs a paragraph column — the default template does not give you one.** Each `<br>`
-becomes a paragraph break in the `.tex`, and a paragraph break only breaks a line in a
-`p{…}` column. The standard `tableEnvironmentText` builds its columns from `%columnspec%`,
-which yields `l`/`c`/`r` — and an `l` cell is set in LR mode, where no line break is possible
-at all. **The break is then lost without any error**: TeX ignores the paragraph break in that
-mode, so both halves print on one line separated by a space, and the PDF looks merely wrong,
-not broken. Measured 15.08.2026 (probe vault, converter + pdflatex): `l`/`c`/`r` → one line ·
-`p{3cm}`/`p{6cm}` → two lines, as intended.
+**It works in every ordinary table, nothing else to do (since 23.10.2026).** The converter
+turns such a cell into a small table of its own, top-aligned, in the alignment of its column.
+No template change, no fixed widths, no package. Commands at the start of the cell (the marks
+`` `\rowcolor{…}` ``, `` `\midrule` ``, `` `\endhead` ``) still act on the row. Measured with a
+shaded heading row, three lines and a long table: 0 errors.
 
-So when a cell is meant to hold more than one line, **swap the environment for that table** —
-the same `dds` sandwich as everywhere else, with the reset after it:
+**Until 23.10.2026 the break was lost without a word** in ordinary columns: Obsidian showed two
+lines, the PDF one. A table that was switched to fixed `p{…}` columns back then for this reason
+alone can go back to the normal template now; offer it, do not do it unasked.
+
+**Fixed column widths are a separate wish:** a column whose long text should wrap within a set
+width. Then swap the environment for that table, the same `dds` sandwich as everywhere else,
+with the reset after it:
 
 ````markdown
 ```dds
@@ -61,10 +65,10 @@ the same `dds` sandwich as everywhere else, with the reset after it:
 ```
 ````
 
-The column widths are yours to choose, and the placeholder `%columnspec%` is deliberately
-gone — that is the whole point, the alignment markers cannot produce a `p` column. For a long
-table use `longtable` with `p{…}` columns the same way; it also lifts the footnote
-restriction under "Traps".
+Ask for the widths, or say which you took. `%columnspec%` is deliberately gone, the alignment
+markers cannot produce a `p` column. In such a table `<br>` becomes a paragraph break, which a
+`p` column breaks as intended. For a long table use `longtable` with `p{…}` columns the same
+way; it also lifts the footnote restriction under "Traps".
 
 ## What it produces
 
@@ -158,8 +162,9 @@ nothing warns.
 - **Shaded heading row:** `\rowcolor` stays in the first heading cell, `\midrule` goes into the
   first data cell. A thin white strip stays above and below the grey, because `booktabs` leaves
   room around its lines and the colour does not fill it. Say so in one sentence.
-- **Line break in a cell:** the `p{…}` environment from "Multi-paragraph cells", without the
-  `|` and with `\toprule` and `\bottomrule` added.
+- **Line break in a cell:** `<br>` works as everywhere (see "Line breaks inside a cell"). A table
+  with fixed `p{…}` columns takes that environment without the `|` and with `\toprule` and
+  `\bottomrule` added.
 - **Long table:** its own two templates and marks, see "Long tables". The heading row and both
   of its lines repeat on every page. The pages in between end without a line at the foot, which
   is usual for this look.
