@@ -196,8 +196,9 @@ nothing warns.
 
 A table is a **float**. LaTeX does not print it at the spot in the source; it looks for a place
 where the page breaks well. The author sees the table a page later, or at the top of the page
-above the very sentence that announces it, and reads that as a bug. It is not. Explain the
-mechanism before you change anything.
+above the very sentence that announces it, and reads that as a bug. It is not. When the author
+asks why, explain the mechanism before you change anything. When the request already names
+one of the three ways below, do it.
 
 The templates set `[!htbp]`. What the letters mean and why exactly this combination was chosen:
 `dds.md`, "Placement". Two facts settle most questions:
@@ -205,7 +206,34 @@ The templates set `[!htbp]`. What the letters mean and why exactly this combinat
 - **A float never travels backwards.** It moves down, or up to the top of the page it is
   already on, never to an earlier page.
 - **A bare `[h]` is the one to avoid.** LaTeX cannot honour it, silently rewrites it to `[ht]`
-  and warns once per float.
+  and warns once per float. `[h!]` is no way in between either: LaTeX makes it `[!ht]`, and
+  measured it came out exactly like `[!htbp]`.
+
+### Three ways, by request (since 24.10.2026)
+
+The Blueprints card "Choose where tables go in the PDF" (`table-placement`) names one of three
+ways, a scale of how much freedom LaTeX gets. Match the request to its row and write those
+letters, nothing else:
+
+| The request says | Letters | What it does (measured 24.10.2026) |
+|---|---|---|
+| exactly where I wrote it, even if that leaves a gap at the foot of a page | `[H]` | stays right after its text; a table that no longer fits jumps to the next page whole and leaves the rest of this one empty |
+| as close as possible to where I wrote it: right after its text if it fits there, otherwise at the next good spot, usually the top of the next page | `[!htbp]` | the templates' value; the text runs on, even past the next heading, and the table opens the next page |
+| for the optimal page layout, as typographers set it: at the top or bottom of a page or on a page of its own, never inside the text, even if that puts it further from its text or above its heading | `[tbp]` | LaTeX's own default: never inside the text; with room on the page it went to the top, above its own heading |
+
+Change only the letters in this vault's own `tableEnvironmentText` (`00 Document Setup.md`, or
+the last `dds` block above the table), character for character otherwise. By reach:
+
+- **One table:** a ` ```dds ` pair around it, the second block putting the value back (below).
+- **Every table in one file:** the same pair, the first block before the first table of the
+  file, the second after the last.
+- **Every table in the manuscript:** the value in `00 Document Setup.md`. Every table means
+  every table: pairs that set another placement for single tables go too (say how many), and
+  put-back blocks follow the new value (`obsitex-conventions.md`).
+
+If the request names the value the tables already have, change nothing and say so. `[tbp]` and
+`[!htbp]` need no package; `[H]` needs `float` (below). For `[tbp]`, say in one sentence that a
+table may now stand above its heading or a few pages on.
 
 **Nailing one table down.** `[H]` from the `float` package does not negotiate. It needs a
 ` ```dds ` block before the table and a **second one after it** putting `tableEnvironmentText`
