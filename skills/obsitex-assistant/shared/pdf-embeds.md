@@ -55,8 +55,8 @@ appeared (measured 15.08.2026). Saving the attachment and then stopping is the w
 ![[appendix.pdf|Declaration of Lima]]
 ```
 
-Same form as an image embed: the file must be in the vault, and the embed must stand **alone
-in its own paragraph**.
+Same form as an image embed: the file must be in the vault, and the embed must stand **on a
+line of its own** (text directly above or below is fine since 24.10.2026).
 
 **A caption after the pipe is parsed but usually thrown away.** It fills the `%caption%`
 placeholder of `pdfCmdText` — and the standard template is `\includepdf[pages=-]{%path%}`,

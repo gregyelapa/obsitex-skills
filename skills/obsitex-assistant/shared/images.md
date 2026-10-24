@@ -42,7 +42,11 @@ file by this command, and read back as the same picture.
 1. **Save into the scratchpad first**, never straight into the vault.
 2. **Read the saved file and confirm it is the image from the chat.** The clipboard is a shared
    surface and may well hold something else — a screenshot taken since, a copied cell. This step
-   is what separates "I read the clipboard" from "I have the right picture".
+   is what separates "I read the clipboard" from "I have the right picture". **The clipboard
+   holds what was copied last**, so the Blueprints card "Insert an image from the chat" tells the
+   user to paste the blueprint first and the image last. If the command answers `EMPTY` or the
+   file is not the chat image, the user most likely copied something after it (often the
+   blueprint): ask them to copy the image once more, then read again.
 3. **Find where attachments belong.** The setting alone does not answer this — ask three
    questions in order:
    1. Read `.obsidian/app.json` and take `attachmentFolderPath`. If it is set, that is the answer.
@@ -81,8 +85,10 @@ file by this command, and read back as the same picture.
    a fresh vault it tells you nothing at all.
 4. **Name the file after the intended caption**, extension `.png`. The caption also drives the
    `\label` (see "Referring to a figure" below).
-5. **Only now copy it into the vault and write the embed.** How to write the link — bare name or
-   path from the vault root — is in `obsitex-conventions.md`.
+5. **Only now copy it into the vault and write the embed** where the request says: where the
+   marker stands on a line of its own (it replaces the marker line), or at the cursor. Keep an
+   empty line above and below it, and use the caption the request names; never invent one. How
+   to write the link — bare name or path from the vault root — is in `obsitex-conventions.md`.
 
 ### Where this does not work
 
@@ -104,9 +110,12 @@ Obsidian and tell you the file name.
 ```
 
 - The Obsidian embed `![[figure.png]]` is the usual form; classic Markdown works too.
-- The image must stand **alone in its own paragraph**. A line directly above or below it,
-  with no blank line between, stops it being recognised.
-- Supported: PNG, JPG/JPEG. GIF/BMP/WEBP are treated as PNG.
+- The image must stand **on a line of its own**. Text directly above or below it is fine, and
+  so are two images on consecutive lines: each one becomes a figure (since 24.10.2026; before,
+  it needed a blank line above and below).
+- **Not inside** a sentence, a list item, a table cell, a callout, a quote or a footnote. A
+  figure cannot stand there, so the PDF shows the link as text (see "When no image appears").
+- Supported: PNG, JPG/JPEG. GIF/BMP/WEBP are treated as PNG. **SVG and AVIF are not.**
 
 ## Caption and size
 
@@ -129,6 +138,32 @@ width by default). The author therefore sees the image smaller in Obsidian than 
 **Say so** if they ask for a specific size, and change it where it actually lives: for one
 figure a ` ```dds ` block before it and a second one after putting the width back, for every
 figure the block in `00 Document Setup.md`.
+
+### Widths, by request (since 24.10.2026)
+
+The Blueprints card "Change how wide an image is" (`figure-size`) names one of four widths.
+Match the request to its row and write that width, nothing else:
+
+| The request says | Width in `figureEnvironmentText` |
+|---|---|
+| as wide as the text | `width=\textwidth` (the templates' value) |
+| three quarters as wide as the text | `width=0.75\textwidth` |
+| half as wide as the text | `width=0.5\textwidth` |
+| a third as wide as the text | `width=0.33\textwidth` |
+
+Change only the width in this vault's own `figureEnvironmentText` (`00 Document Setup.md`, or
+the last `dds` block above the image), character for character otherwise; inside the block the
+backslash is doubled (`width=0.5\\textwidth`). By reach:
+
+- **One image:** a ` ```dds ` pair around it, the second block putting the value back.
+- **Every image in one file:** the same pair, the first block before the first image of the
+  file, the second after the last.
+- **Every image in the manuscript:** the value in `00 Document Setup.md`; pairs that set
+  another width for single images go too (say how many), and put-back blocks follow the new
+  value.
+
+If the request names the width the images already have, change nothing and say so. Measured
+24.10.2026 through the converter and pdflatex: all four widths, 0 errors.
 
 ## What it produces
 
@@ -155,8 +190,8 @@ run. Two images may therefore share a caption; they get distinguishable labels
 A note can hold several figures, so a file name does not name one. A request that changes an
 existing figure therefore carries a marker: short characters **on the line of the image**,
 suggested as `<<<` but the user's own setting, and always spelled out in the request itself.
-The prompt says "the figure marked with `<<<`" without naming the spot, so search for the
-characters and take the figure on that line.
+The prompt says "the image marked with `<<<`" without naming the spot, so search for the
+characters and take the image on that line.
 Delete them in the same edit, even when the task fails, or they reach the PDF as text.
 
 The full rule, including what to do when the marker is missing or appears twice, is in
@@ -178,6 +213,25 @@ So when a user says an image jumped to another page, **check the size first**. M
 narrower (see "Caption and size" above) puts it back into the running text and costs nothing.
 Reach for `[H]` only when the picture is already small and still moves — pinning a page-high
 figure just leaves a bigger hole.
+
+### Three ways, by request (since 24.10.2026)
+
+The Blueprints card "Choose where images go in the PDF" (`figure-placement`) uses the same three
+sentences as the table card. Match the request to its row and write those letters in this
+vault's own `figureEnvironmentText`, nothing else. Reach, put-back blocks and "already set" work
+as for tables (`tables.md`, "Three ways, by request").
+
+| The request says | Letters |
+|---|---|
+| exactly where I wrote it, even if that leaves a gap at the foot of a page | `[H]` (needs `float`, see `tables.md`) |
+| as close as possible to where I wrote it: right after its text if it fits there, otherwise at the next good spot, usually the top of the next page | `[!htbp]`, the templates' value |
+| for the optimal page layout, as typographers set it: at the top or bottom of a page or on a page of its own, never inside the text, even if that puts it further from its text or above its heading | `[tbp]` |
+
+**Look at the size before you write any of them.** An image at full width that is nearly as
+high as it is wide lands on the next page with every way: measured 24.10.2026 with a square
+image, `[H]` left half a page empty, `[!htbp]` and `[tbp]` gave it a page of its own. Say so in
+one sentence and offer a smaller width ("Widths, by request"). A normal landscape image behaved
+like a table: right after its text with `[H]` and `[!htbp]`, on the next page with `[tbp]`.
 
 ## Referring to a figure
 
@@ -241,14 +295,23 @@ holds for `pdfCmdText` (PDF embeds) and the two bibliography fields.
 
 ## When no image appears
 
-Three silent failures, all without an error message:
+Obsidian shows the image, the PDF does not. Since 24.10.2026 Obsitex reports every case below
+after conversion, in the result banner of the app ("things worth a look"), with the note and
+the line, for example `Chapter 2.md (line 14)`. The PDF itself shows nothing to search for.
 
-- **A stray character at the end of the line** — one `]` too many and the line is no longer
-  recognised as an embed. It becomes ordinary text, and the caption is printed as body text.
-  No warning, because the result is valid LaTeX.
-- **The image is not alone in its paragraph** (see Syntax).
-- **The file does not exist in the vault** — Obsitex writes a LaTeX comment, invisible in the
-  PDF.
+| Warning | What the note has | What the PDF shows | Fix |
+|---|---|---|---|
+| 92881 | one `]` too many: `![[figure.png]]]` or `![Caption](figure.png)]`. Obsidian forgives it | the link as text | delete the extra `]` |
+| 92883 | the image inside a sentence, a list item, a table cell, a callout, a quote or a footnote | the link as text | move it to a line of its own |
+| 92884 | an SVG file | nothing, only a comment in the `.tex` | save it as PNG, embed the PNG |
+| 92885 | an image from a web address, `![](https://…)` | nothing, only a comment in the `.tex` | save the image into the vault, embed the file |
+| 92886 | a file that does not exist in the vault | nothing, only a comment in the `.tex` | check the name and the extension |
+
+For the Markdown form `![Caption](…)`, "the link as text" means only the caption. An embedded
+**note** (`![[Other note]]`) is not an image: it prints as text and is not reported.
+
+**One case gives no warning yet: an AVIF image** (`![[photo.avif]]`). Obsidian shows it, the
+PDF prints the link as text. Save it as PNG or JPG and embed that instead.
 
 ## Traps
 
@@ -259,5 +322,6 @@ Three silent failures, all without an error message:
   Flexplorer order. The author sees the right image in the preview and a different one in the
   PDF. Warning 92875 reports it after conversion, but the fix is to write the path from the
   vault root (`![[figures/logo.png]]`) or, better, to use distinct file names.
-- **No image mid-sentence.** Only block embeds are supported.
+- **No image inside running text, a list, a table or a callout.** Only an image on a line of
+  its own becomes a figure. Elsewhere it prints as text (warning 92883).
 - A pure attachments folder creates **no** heading of its own in the document.

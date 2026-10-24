@@ -348,6 +348,10 @@ Quotation forms, prenotes, locators and the `.bib` embed: `bibliography.md`.
   Obsidian therefore breaks wikilinks pointing to it: update all referencing links (and
   the Flexplorer `data.json` entry) in the same operation.
 - `![[image.png]]` → figure environment (per DDS) · `![[file.pdf]]` → embedded PDF pages
+- **An image becomes a figure only on a line of its own.** Text directly above or below is
+  fine. Inside a sentence, a list item, a table cell or a callout it prints as text. SVG and
+  images from a web address never reach the PDF. Each case is a warning with the line
+  (`images.md`, "When no image appears")
 
 ### How to write an attachment link
 
