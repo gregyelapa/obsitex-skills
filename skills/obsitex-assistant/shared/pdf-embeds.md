@@ -74,7 +74,11 @@ which has no `%caption%` in it. So the text silently disappears. Either leave it
 brackets — works the same way in every case: a ` ```dds ` block before the embed and a second
 one after it that puts the value back. `pdfCmdText` applies to every PDF in the document, so
 the second block is what keeps the change local. The pattern is written out under "Embedding
-landscape" below; a page range is the same sandwich with `pages=3-7` instead.
+landscape" below. **Some pages only** is the same sandwich with a range or a list in braces:
+`pages={3-7}`, `pages={1,4,9}`, also mixed `pages={1-3,7}`; the braces are needed as soon as
+there is a comma. It combines with the layout options below (`pages={1-3},nup=1x2,…`).
+Measured 24.10.2026 through the converter: a range, a list, and a range with two pages per
+page each brought exactly the pages named, 0 errors.
 
 **Prefer that over a raw ` ```latex ` block with the `\includepdf` line written out.** The raw
 block reaches the same PDF, but it costs the preview: Obsidian then shows LaTeX source where
@@ -121,15 +125,43 @@ all-portrait, mixed and rotated were each reported correctly.
 
 ### What to do with it
 
-| Measurement (after the rotation correction) | What you do |
+| The request, and the measurement (after the rotation correction) | What you do |
 |---|---|
-| every page landscape | embed landscape **without asking**, and say so in your closing message |
-| every page portrait | the standard — nothing to do, say nothing |
-| mixed, square, or not measurable | **ask**: portrait or landscape |
+| the request names a layout (the page, how many PDF pages on each, or both) | write it, see "Layouts, by request"; no question |
+| no layout named, every page portrait | the standard: nothing to do, say nothing |
+| no layout named, every page landscape, or mixed, square, not measurable | **ask** which layout, in one message: the page in the thesis (upright or turned) and how many PDF pages on each (one, two or four). Say in one sentence that the standard sets each wide page small on an upright page, and what reads well (measured: a landscape PDF reads well turned with one per page, or upright with two per page) |
 
-Landscape is the one case where acting unasked is right: the standard result is unusable, and
-the fix has no downside. Portrait needs no mention at all. Everything in between is a real
-choice and belongs to the user.
+**Never turn a PDF unasked** (since 24.10.2026, wish of the developer: an author may want the
+thesis upright, with two wide pages on each). Until then this table said to embed landscape
+without asking.
+
+### Layouts, by request (since 24.10.2026)
+
+The Blueprints cards "Add a PDF as an appendix" (`embed-pdf`) and "Change how an embedded PDF is
+laid out" (`pdf-layout`) carry two choices. Each clicked choice adds one sentence; match it to
+its row and write those options into the brackets of `\includepdf`, nothing else:
+
+| The request says | In the brackets of `\includepdf` |
+|---|---|
+| Use upright pages for it. | no `landscape` (the standard) |
+| Use pages turned to landscape for it. | `landscape=true` |
+| Put one PDF page on each page. | no `nup` (the standard) |
+| Put two PDF pages on each page. | `nup=1x2` on upright pages (one above the other), `nup=2x1` on turned pages (side by side), each with `delta=5mm 5mm` |
+| Put four PDF pages on each page. | `nup=2x2,delta=5mm 5mm` |
+
+- **Both sentences combine:** `\\includepdf[pages=-,nup=2x1,delta=5mm 5mm,landscape=true]{%path%}`
+  for turned pages with two on each (written as it stands in a `dds` block).
+- **Only one sentence:** the other side stays as the embed has it. A page range from "Embed only
+  some pages" stays too.
+- **Reach**, as everywhere: one embed, a ` ```dds ` pair around it; every embed in a file, the
+  first block before the first embed and the second after the last; every embed in the
+  manuscript, `pdfCmdText` in `00 Document Setup.md` (pairs for single embeds go, say how many).
+- **Say it when pages get small,** in one sentence: measured, a landscape PDF on upright pages
+  with one per page, a portrait PDF on turned pages with one per page, and four per page with
+  any PDF.
+
+Measured 24.10.2026 with a four-page landscape and a four-page portrait PDF: all six
+combinations, 0 errors; the layouts also through the converter with `dds` blocks.
 
 ### Embedding landscape
 
@@ -168,8 +200,9 @@ choice and belongs to the user.
   running headers and page numbers of the thesis do **not** apply to it. For a wide appendix
   that is usually what you want; if the user expects their header to continue, say that it
   will not.
-- **A PDF cannot be referenced.** Like tables, it gets no `\label`, so `\vref` cannot reach it
-  and it appears in no list. Only headings can be linked to.
+- **A PDF cannot be referenced.** An embed gets no `\label`, so `\vref` cannot reach it and it
+  appears in no list. Link to the heading above it instead. (Tables and figures with a caption
+  do get a label and can be linked to, see `tables.md` and `images.md`.)
 - **Two PDFs with the same file name in different folders** resolve differently in Obsidian and
   Obsitex — write the path from the vault root (`![[appendix/survey.pdf]]`). On export both are
   kept apart automatically so neither overwrites the other, but the *wrong one* may still be
