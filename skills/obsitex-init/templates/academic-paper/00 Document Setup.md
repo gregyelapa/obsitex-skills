@@ -55,7 +55,7 @@ with a leading % if you do not need it.
 % --- Hyperlinks and cross-references (load late; varioref before hyperref, cleveref last) ---
 \usepackage[english]{varioref} % smart page references used by Obsitex cross-references
 \usepackage[colorlinks=true, linkcolor=black, citecolor=black, urlcolor=blue, filecolor=black]{hyperref} % clickable links and references
-\usepackage[noabbrev,english]{cleveref} % cref inserts the label type (Figure, Section, ...) automatically
+\usepackage[noabbrev,capitalise,english]{cleveref} % cref inserts the label type (Figure, Section, ...) automatically; capitalise writes it with a capital everywhere, so a reference can start a sentence
 \urlstyle{same} % show URLs in the body font instead of monospace
 % --- Pagination quality ---
 \clubpenalty = 10000 % forbid a lone first line at the bottom of a page (orphan)

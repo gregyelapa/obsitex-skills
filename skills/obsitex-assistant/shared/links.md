@@ -39,15 +39,17 @@ reference — so several files with a `# Introduction` do not collide.
 
 ### What the reader actually sees — four parts, three packages
 
-A resolved reference prints something like this (measured 01.09.2026):
+A resolved reference prints something like this (measured 01.09.2026, capital since 24.10.2026):
 
 ```
-table 3 on the preceding page
+Table 3 on the preceding page
 ^^^^^ ^ ^^^^^^^^^^^^^^^^^^^^
 type  no      position
 ```
 
-1. **The type word** — from **`cleveref`**, not from `\vref`. "table", "figure", "section".
+1. **The type word** comes from **`cleveref`**, not from `\vref`: "Table", "Figure", "Section".
+   With a capital because the standard preamble gives `cleveref` the option `capitalise`; see
+   "Small or capital" below.
 2. **The number** — from the counter, and a counter is stepped by a **caption**. No caption,
    no number (see `tables.md`).
 3. **The position** — from **`varioref`**. It chooses between "on the preceding page",
@@ -62,6 +64,7 @@ loads `cleveref` **after** `varioref`, and cleveref rewrites `\vref`. Measured w
 |---|---|
 | `varioref` only | `1` |
 | `varioref` + `cleveref` | `table 1` |
+| `varioref` + `cleveref` with `capitalise` (the standard since 24.10.2026) | `Table 1` |
 | the same with `ngerman` | `Tabelle 1` |
 
 **Two things that matter for a thesis in another language.** Both are easy to get wrong and
@@ -69,10 +72,47 @@ neither produces an error:
 
 - **The language of the type word lives in the package options**, not in babel. Switching the
   document to German means `\usepackage[ngerman]{varioref}` **and**
-  `\usepackage[noabbrev,ngerman]{cleveref}`. Change babel alone and the text stays German
-  while every reference keeps saying "table".
+  `\usepackage[noabbrev,capitalise,ngerman]{cleveref}`. Change babel alone and the text stays
+  German while every reference keeps saying "Table". Keep `noabbrev` and `capitalise`; only the
+  language changes. In German `capitalise` changes nothing, because "Tabelle" has a capital
+  anyway.
 - **`noabbrev` is not decoration.** Without it cleveref abbreviates: "tab. 1" instead of
   "table 1". The standard preamble sets it.
+
+### Small or capital
+
+A reference cannot know whether it starts a sentence. Obsitex writes the same `\vref` for every
+link, and guessing a sentence start goes wrong ("vgl. [[…]]", "e.g. [[…]]"). So the case is one
+setting for the whole document, in the `cleveref` line of the preamble (measured 24.10.2026):
+
+| `cleveref` option | in a sentence | at the start of a sentence |
+|---|---|---|
+| with `capitalise` (standard since 24.10.2026) | as Table 1 shows | Table 1 shows |
+| without `capitalise` | as table 1 shows | table 1 shows (wrong) |
+
+A capital in running text is never wrong in English; APA asks for it. **Vaults made before
+24.10.2026 lack `capitalise`.** When a reference there starts a sentence, say that the PDF prints
+it small and offer to add `capitalise` to the `cleveref` line. Say in the same offer that it works
+for every reference in the document, so the ones in running text get a capital too ("as Table 1
+shows"). The user decides knowing that.
+
+**When the user wants small letters in running text** (Chicago style, for example): take
+`capitalise` out of the `cleveref` line. A reference at the start of a sentence then prints small.
+Say so, and offer this for each paragraph that starts with one: a `dds` block before the paragraph
+with `{"crossReferenceCmdText": "\\Vref{%labelref%}"}` and one after it with the standard
+`{"crossReferenceCmdText": "\\vref{%labelref%}"}`. **Every** reference in that paragraph is then
+written with a capital, not only the first; say that too. Two code blocks per paragraph show in
+the note.
+
+**Do not write the command out** (`` `\Vref{subsec:…}` `` in backticks) to reach one link alone.
+It works until the target moves: its name is built from the heading's level, the file and the
+heading. A renamed heading or file, or a heading one level deeper, prints "?? on page ??", and
+the PDF still builds without an error (measured 24.10.2026). A `[[…]]` link survives all of that.
+If the user insists, write it and say this.
+
+**When the user wants the reference without its page**: put
+`"crossReferenceCmdText": "\\cref{%labelref%}"` into the `dds` block of the document setup. Every
+reference then prints "Table 1" without "on the preceding page".
 
 **An appendix needs two lines after `\appendix`** (measured 07.10.2026). Without them a
 reference to an appendix says "chapter B" instead of "appendix B", in every class and every
