@@ -68,7 +68,8 @@ when they matter (measured 23.10.2026):
 - **A long point wraps in Obsidian, in the PDF only with fixed column widths.** In an ordinary
   table it stays on one line and the table runs off the page (see "Traps").
 - **Where it wraps, the second line starts under the bullet, not under the text**, in Obsidian
-  as in the PDF.
+  as in the PDF. In the PDF that can be changed when the author asks: "List points that line
+  up".
 - **No second level:** spaces at the start of a line are dropped, so `◦` cannot be indented.
 
 **Until 23.10.2026 the break was lost without a word** in ordinary columns: Obsidian showed two
@@ -611,6 +612,58 @@ Measured 23.10.2026 through the converter and pdflatex with a four-column table 
 300pt (10.6 cm) off the page: wrapping and shrinking fit exactly, landscape left it 52pt too
 wide, `\small` 254pt; 0 errors in all of them. The log line `Overfull \hbox` is the only trace
 of a table that runs off.
+
+## List points that line up (since 24.10.2026)
+
+Lines in a cell that start with a sign (`• First point<br>• Second point`, see "Line breaks
+inside a cell") read like a list. When a long point wraps in the PDF, its second line starts
+under the sign, not under the text. The Blueprints card "Indent list points in a table cell"
+(`table-list-indent`) asks for a hanging indent, for **one** table, the one the author marked.
+**The author names the signs** that start a point. Never decide that yourself: a line starting
+with `2.` may be a ranking, not a list point.
+
+In the cell, the sign of each list point and the space after it become one piece of code, and
+the text follows **straight after the closing backtick, without a space**:
+
+```markdown
+| Study | Methods |
+|:--|:--|
+| Smith | `\hangindent=1em\makebox[1em][l]{•}`An online survey of 1200 students<br>`\hangindent=1em\makebox[1em][l]{•}`Interviews with 24 lecturers |
+```
+
+- **Always exactly this form.** Only the sign and the width change, and both widths in it are
+  the same. A fixed form can be recognised and hidden by an editor later. Leave out
+  `\hangafter` (it is already 1 in every cell) and write no command of your own into the
+  preamble: the code in the cell is the lowest level that reaches, and the table stays
+  complete when it is copied into another project.
+- **The sign stays the author's**, character for character: `•` stays `•`, `-` stays `-`, `1.`
+  stays `1.`. Never renumber, never swap a sign for a nicer one. A sign that is a LaTeX special
+  character (`# $ % & _ { } ~ ^ \`) goes into the braces escaped, for example `{\#}`.
+- **No space after the closing backtick.** It would push the first line of the point one word
+  space to the right of its other lines.
+- **The width** follows the widest sign in the cell, and every point in that cell takes it, so
+  the texts line up. Another cell may have another width.
+
+  | Widest sign in the cell | Width |
+  |---|---|
+  | one symbol: `•` `-` `–` `*` | `1em` |
+  | two characters: `1.` to `9.`, `a)`, `A.` | `1.3em` |
+  | three characters: `10.` to `99.`, `(1)`, `iv.` | `1.8em` |
+  | four characters: `100.`, `(10)` | `2.3em` |
+
+  A wide capital (`M.`, `W)`) takes the next width; at `1.3em` it touches the text.
+- **Lines without a sign stay as they are**, for example an introduction above the points.
+- **It only acts where the column wraps:** an `X` column of a `tabularx` table (see "A table too
+  wide for the page", the first way) or a `p{…}` column, also in a `longtable`. If the column
+  with the points does not wrap yet, make it wrap first with that `dds` pair. In an ordinary
+  column the code does no harm, but nothing wraps there either.
+- **Say it in the closing line:** each point now starts with a piece of LaTeX, which the
+  editor shows as code. To take it back, replace each piece with its sign and one space.
+
+Measured 24.10.2026 through the converter and pdflatex: `•`, `-`, `–`, `*`, `1.` to `3.`, `9.`
+and `10.`, `a)`, `A.`, `M.`, `W)`, `(1)`, `iv.`, `100.`, `(10)` in `tabularx`, a `p{…}` column in a
+`longtable`, and an ordinary column; 0 errors, no `Overfull \hbox`, no indent leaking into the
+text after the table.
 
 ## Traps
 
