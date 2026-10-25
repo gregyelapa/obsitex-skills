@@ -75,8 +75,13 @@ described in words ("the fourth root of x plus one"). Write it so it shows right
 
 - **Only the formula goes between the `$`.** The words around it stay text. In a sentence it
   stays in the sentence (`$…$`); standing alone as its own paragraph it gets `$$…$$`.
-- **Described in words:** write the formula, then say in words what you wrote, so the user can
-  check it ("the fourth root of x + 1"). If the description allows two readings, ask first.
+- **Described in words: the formula replaces the words.** "the growth follows the fourth root of
+  the sum of x and one" becomes "the growth follows `$\sqrt[4]{x+1}$`"; the words "the fourth
+  root of the sum of" go. Found on the VM 25.10.2026 (TZ04): the words stayed and only `x + 1`
+  became a formula, while the report claimed a root. Then say in words what the formula now
+  says, so the user can check it, and make sure it matches what is in the note. If the
+  description allows two readings ("the fourth root of x plus one": of x + 1, or of x and then
+  plus 1), ask before you write.
 - `±`, `×`, `°`, `²`, `³` typed as text come out right; inside a formula write `\pm`,
   `\times`, `^{\circ}`.
 - The `$` rules above apply: no space after the opening `$` or before the closing one.
