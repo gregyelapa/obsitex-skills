@@ -75,10 +75,23 @@ six in one PDF without an error):
 that never breaks). Measured: a plain space `"« "` lets the line break between the mark and the
 word; `"«~"` is a full fixed space, too wide.
 
-Change **only these two keys**, for the whole document in `00 Document Setup.md`. A `dds` block
-lower down changes them again from there on; leave such blocks alone and name them.
+Change **only these two keys**. Where depends on the request:
 
-**Then list the marks typed by hand or pasted** in the manuscript (search for `“ ” „ « » ‘ ’ ‹ ›`).
+- **"in the whole PDF":** in `00 Document Setup.md`. A `dds` block lower down changes them again
+  from there on; leave such blocks alone and name them.
+- **"in the part I marked"** (since 25.10.2026, for example an English abstract in a German
+  thesis): a ` ```dds ` block with the two keys where the part begins, and a second one where it
+  ends that puts back the two values in force at the beginning (the last `dds` block above it
+  that sets them, else `00 Document Setup.md`), character for character. With no second marker,
+  the first block alone. Leave `00 Document Setup.md` as it is. How a part is found and where
+  its blocks stand: `obsitex-conventions.md`, "A part is not the document setup".
+
+**A part changes which marks print, not which `"` opens.** The count runs on across the part,
+so the pairs inside it must be complete as everywhere. Measured 25.10.2026 through the converter
+and pdflatex: a German document („…“), a part across two notes set to English, “why” and “done”
+inside, „ja“ before and „wieso“ after, 0 errors.
+
+**Then list the marks typed by hand or pasted** in the manuscript, or for a part only inside it (search for `“ ” „ « » ‘ ’ ‹ ›`).
 They do not follow the setting. Leave out an apostrophe, a `’` between two letters (`don’t`).
 Ask before you change them. On a yes, turn an outer pair into straight `"…"`, so it follows the
 setting from now on (one pair for one pair keeps the count even), and an inner pair into the

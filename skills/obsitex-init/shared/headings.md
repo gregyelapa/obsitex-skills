@@ -269,6 +269,13 @@ section level emits `\addchap` / `\addsec` — unnumbered, ToC entry, running he
 **In the front matter no attribute is needed:** chapters between `\frontmatter` and
 `\mainmatter` are unnumbered with a ToC entry automatically.
 
+**"Every heading in the part I marked"** (the Blueprints card "Make a heading unnumbered", since
+25.10.2026, for example a preface and acknowledgements in one go) means the attribute on every
+`#` line from the first marker to the second, or to the end of the manuscript without a second
+one (`obsitex-conventions.md`), subheadings inside the part included. The question about
+subheadings then only concerns those that follow the part's end. Name the headings in your
+closing line.
+
 **Two side effects to report whenever a heading loses its number** — neither gives an error or
 a warning:
 

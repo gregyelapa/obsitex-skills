@@ -153,9 +153,10 @@ its row and write those options into the brackets of `\includepdf`, nothing else
   for turned pages with two on each (written as it stands in a `dds` block).
 - **Only one sentence:** the other side stays as the embed has it. A page range from "Embed only
   some pages" stays too.
-- **Reach**, as everywhere: one embed, a ` ```dds ` pair around it; every embed in a file, the
-  first block before the first embed and the second after the last; every embed in the
-  manuscript, `pdfCmdText` in `00 Document Setup.md` (pairs for single embeds go, say how many).
+- **Reach**, as everywhere: one embed, a ` ```dds ` pair around it; every embed in the part I
+  marked, the first block where the part begins and the second where it ends (with no second
+  marker, the first block alone); every embed in the manuscript, `pdfCmdText` in
+  `00 Document Setup.md` (pairs for single embeds go, say how many).
 - **Say it when pages get small,** in one sentence: measured, a landscape PDF on upright pages
   with one per page, a portrait PDF on turned pages with one per page, and four per page with
   any PDF.

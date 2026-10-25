@@ -156,8 +156,9 @@ the last `dds` block above the image), character for character otherwise; inside
 backslash is doubled (`width=0.5\\textwidth`). By reach:
 
 - **One image:** a ` ```dds ` pair around it, the second block putting the value back.
-- **Every image in one file:** the same pair, the first block before the first image of the
-  file, the second after the last.
+- **Every image in the part I marked:** the same pair, the first block where the part begins,
+  the second where it ends; with no second marker, the first block alone
+  (`obsitex-conventions.md`, "A part is not the document setup").
 - **Every image in the manuscript:** the value in `00 Document Setup.md`; pairs that set
   another width for single images go too (say how many), and put-back blocks follow the new
   value.
@@ -188,15 +189,22 @@ run. Two images may therefore share a caption; they get distinguishable labels
 ## Which figure the user means
 
 A note can hold several figures, so a file name does not name one. A request that changes an
-existing figure therefore carries a marker: short characters **on the line of the image**,
-suggested as `<<<` but the user's own setting, and always spelled out in the request itself.
-The prompt says "the image marked with `<<<`" without naming the spot, so search for the
-characters and take the image on that line.
-Delete them in the same edit, even when the task fails, or they reach the PDF as text.
+existing figure therefore carries a marker: short characters **on the line right below the
+image** (what the Blueprints cards ask for since 25.10.2026) or **at the end of the image's
+line** (what they asked for before), suggested as `<<<` but the user's own setting, and always
+spelled out in the request itself. The prompt says "the image marked with `<<<`" without naming
+the spot, so search for the characters and take the image on that line, or on the line right
+above it. Delete them in the same edit, even when the task fails, or they reach the PDF as
+text. Deleting a marker line below the image removes the whole line, so no empty line is left
+inside the paragraph.
+
+**Why below:** at the end of an image's line Obsidian shows no cursor, so the user cannot see
+where they type (found by the developer, 25.10.2026). The line below is free, because the
+caption of an image sits inside its link (`![[img.png|Caption]]`), never on a line of its own.
 
 The full rule, including what to do when the marker is missing or appears twice, is in
 `obsitex-conventions.md`, "Which element the user means: the marker". The same request also
-says how far the change reaches: this one figure, every figure in the file, or the default
+says how far the change reaches: this one figure, every figure in a part, or the default
 width for the whole document, which is a `dds` setting rather than a change at the image.
 
 ## Placement: why a figure moves

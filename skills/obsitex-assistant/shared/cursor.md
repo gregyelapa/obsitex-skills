@@ -3,7 +3,8 @@
 Finding the spot where the user's cursor stands in Obsidian, and writing there. For VS Code with
 the extension Obsitex for VS Code, see "The cursor in VS Code" below: there a file says it.
 
-> The marker rules (on a line of its own for a new element, beside an existing one) are in
+> The marker rules (on a line of its own for a new element; in a cell, below an image or an
+> embedded PDF, or on a heading for an existing one) are in
 > `obsitex-conventions.md`, "Which element the user means: the marker". A marker wins over the
 > cursor. This file is the second way: for a request that names the cursor or the marked text
 > in Obsidian, and for when there is no marker.
@@ -121,8 +122,11 @@ fails with another path, stop, say so, and fall back to asking.
 |---|---|---|
 | `line 0, ch 0` | very often **not a click**: the position after Obsidian (re)started or opened the file | ask, and name the file |
 | `selection`, and the request is about marked text | the text the user means | work on it, step 3b |
+| `selection`, and the request says "the part I selected" | the part a change applies to | it begins and ends with the selection; for a setting, the first `dds` block goes before the block where the selection starts, the second after the block where it ends (`obsitex-conventions.md`, "A part is not the document setup") |
+| no `selection`, and the request says "the part I selected" | the part runs from the cursor to the end of the manuscript, as the request says | one `dds` block before the block the cursor stands in, nothing to put back; say so in the closing line |
 | `selection`, and the request wants something **inserted** | the user marked text, but nothing said what for | ask whether to insert there or to replace the marked text |
 | `table`, and the request is about an existing table | the table the user means | edit that table in the file, see "Changing the element at the cursor" |
+| the cursor on an image's or an embedded PDF's line, or on the line right below it, and the request is about an existing image or embedded PDF | that element (the cards ask for the line below since 25.10.2026, because Obsidian shows no cursor beside an embed) | edit that element |
 | `table`, and the request wants something **inserted** | the cursor stands inside a table, where nothing new can go | ask, and name the table |
 | no `selection`, and the request names marked text | the user did not mark anything, or clicked after marking | ask them to mark it again, then repeat step 1 |
 | a file outside the manuscript (notes, templates) | probably not where the text belongs | ask |

@@ -170,7 +170,7 @@ Measured 23.10.2026 through the converter and pdflatex: 0 errors.
 | The request | The three values | The mark |
 |---|---|---|
 | one table | a block before it, a block after it | in that table |
-| every table in one file | a block before the first table, a block after the last | in every table between the two blocks |
+| every table in the part I marked | a block where the part begins, a block where it ends (one block if it runs to the end) | in every table of the part |
 | every table in the document | in `00 Document Setup.md`, no blocks | in every table of the manuscript, **and in every table written from then on** (see "Fixed, in all three ways") |
 
 **Leaving three lines means removing every mark** in the tables concerned, in the same edit. A
@@ -225,8 +225,9 @@ Change only the letters in this vault's own `tableEnvironmentText` (`00 Document
 the last `dds` block above the table), character for character otherwise. By reach:
 
 - **One table:** a ` ```dds ` pair around it, the second block putting the value back (below).
-- **Every table in one file:** the same pair, the first block before the first table of the
-  file, the second after the last.
+- **Every table in the part I marked:** the same pair, the first block where the part begins,
+  the second where it ends; with no second marker, the first block alone
+  (`obsitex-conventions.md`, "A part is not the document setup").
 - **Every table in the manuscript:** the value in `00 Document Setup.md`. Every table means
   every table: pairs that set another placement for single tables go too (say how many), and
   put-back blocks follow the new value (`obsitex-conventions.md`).
@@ -317,7 +318,7 @@ Measured 23.10.2026, all four 0 errors, the column lines stay visible.
 | The request | Where |
 |---|---|
 | one table | the mark `` `\rowcolor{…}` `` at the start of its first heading cell |
-| every table in one file | the same mark in every table of that file, no ` ```dds ` block |
+| every table in the part I marked | the same mark in every table of the part, no ` ```dds ` block |
 | every table in the document | **no marks:** `\rowcolor{…}` in `tableEnvironmentText` of `00 Document Setup.md`, right before `%tablebody%` (after `\toprule` where tables have three lines). Every table, and every table written later, gets the colour by itself |
 
 For the whole document, the setting looks like this (the template's own environment with one

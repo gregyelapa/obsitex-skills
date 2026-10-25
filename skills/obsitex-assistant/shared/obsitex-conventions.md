@@ -92,8 +92,10 @@ app solves this with markers, and the prompts it hands out carry them. A running
 be asked for its cursor (`cursor.md`), but the marker comes first.
 
 **Unless the request points with Obsidian instead.** The same tool can hand out prompts that
-say "where my cursor stands in Obsidian", "the table where my cursor stands in Obsidian" or "the text I selected in
-Obsidian". Then there is no marker: do not search for one, read the cursor (`cursor.md`).
+say "where my cursor stands in Obsidian", "the table where my cursor stands in Obsidian", "the text I selected in
+Obsidian" or "the part I selected in Obsidian". Then there is no marker: do not search for one, read the cursor
+(`cursor.md`). "The part I selected" with nothing selected runs from the cursor to the end of the manuscript, as
+the request says.
 
 There is one marker, written by the user before asking, and the request says what it marks:
 
@@ -103,6 +105,7 @@ There is one marker, written by the user before asking, and the request says wha
 | beside an element | which **existing** element is meant |
 | inside a sentence | where something that sits **in running text** goes (a cross-reference) |
 | twice, before and after a passage | which **text** is meant (to become a list, a quotation, a footnote) |
+| where a part begins, and again where it ends (the second may be missing) | which **part** of the manuscript a change applies to (see "A part" below) |
 
 Until 23.10.2026 a new table had a marker of its own, the line `TABLE HERE`. A request that
 still says so means the same as the first row.
@@ -116,13 +119,19 @@ else. Read the characters out of the request you were given. Never assume `<<<`.
 element off what surrounds them:
 
 - a table: inside any **cell**, which leaves the row and the column count intact
-- an image, an embedded PDF, a quotation: on **its line**
+- an image, an embedded PDF: on **the line right below it**, or at the end of its own line.
+  The Blueprints cards ask for the line below since 25.10.2026: in Obsidian nothing can be
+  typed beside an embedded PDF, and at the end of an image's line the cursor does not show.
+  The line below is free, because the caption of both sits inside the link. A marker on a
+  line of its own right below an embed therefore means that embed, not a spot for a new one,
+  whenever the request says "marked with". Delete the whole marker line
+- a quotation: on **its line**
 - a heading: on **its line**, or anywhere in the text below it, up to the next heading. A
   marker in a paragraph means the heading above it. That is no reason to ask.
 - a list: in one of its **items**
 
-A marker inside a table cell means the table, not the cell. A marker on the line of an image
-means that figure, not the paragraph around it.
+A marker inside a table cell means the table, not the cell. A marker on the line of an image,
+or on the line right below it, means that figure, not the paragraph around it.
 
 **The request says which one it is.** "The table marked with `<<<`" means the element;
 "where the mark `<<<` stands on a line of its own" means a **new** element goes in place of
@@ -130,6 +139,13 @@ that line, and the line goes; "where the mark `<<<` stands in my text" means **t
 of the characters, keeping the spaces around them, so the sentence reads on. "The text between
 the two marks `<<<`" means **everything from the first to the second**, across lines and
 paragraphs if need be. The two are one pointer: delete both, and do not ask which one is meant.
+"In the part I marked" (with "The part runs from the first mark `<<<` to the second, or to the
+end of the manuscript if there is no second one") means **everything from the first marker to
+the second**, across notes in the file order if need be, and with only one marker **from there
+to the end of the manuscript**. Delete the markers, and say in your closing line where the part
+begins and where it ends (the note and the words around each end, or "the end of the
+manuscript"). A forgotten second marker changes more than was meant, and that line is where
+the user sees it.
 
 **Four rules, and they do not change with the element:**
 
@@ -144,19 +160,26 @@ paragraphs if need be. The two are one pointer: delete both, and do not ask whic
    that spot in the question.
 4. **More than one marker? Ask which one**, the same way. When the request says "between the
    two marks", a pair is expected and counts as one. Ask only if there are more or fewer than two.
+   For "the part I marked", one marker or two are expected; ask only if there are more than two.
 
-**The reach of a change is in the prompt too, and it stands at the front.** The same tool has
-a switch for how far a change goes, so a request opens with "the table marked with `<<<` …",
-"every figure in `<FILE NAME>` …" or "every table …". Take that opening literally: it is a
+**The reach of a change is in the prompt too, and it stands at the front.** Each card of the
+tool asks where a change applies, so a request opens with "the table marked with `<<<` …",
+"every table in the part I marked …" or "every table …". Take that opening literally: it is a
 decision the user made before sending, not a guess to second-guess. **Where a card can mean a
 single element, the sentence before it never says "every" or "all"** — so a plural in the
-opening really does mean the whole manuscript.
+opening really does mean the part or the whole manuscript, as it says.
 
-**"Every table in this file" is not the document setup.** A file-wide change of a setting is a
-` ```dds ` block at the top of that file plus a second one at the end that puts the value back,
-exactly as for a single element, only wider. A change made by a mark inside each element (a
-shaded heading row, see `tables.md`) needs no block: it goes into every element of the file. Touch `00 Document Setup.md` when, and only when, the request says
-the whole document.
+**A part is not the document setup.** A change of a setting for a part is a ` ```dds ` block
+where the part begins plus a second one where it ends that puts the value back, exactly as for a
+single element, only wider. A block stands on a line of its own between two blocks of a note: a
+marker inside a paragraph puts it before that paragraph (the beginning) or after it (the end).
+The part may run over several notes in the file order; the two blocks then stand in different
+notes, and the notes between them need nothing, because a block holds on into the next note.
+With only one marker the part runs to the end: one block, nothing to put back. A change made by
+a mark inside each element (a shaded heading row, see `tables.md`) needs no block: it goes into
+every element of the part. Touch `00 Document Setup.md` when, and only when, the request says
+the whole document. A request written before 25.10.2026 may still say "every table in
+`<FILE NAME>`": that is a part from the top of that note to its end.
 
 **A change for the whole document also has to reach the blocks that put a value back.** Earlier
 changes for one element left ` ```dds ` pairs in the notes (a pinned table, a long table, one
