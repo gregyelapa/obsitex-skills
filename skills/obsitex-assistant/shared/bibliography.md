@@ -161,6 +161,8 @@ card "Cite a source" does that.
 - Under APA, check the two cases in "APA: titles in the `.bib`" above.
 - Tell the user, for each source, its key and that it is cited as `[@key]`, or with the card
   "Cite a source" by author and year.
+- **A stored source is not in the PDF yet.** The list of references prints only the sources the
+  text cites (measured 25.10.2026, TQ03). Say so; do not promise that it "will appear in the list".
 
 ## Traps
 

@@ -56,6 +56,36 @@ A formula also ends at the end of the line at the latest. "costs $5, plus $10" s
 text because of rule 3. **Obsitex behaves exactly like Obsidian here** — what the author sees
 as a formula in the preview becomes one in the PDF. To be certain, write `\$`.
 
+## Turning text into a formula, by request
+
+The card "Turn text into a formula" marks a passage that holds a formula, a unit or a symbol:
+typed as plain text (`H2O`, `m2`, `10^6`), pasted from Word (`𝑦 = 𝑎 + 𝑏𝑥`, `α ≤ 0.05`) or
+described in words ("the fourth root of x plus one"). Write it so it shows right in Obsidian
+**and** in the PDF. Measured 25.10.2026, all of these in one PDF without an error:
+
+| What it is | Write | Why |
+|---|---|---|
+| Chemical formula | `$\mathrm{H_2O}$`, `$\mathrm{CO_2}$` | `\mathrm` keeps the letters upright; plain `$H_2O$` sets them slanted like variables |
+| Unit | `m$^2$`, `m$^3$` | only the exponent is a formula, the unit stays text |
+| Power of ten | `10$^6$`, `10$^{-3}$`, `2.5 $\times$ 10$^{6}$` | more than one character after `^` or `_` needs braces |
+| Variable with an index | `$x_1$`, `$x_n$` | slanted is right for variables |
+| Greek letter, sign | `$\alpha$`, `$\le$`, `$\sqrt{2}$`, `$\sqrt[4]{x+1}$` | typed, they go missing in the PDF (`not-supported.md`) |
+| Formula pasted from Word | rewrite it with plain letters, `$y = a + bx$` | Word's slanted letters (`𝑦`, U+1D466) go missing |
+| A whole equation standing alone | `$$\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i$$`, a blank line before and after | centred on a line of its own |
+
+- **Only the formula goes between the `$`.** The words around it stay text. In a sentence it
+  stays in the sentence (`$…$`); standing alone as its own paragraph it gets `$$…$$`.
+- **Described in words:** write the formula, then say in words what you wrote, so the user can
+  check it ("the fourth root of x + 1"). If the description allows two readings, ask first.
+- `±`, `×`, `°`, `²`, `³` typed as text come out right; inside a formula write `\pm`,
+  `\times`, `^{\circ}`.
+- The `$` rules above apply: no space after the opening `$` or before the closing one.
+- A formula on its own line gets **no number** like "(1)", and a link cannot point at it.
+
+Obsidian shows the formula set when the cursor is outside it, and the LaTeX while the cursor is
+in it. The backtick form `` H`\textsubscript{2}`O `` also comes out right in the PDF, but Obsidian
+shows it as code; use it only where a formula is not wanted.
+
 ## The backtick trap — read this before using backticks
 
 **Inline backticks are NOT monospace text. Their content is passed to LaTeX raw.**

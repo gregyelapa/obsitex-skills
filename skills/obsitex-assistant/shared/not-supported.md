@@ -14,16 +14,34 @@ printed as visible text — `H<sub>2</sub>O` appears literally in the PDF.
 
 | Written | Write instead |
 |---|---|
-| `<sub>2</sub>` | `` `\textsubscript{2}` `` — core LaTeX, no package |
-| `<sup>2</sup>` | `` `\textsuperscript{2}` `` |
+| `H<sub>2</sub>O` | `$\mathrm{H_2O}$` (a formula, `text-formatting.md`) |
+| `m<sup>2</sup>` | `m$^2$` |
 | `<b>`, `<i>` | `**bold**`, `*italic*` |
 | `<mark>` | `==highlight==` |
 | `<center>` | a raw block with `\begin{center}…\end{center}` |
 | `<br>` in body text | a real line break (a newline **is** a `\\`) or a new paragraph |
 
 Subscripts and superscripts are the painful ones: Markdown has **no** other syntax for them,
-and a scientific thesis cannot avoid them — formulas, units, exponents. The backtick form is
-the answer, and it needs no preamble change.
+and a scientific thesis cannot avoid them: formulas, units, exponents. **A formula is the
+answer** (`text-formatting.md`, "Turning text into a formula"): it shows right in Obsidian and in
+the PDF and needs no preamble change. The backtick form `` `\textsubscript{2}` `` works in the
+PDF too, but Obsidian shows it as code.
+
+## Typed characters that go missing
+
+Characters that Obsidian shows but the PDF's font does not have. LaTeX stops with "Unicode
+character … not set up for use with LaTeX", the PDF is still built, and the character is simply
+gone (measured 25.10.2026):
+
+| Goes missing | Comes out right |
+|---|---|
+| `₀`…`₉` (`H₂O` becomes "HO"), `⁰` and `⁴`…`⁹` (`10⁶` becomes "10") | `¹ ² ³` |
+| Greek letters `α β …` | `± × °` |
+| Signs such as `≤ √` | |
+| Word's slanted formula letters `𝑦 𝑎 𝑏 𝑥` (a pasted equation becomes " = +") | |
+
+Write them as a formula (`$\mathrm{H_2O}$`, `10$^6$`, `$\alpha$`, `$\le$`). The check before
+converting reports them under special characters.
 
 ## Setext headings
 

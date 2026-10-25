@@ -56,6 +56,51 @@ no warning, no list of them.
 (`obsitex-assistant/SKILL.md`, "Hard rules"): type the straight `"`, unless the file already
 carries typed characters, in which case match what is there.
 
+## Quotation styles, by request
+
+The card "Change the quotation marks" names one of six styles. Each is quoted here word for
+word, with the two keys of the `dds` block in `00 Document Setup.md` (measured 25.10.2026, all
+six in one PDF without an error):
+
+| The prompt wants … quotation marks | `openingQuotationMark` | `closingQuotationMark` | In the PDF |
+|---|---|---|---|
+| "English “…”" | `“` | `”` | “text” (the template's standard) |
+| "British ‘…’" | `‘` | `’` | ‘text’ |
+| "German „…“" | `„` | `“` | „text“ (what `obsitex-init` sets for German) |
+| "German book-style »…«" | `»` | `«` | »text« |
+| "Swiss «…»" | `«` | `»` | «text» |
+| "French « … »" | `«\\,` | `\\,»` | « text », with a narrow fixed space inside |
+
+**French needs the space in the value**, written as `\\,` in the JSON (LaTeX `\,`, a thin space
+that never breaks). Measured: a plain space `"« "` lets the line break between the mark and the
+word; `"«~"` is a full fixed space, too wide.
+
+Change **only these two keys**, for the whole document in `00 Document Setup.md`. A `dds` block
+lower down changes them again from there on; leave such blocks alone and name them.
+
+**Then list the marks typed by hand or pasted** in the manuscript (search for `“ ” „ « » ‘ ’ ‹ ›`).
+They do not follow the setting. Leave out an apostrophe, a `’` between two letters (`don’t`).
+Ask before you change them. On a yes, turn an outer pair into straight `"…"`, so it follows the
+setting from now on (one pair for one pair keeps the count even), and an inner pair into the
+inner marks of the new style (the table in the next section; British inner is `“…”`, German
+book style inner `›…‹`, for French ask).
+
+## Finding a stray mark (point 9 of the check before converting)
+
+A `"` left over compiles **without an error** and turns every quotation after it the wrong way
+round, in the following notes too, to the end of the document (measured 25.10.2026: after one
+missing mark, “yes” printed as ”yes“, and the next chapter's “efficient” as ”efficient“).
+
+- **Count the straight `"` in the body text of each note.** An odd number means one is left
+  over. A `"` inside backticks or a code block does not count (measured: the quotations after
+  `` `\textbf{"}` `` stayed right).
+- **Find the spot:** the first quotation that would come out the wrong way round, or a `"` that
+  opens and is never closed in its paragraph. Name it with its line, and the nearest fix: add the
+  missing mark, or remove the stray one.
+- **Also list marks typed by hand or pasted** (`“ ” „ « » ‘ ’`, not an apostrophe between two
+  letters). They do not follow the setting; offer to turn them into straight `"`.
+- The check changes nothing. Fixing is the next request.
+
 ## Nested quotes — the mixed form
 
 **Obsitex cannot detect nesting**, because a straight `"` looks identical at both ends and
