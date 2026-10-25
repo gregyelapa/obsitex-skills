@@ -119,15 +119,16 @@ document, **inside** the brackets: `cf.` in English, `vgl.` in German. `[cf. @mu
 → `\cite[cf.][14]{mueller2024}`. The text **before** the `@` becomes the prenote, and **there
 must be a space between the prenote and the `@`**.
 
-**Which source.** The prompt names it loosely ("Müller 2024") or pastes the full reference. Read
-the `.bib` the vault embeds and find the entry by author and year, or by title. Use its key. Not
-there: with a full reference, add the entry first ("Adding sources" below) and say so; with only
-author and year, ask for the full reference. **Never invent a key or an entry.**
+**Which source.** The prompt names it loosely ("Müller 2024"), pastes the full reference or
+gives a DOI. Read the `.bib` the vault embeds and find the entry by author and year, by title or
+by DOI. Use its key. Not there: with a full reference or a DOI, add the entry first ("Adding
+sources" below, a DOI is looked up) and say so; with only author and year, ask for the full
+reference. **Never invent a key or an entry.**
 
 ## Adding sources
 
 The card "Add sources to the bibliography" pastes one or more references, in any form: APA, a
-library entry, a DOI, a BibTeX entry, a reading list. It only stores them. **Cite nothing**; the
+library entry, a BibTeX entry, a reading list, or only DOIs. It only stores them. **Cite nothing**; the
 card "Cite a source" does that.
 
 - Write each source as an entry into the `.bib` the vault embeds (`![[refs.bib]]`), with the
@@ -136,7 +137,27 @@ card "Cite a source" does that.
   (`mueller2024`). A second work by the same author in the same year gets `a`, `b`.
 - **Already there** (same title, or same DOI): say so and keep the existing entry and key.
 - **Only what the reference says.** A field it does not give stays out. Never add a page range,
-  a publisher or a DOI from memory.
+  a publisher or a DOI from memory. **A DOI is the exception** (next point).
+- **A DOI: look it up.** When a reference carries a DOI (`10.…`, also as `https://doi.org/…`),
+  or is only a DOI, ask doi.org for the entry. The data then comes from the agency that issued
+  the DOI, not from memory (measured 25.10.2026):
+
+  ```
+  curl -sL -H "Accept: application/x-bibtex" https://doi.org/10.1038/nature14539
+  Invoke-RestMethod -Uri https://doi.org/10.1038/nature14539 -Headers @{Accept = "application/x-bibtex"}
+  ```
+
+  The answer is a BibTeX entry. Take its fields, then fit it to the vault: the key in the
+  vault's pattern (`LeCun_2015` → `lecun2015`), page ranges with two hyphens (`436–444` →
+  `436--444`). **Leave out three fields** the list of references would print (measured
+  25.10.2026 with a PLOS article): a `url` that only repeats the DOI ("url: http://dx.doi.org/…"
+  beside "doi: …"), the `ISSN` ("issn: 1932-6203"), and in an `@article` the `editor`, which is
+  the journal's handling editor and prints as "Ed. by Raymond Niaura". Where the pasted text and
+  the answer differ, keep the answer and name the difference. A DOI tool from an MCP server, if the
+  user has one, does the same and may be used instead.
+- **The lookup fails** (no internet, or doi.org answers "Not Found"): say so. Use only what the
+  pasted text gives, keep the DOI as given and tell the user to check it. Was it only a DOI, ask
+  for the full reference.
 - Under APA, check the two cases in "APA: titles in the `.bib`" above.
 - Tell the user, for each source, its key and that it is cited as `[@key]`, or with the card
   "Cite a source" by author and year.
