@@ -2288,9 +2288,14 @@ The steps for copying and adapting:
      | Answer | biblatex option | Extra line — **required** |
      |---|---|---|
      | numeric (default) — "Numbers [1, p. 12]" | `style=numeric-comp` | none |
-     | APA — "APA (Meier, 2020, p. 12)" | `style=apa` | `\let\cite\parencite % APA: source in parentheses` |
-     | verbose — "Footnotes" | `style=verbose` | `\let\cite\footcite % verbose: source in a footnote` |
-     | *on request:* author–year, Harvard | `style=authoryear` | `\let\cite\parencite % author-year: source in parentheses` |
+     | APA — "APA (Meier, 2020, p. 12)" | `style=apa` | `\let\cite\autocite % APA: source in parentheses` |
+     | verbose — "Footnotes" | `style=verbose` | `\let\cite\autocite % verbose: source in a footnote after the full stop` |
+     | *on request:* author–year, Harvard | `style=authoryear` | `\let\cite\autocite % author-year: source in parentheses` |
+
+     `\autocite` is what each style means by a citation (measured 25.10.2026): parentheses for
+     APA and author–year, exactly as `\parencite` did; a footnote **after** the full stop for
+     verbose, where `\footcite` set the mark before it ("written¹."). See
+     `shared/bibliography.md`.
      | *on request:* IEEE | `style=ieee` | none |
 
      IEEE (measured 18.10.2026) looks like numeric in the text, `[1, p. 12]`, but numbers the

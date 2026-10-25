@@ -20,6 +20,25 @@ Becomes `\footnote{…}` — core LaTeX, **no package**.
 - Put the definitions at the **end of the note**. They may stand after their reference, and
   their lines never appear in the body text.
 
+## Moving a remark into a footnote
+
+The card "Move a remark into a footnote" marks a remark inside a sentence. A footnote is a
+sentence of its own (found 25.10.2026, TQ06: a remark kept its brackets in the footnote):
+
+- **Drop what set the remark apart** in the sentence: the brackets, the dashes or the commas
+  around it. The sentence must read on without it.
+- **The footnote starts with a capital letter and ends with a full stop**, even when the remark
+  began small and had none.
+- **Where the mark goes:** directly after the word before the remark, without a space. If the
+  remark closed the sentence, after the full stop.
+- Either form is right, the short one `^[…]` or a reference `[^name]` with its definition at
+  the end of the note. In a note that already has definitions, use the same form as they do.
+
+```markdown
+Before: This work looks at the survey data (the interviews are left for later) and nothing else.
+After:  This work looks at the survey data^[The interviews are left for later.] and nothing else.
+```
+
 ## Long footnotes
 
 A definition may run over several **indented** continuation lines. They are joined with a
