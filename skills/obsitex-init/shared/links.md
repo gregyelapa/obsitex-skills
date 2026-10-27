@@ -67,17 +67,60 @@ loads `cleveref` **after** `varioref`, and cleveref rewrites `\vref`. Measured w
 | `varioref` + `cleveref` with `capitalise` (the standard since 24.10.2026) | `Table 1` |
 | the same with `ngerman` | `Tabelle 1` |
 
-**Two things that matter for a thesis in another language.** Both are easy to get wrong and
-neither produces an error:
+**Four things that matter for a thesis in another language.** All are easy to get wrong, and
+apart from French none stops the PDF:
 
 - **The language of the type word lives in the package options**, not in babel. Switching the
   document to German means `\usepackage[ngerman]{varioref}` **and**
   `\usepackage[noabbrev,capitalise,ngerman]{cleveref}`. Change babel alone and the text stays
-  German while every reference keeps saying "Table". Keep `noabbrev` and `capitalise`; only the
-  language changes. In German `capitalise` changes nothing, because "Tabelle" has a capital
-  anyway.
+  German while every reference keeps saying "Table".
+- **The two packages do not always use babel's name for a language.** A name a package does
+  not know is an error in the log, and the PDF still builds, with English words: "table 1 on the
+  preceding page" in a Portuguese thesis. The names that work (measured 27.10.2026):
+
+  | Document language | `babel` | `varioref` | `cleveref` | `capitalise` |
+  |---|---|---|---|---|
+  | English | `english` | `english` | `english` | keep |
+  | German | `english, main=ngerman` | `ngerman` | `ngerman` | keep, it changes nothing |
+  | French | `english, main=french` | `french` | `french` | take out |
+  | Spanish | `english, main=spanish` | `spanish` | `spanish` | take out |
+  | Italian | `english, main=italian` | `italian` | `italian` | take out |
+  | Portuguese, Brazil | `english, main=brazilian` | `brazil` | `brazilian` | take out |
+  | Portuguese, Portugal | `english, main=portuguese` | `portuges` | no language, and the names below | take out |
+
+  `english` stays in the `babel` line for the reason `obsitex-init` gives for German (varioref
+  under TeX Live 2026); it does not change the language of the document.
+
+  `cleveref` has no European Portuguese, so it needs its words spelled out, at the very end of
+  the `latex-preamble` block (`\crefname` only works in the preamble):
+
+  ```latex
+  \crefname{chapter}{capítulo}{capítulos}
+  \crefname{section}{secção}{secções}
+  \crefname{subsection}{secção}{secções}
+  \crefname{subsubsection}{secção}{secções}
+  \crefname{appendix}{apêndice}{apêndices}
+  \crefname{subappendix}{apêndice}{apêndices}
+  \crefname{table}{tabela}{tabelas}
+  \crefname{figure}{figura}{figuras}
+  \crefname{equation}{equação}{equações}
+  ```
+
+  `paragraph` and `subparagraph` already have their own `\crefname` lines in the block about
+  the numbering depth; write them as `parágrafo` and `subparágrafo` there, not a second time.
+  For another language: look up both packages' option names, and when one is missing, write
+  the `\crefname` lines the same way. Say that this language is untested.
+
+  **French builds no PDF at the moment** (measured 25.10.2026). Every label Obsitex writes holds
+  a colon (`sec:…`, `fig:…`), French babel makes the colon an active character under pdflatex,
+  and every cross-reference then stops with `Missing \endcsname inserted`. Before setting up or
+  switching a document to French, say so plainly. Spanish and Italian are not measured for this.
+- **`capitalise` follows the language** (last column). French, Spanish, Italian and Portuguese
+  write these words small in a sentence ("le tableau 1", "la tabla 2"), and `cleveref` without
+  `capitalise` prints exactly that. In German the nouns have a capital anyway. In English it is
+  a matter of style; see "Small or capital" below.
 - **`noabbrev` is not decoration.** Without it cleveref abbreviates: "tab. 1" instead of
-  "table 1". The standard preamble sets it.
+  "table 1". The standard preamble sets it, in every language.
 
 ### Small or capital
 
@@ -87,22 +130,67 @@ setting for the whole document, in the `cleveref` line of the preamble (measured
 
 | `cleveref` option | in a sentence | at the start of a sentence |
 |---|---|---|
-| with `capitalise` (standard since 24.10.2026) | as Table 1 shows | Table 1 shows |
+| with `capitalise` (standard in English since 24.10.2026) | as Table 1 shows | Table 1 shows |
 | without `capitalise` | as table 1 shows | table 1 shows (wrong) |
+| without `capitalise`, the paragraph inside the `\Vref` pair below | as Table 1 shows | Table 1 shows |
 
-A capital in running text is never wrong in English; APA asks for it. **Vaults made before
-24.10.2026 lack `capitalise`.** When a reference there starts a sentence, say that the PDF prints
-it small and offer to add `capitalise` to the `cleveref` line. Say in the same offer that it works
-for every reference in the document, so the ones in running text get a capital too ("as Table 1
-shows"). The user decides knowing that.
+German prints "Tabelle 1" in every row, because its nouns have a capital anyway. French,
+Spanish, Italian and Portuguese print small without `capitalise` too ("tableau 1"), and the
+`\Vref` pair gives them a capital ("Tableau 1"), measured 27.10.2026.
 
-**When the user wants small letters in running text** (Chicago style, for example): take
-`capitalise` out of the `cleveref` line. A reference at the start of a sentence then prints small.
-Say so, and offer this for each paragraph that starts with one: a `dds` block before the paragraph
-with `{"crossReferenceCmdText": "\\Vref{%labelref%}"}` and one after it with the standard
-`{"crossReferenceCmdText": "\\vref{%labelref%}"}`. **Every** reference in that paragraph is then
-written with a capital, not only the first; say that too. Two code blocks per paragraph show in
-the note.
+In English both are right; it depends on the style guide. APA and IEEE write a capital in a
+sentence ("as Table 1 shows"), Chicago and MLA a small letter ("as table 1 shows"). In the
+languages above that write it small, `capitalise` is out from the start (table in the section
+before).
+
+**English vaults made before 24.10.2026 lack `capitalise`.** When a reference there starts a
+sentence, say that the PDF prints it small and offer to add `capitalise` to the `cleveref` line.
+Say in the same offer that it works for every reference in the document, so the ones in running
+text get a capital too ("as Table 1 shows"). The user decides knowing that.
+
+**The `\Vref` pair** gives the references of one paragraph a capital while `capitalise` is out: a
+`dds` block before the paragraph with `{"crossReferenceCmdText": "\\Vref{%labelref%}"}` and one
+after it that puts back what the document setup has, normally
+`{"crossReferenceCmdText": "\\vref{%labelref%}"}`. (If the setup has `\\cref{%labelref%}`, the
+first block takes `\\Cref{%labelref%}` and the second `\\cref{%labelref%}`.) **Every** reference
+in that paragraph is then written with a capital, not only the one at the start of a sentence;
+say so when there is another one. The note shows two code blocks per paragraph.
+
+#### The card "Capital or small letter in cross-references"
+
+It asks for one of these two, word for word, for the whole document:
+
+| The request says | It means |
+|---|---|
+| with a capital letter everywhere, like "as Table 1 shows" | `capitalise` in the `cleveref` line |
+| with a small letter inside a sentence, like "as table 1 shows", and a capital letter at the start of a sentence | no `capitalise`, and the `\Vref` pair around each paragraph with a reference at the start of a sentence |
+
+Read the document language from the `babel` line first.
+
+- **German** (`ngerman` is the main language): change nothing. Say that German prints "Tabelle 1"
+  with a capital everywhere, because German nouns have one, so neither choice changes the PDF.
+- **A capital everywhere:** add `capitalise` to the `cleveref` line if it is missing. Take out
+  every `\Vref` pair; it is not needed any more. Say that this gives every reference a capital,
+  in running text too. In French, Spanish, Italian or Portuguese say also that their own rule
+  writes these words small in a sentence; the user decides.
+- **Small inside a sentence:** take `capitalise` out of the `cleveref` line. Then look through
+  every note of the manuscript for a reference at the start of a sentence: a `[[…]]` link at the
+  start of a paragraph or of a list item, or after a full stop, a question mark or an exclamation
+  mark that ends a sentence (not after "e.g." or "cf."). Put the `\Vref` pair around each
+  paragraph that has one, unless it already has a pair; for a list item, around the whole list,
+  because a code block between two items splits the list in two (measured 27.10.2026). Name
+  each place. Say that a reference written later at the start of a sentence prints small
+  until it gets a pair, and that "Check my manuscript before converting" names those.
+
+In every case, end with what changed in plain words, and name a paragraph where another reference
+now gets a capital as well.
+
+#### Checking before converting
+
+"Check my manuscript before converting" asks under point 2 for every link that starts a sentence
+while the `cleveref` line has no `capitalise`. Leave out a German document and a paragraph inside
+a `\Vref` pair. For each one, say that the PDF prints it with a small letter, and name the two
+ways: the `\Vref` pair for that paragraph, or `capitalise` for the whole document.
 
 **Do not write the command out** (`` `\Vref{subsec:…}` `` in backticks) to reach one link alone.
 It works until the target moves: its name is built from the heading's level, the file and the

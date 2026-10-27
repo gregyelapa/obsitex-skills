@@ -551,7 +551,9 @@ differ from the chat language. **No default** — list English first, then Germa
 Affects babel options, DDS quotation marks, and the visible headings (see adaptation
 table below). English and German are fully supported; if the user picks another
 language, say honestly that it is untested and adapt generically (babel option, DDS
-quotation marks, translated headings).
+quotation marks, translated headings, and the `varioref` and `cleveref` lines with
+`capitalise` as the language table in `shared/links.md` gives them: the two packages do not
+always use babel's name, and French, Spanish, Italian and Portuguese drop `capitalise`).
 
 #### Questions 1 and 2 — intro text and dialog
 
