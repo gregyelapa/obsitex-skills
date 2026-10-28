@@ -105,6 +105,13 @@ that block. Below, "the file" means whichever of the two holds the facts.
 
 ## Working in the user's vault
 
+- **Search only inside the project folder.** When you look for the manuscript's files
+  (images, PDFs, notes, the `.bib`), start `find`, `ls`, `grep` or `Glob` at the project
+  folder or below it, never at a folder above it. Above the vault lie the user's other files,
+  often a whole cloud drive: a search there is slow, shows you private files and makes the
+  user approve a command they cannot judge. An embed (`![[…]]`) always points to a file inside
+  the vault, so the vault is the whole search. (The check before converting searched three
+  folders up on 27.10.2026.)
 - **Creating a note is not finished when the file exists.** It also has to sit in the right
   place in the Flexplorer order, and **who puts it there depends on whether Obsidian is
   running** — procedure below, check before you act. Ask first where it goes, and ask for the
