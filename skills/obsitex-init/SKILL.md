@@ -1609,7 +1609,7 @@ level (`shared/headings.md`), so it never changes the PDF.
 exact name next to it and move the file inside. It becomes the folder note, its `#` stays as
 it is. The new subsections go into that folder as files of their own; a `##` block cut out of
 the folder note into its own file loses one `#`. The interview does not explain this; the
-user learns it from the remark in the chapter's folder note (step 5 of "Building it by rule")
+user learns it from the remark in the folder note `Introduction` (step 5 of "Building it by rule")
 or by asking.
 
 **The three area folders `Front Matter`, `Main Matter` and `Back Matter` are grouping folders
@@ -1926,15 +1926,22 @@ inside (see "When an appendix outgrows one file" in `shared/headings.md`).
    goes **inside the chapter folder**, and the section file becomes its folder note. Sections
    without `##` stay files. For one or two levels skip this step: the `##` stays inside the
    section file.
-5. **`professional-thesis` only: one remark changes with the shape.** In the flat template
-   it explains the `##`; in the folder shape it must explain the folder. Write it in the
-   chat language, like every remark.
+5. **Every template: one remark changes with the shape.** In the flat template the remark of
+   `Introduction` explains the `##` ("one # creates a chapter, ## a section …", without
+   chapters "One # creates a section, ## a subsection …"); in the folder shape it must explain
+   the folder. Left standing, that sentence is wrong for the files next to the folder note:
+   they start with a `#` as well, and sit one level lower. Write the new remark in the chat
+   language, like every remark.
    - In the folder note `Introduction`, keep the first sentence of the remark ("Introduce the
      topic: …"), **translated into the chat language like the rest**, as the first paragraph,
      and replace the rest with the text below, also in the chat language. Keeping the first
      sentence means keeping its content, not its English: kept literally, it leaves a remark
      half in one language and half in the other. Use the real chapter name where the text
-     says "Introduction".
+     says "Introduction". **In `academic-paper` keep the sentences on citing too** ("Cite
+     sources with [@key]. The keys must exist in refs.bib."), as a second paragraph of their
+     own: no other file of that template says how to cite.
+   - The text below is the one **with chapters** (`professional-thesis`). Without chapters
+     (`simple-thesis`, `academic-paper`) take the variant after it.
 
      **This text is written from what the user sees, not from the files.** With Folder notes
      the user never sees `Introduction.md` in the file list. They see an underlined folder,
@@ -2017,6 +2024,46 @@ inside (see "When an appendix outgrows one file" in `shared/headings.md`).
      everything in it moves up one level, without a warning." ("Benennst du einen
      Gliederungsordner um, benenne seine Folder Note genau gleich mit. Sonst verliert der
      Ordner seine Folder Note, und alles darin rutscht eine Ebene hoch, ohne Warnung.")
+
+     **Without chapters (`simple-thesis`, `academic-paper`)** the folder note is a section,
+     and the files next to it are subsections. Write the same text, Folder notes variant
+     included, with two changes. Leave out the paragraph "Front Matter, Main Matter and Back
+     Matter …": these templates have no area folders. And put these three paragraphs in place
+     of "This is the start of the chapter …", "This is how the folder becomes a chapter …"
+     and "When a section gets subsections …":
+
+     ```
+     This is the start of the section "Introduction": its heading and its lead-in text.
+
+     This is how the folder becomes a section:
+     - This file always comes first. Its # becomes the section heading, its text the
+       lead-in.
+     - The other files in the folder follow after it, in the order you see. They sit one
+       level lower: their # becomes a subsection.
+
+     When a subsection gets sub-subsections of its own, make it a structure folder:
+     create a folder with exactly the name of its file and move the file into it. It
+     becomes the folder's folder note. Put the sub-subsections next to it as new files.
+     Or tell me, and I will do it for you.
+     ```
+
+     In a German chat:
+
+     ```
+     Das ist der Anfang des Abschnitts „Introduction“: die Überschrift und der
+     Einleitungstext.
+
+     So wird aus dem Ordner ein Abschnitt:
+     - Diese Datei kommt immer zuerst. Ihr # wird die Überschrift des Abschnitts, ihr
+       Text die Einleitung.
+     - Die anderen Dateien im Ordner folgen danach, in der Reihenfolge, die du siehst.
+       Sie stehen eine Ebene tiefer: Ihr # wird ein Unterabschnitt.
+
+     Bekommt ein Unterabschnitt eigene Unter-Unterabschnitte, mach ihn zu einem
+     Gliederungsordner: Lege einen Ordner mit genau dem Namen seiner Datei an und
+     verschiebe die Datei hinein. Sie wird seine Folder Note. Die Unter-Unterabschnitte
+     legst du als neue Dateien daneben. Oder sag es mir, dann mache ich das für dich.
+     ```
 
    All other remarks keep their content. Their language still follows the chat language
    (see "Scaffold", step 2).
