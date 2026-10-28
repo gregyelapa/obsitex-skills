@@ -627,8 +627,8 @@ Only the ones matching the previous answer:
 - with chapters → `professional-thesis` (numbered chapters, front matter with roman
   page numbers, lettered appendices — for master theses and dissertations). This is
   currently the only one; skip the question and send the intro text below instead.
-  It ships as one template with one file per chapter; a folder per chapter (the default
-  of the splitting question in block 3) is built from it by rule.
+  It ships as one template with one file per chapter; the folders (the default of the
+  splitting question in block 3 is three levels) are built from it by rule.
 - without chapters → `simple-thesis` (title page, table of contents, lists of figures
   and tables, sections, bibliography, appendix — for seminar papers and shorter
   theses) or `academic-paper` (lean: title block on the first page, abstract with
@@ -1003,7 +1003,7 @@ see "Question 9 in detail" → "How to ask it" below.
 #### Question 10 — How the parts are split up
 
 One file per part, or a folder of files, and how deep?
-**Three options, default two levels.** Asked for **every** template, and produced the
+**Three options, default three levels.** Asked for **every** template, and produced the
 same way for all of them: every template ships flat and is transformed by rule after
 copying. **A folder sketch on every option.** **Intro text**, the
 sketches, the options, the depth note and the rules: see "Question 10 in detail" below.
@@ -1625,26 +1625,34 @@ are called `Switch to Front Matter` and `Switch to Main Matter`, never just `Fro
 **What each answer builds** (the letters are those of the options; labels and wording: "How to
 ask it" below):
 
+- **C, three levels (recommended).** Every chapter that has sections is a folder with its own
+  folder note, its sections are files right next to it, and a section that has subsections of
+  its own becomes a folder with its folder note too, with its subsections as files inside, so
+  it takes its parts along when moved.
+  → the template, then "Building it by rule" including step 4; the template carries the third
+  level as `###` in one section per template, so the rules build it too.
+- **A, a folder per chapter, two levels.** As C, but the subsections stay inside their
+  section's file as `##`. → the template, then "Building it by rule" without step 4
 - **B, one file per chapter.** Simplest to look at; a long chapter becomes a long file,
   and its sections sit inside it as `##`. → the template as it is copied
-- **A, a folder per chapter, two levels (recommended).** The chapter is a folder with its own
-  folder note; the sections are separate files right next to it, in the same folder.
-  → the template, then "Building it by rule"
-- **C, three levels.** As above, plus: a section that has subsections of its own becomes a
-  folder with its folder note, and its subsections are files inside it, so it takes its parts
-  along when moved.
-  → as above; the template carries the third level as `###` in one section per template, so
-  the rules build it too (step 4 of "Building it by rule").
 
 **A "level" here is a heading level that gets its own files** — not a folder in the tree.
 `Front Matter`, `Main Matter` and `Back Matter` are grouping folders and never count.
 
-The two-level shape mixes both styles on purpose: five chapters become folders with their
-sections as files inside, `80 Conclusion and Future Work.md` stays a single file with its two
-sections as `##` inside. It shows that no chapter *has* to become a folder, and that both
-forms produce the same `\chapter` + `\section` in the PDF. The remark in that file says so
-(step 5 of "Building it by rule"); do not add it to the intro text. Every file, in both
-forms, starts with a single `#`.
+**Why three levels is the default (decided 28.10.2026):** the numbering and the contents list
+of every template go down to `1.1.1` at the recommended answers of questions 5 and 6, and so do
+three levels of files. **The file list then shows the table of contents**: in Obsidian, and
+with the chapter numbers in the Obsitex extension for VS Code, which shows one number per file
+and none for a `##` inside it. What lies deeper than `1.1.1` is unnumbered and not in the
+contents list, and it is the only thing that stays inside a file as `##`. Going deeper later
+is cheap (a file becomes a folder without a text edit); going back to fewer levels means
+merging files and breaks links to them, so the default is not the shallow end any more.
+
+**One rule in every shape, no exception:** a part with parts of its own becomes a folder, a
+part without stays a file. In A and C every chapter with sections is a folder, the last one
+included. A chapter without sections stays a file in every shape (`80 Conclusion` in
+`simple-thesis`, `70 Conclusion` in `academic-paper`). Every file, in every shape, starts
+with a single `#`.
 
 ### How to ask it — a sketch per option, then the depth note
 
@@ -1673,48 +1681,52 @@ versions, the one that matches answer 3.
 > files in it.
 >
 > ```
+> C  Three levels
+>
+> Introduction/
+>    Introduction.md
+>    Motivation/    ← has subsections, so it is a folder
+>       Motivation.md
+>       Background.md
+>    Problem Statement.md
+>
+> 4 files. Your file list shows the table of contents.
+>
 > A  A folder per chapter
 >
 > Introduction/
 >    Introduction.md
 >    Motivation.md
+>       ## Background
 >    Problem Statement.md
 >
-> 3 files. Reorder without cutting.
+> 3 files. Subsections stay inside their file.
 >
 > B  One file per chapter
 >
 > Introduction.md
 >    # Introduction
 >    ## Motivation
+>    ### Background
 >    ## Problem Statement
 >
 > 1 file. Reorder by cutting and pasting.
->
-> C  Like A, one level deeper: a section
->    that grows gets its own folder too.
->
-> Introduction/
->    Introduction.md
->    Motivation/    ← grew, so it gets a folder
->       Motivation.md
->       Background.md
->    Problem Statement.md
 > ```
 >
 > All three give exactly the same PDF:
 >
 > ```
-> 1     Introduction
-> 1.1   Motivation
-> 1.2   Problem Statement
+> 1      Introduction
+> 1.1    Motivation
+> 1.1.1  Background
+> 1.2    Problem Statement
 > ```
 >
-> So you are choosing how you work, not how the document looks. And if a section grows big
-> later, it gets its own folder then. Nothing has to be settled about that now.
+> So you are choosing how you work, not how the document looks. More folders are easy to add
+> later: a file becomes a folder without any change to its text.
 >
-> I recommend **A, a folder per chapter**: most sections become files of their own, so you
-> rearrange them without cutting text, and each file still has room for headings of its own.
+> I recommend **C, three levels**: every heading down to 1.1.1 becomes a file of its own. So
+> your file list reads like your table of contents, and you rearrange without cutting text.
 
 *Without chapters:*
 
@@ -1726,48 +1738,52 @@ versions, the one that matches answer 3.
 > files in it.
 >
 > ```
+> C  Three levels
+>
+> Introduction/
+>    Introduction.md
+>    Background/    ← has sub-subsections, so it is a folder
+>       Background.md
+>       Earlier Studies.md
+>    Problem Statement.md
+>
+> 4 files. Your file list shows the table of contents.
+>
 > A  A folder per section
 >
 > Introduction/
 >    Introduction.md
 >    Background.md
+>       ## Earlier Studies
 >    Problem Statement.md
 >
-> 3 files. Reorder without cutting.
+> 3 files. Sub-subsections stay inside their file.
 >
 > B  One file per section
 >
 > Introduction.md
 >    # Introduction
 >    ## Background
+>    ### Earlier Studies
 >    ## Problem Statement
 >
 > 1 file. Reorder by cutting and pasting.
->
-> C  Like A, one level deeper: a subsection
->    that grows gets its own folder too.
->
-> Introduction/
->    Introduction.md
->    Background/    ← grew, so it gets a folder
->       Background.md
->       Earlier Studies.md
->    Problem Statement.md
 > ```
 >
 > All three give exactly the same PDF:
 >
 > ```
-> 1     Introduction
-> 1.1   Background
-> 1.2   Problem Statement
+> 1      Introduction
+> 1.1    Background
+> 1.1.1  Earlier Studies
+> 1.2    Problem Statement
 > ```
 >
-> So you are choosing how you work, not how the document looks. And if a subsection grows big
-> later, it gets its own folder then. Nothing has to be settled about that now.
+> So you are choosing how you work, not how the document looks. More folders are easy to add
+> later: a file becomes a folder without any change to its text.
 >
-> I recommend **A, a folder per section**: most subsections become files of their own, so you
-> rearrange them without cutting text, and each file still has room for headings of its own.
+> I recommend **C, three levels**: every heading down to 1.1.1 becomes a file of its own. So
+> your file list reads like your table of contents, and you rearrange without cutting text.
 
 **No number prefixes in the sketches.** Variant A or B comes only in
 the next question, so the file names are not known yet, the same reason as for the sketches in
@@ -1787,28 +1803,26 @@ No AskUserQuestion: end the reply after the last line and wait for the answer.
 *With chapters:*
 
 ```
-A: A folder per chapter, two levels (recommended). Most sections become files of their own, so you rearrange them without cutting text.
+C: Three levels (recommended). Every heading down to 1.1.1 becomes a file of its own, so the file list reads like the table of contents.
+A: A folder per chapter, two levels. Sections become files of their own, subsections stay inside their section's file.
 B: One file per chapter. All its sections are written inside it. Reordering sections means cutting and pasting text.
-C: Three levels. Subsections can become files of their own too. For long work with a fine structure.
 Reply with the letter.
 ```
 
 *Without chapters:*
 
 ```
-A: A folder per section, two levels (recommended). Most subsections become files of their own, so you rearrange them without cutting text.
+C: Three levels (recommended). Every heading down to 1.1.1 becomes a file of its own, so the file list reads like the table of contents.
+A: A folder per section, two levels. Subsections become files of their own, sub-subsections stay inside their subsection's file.
 B: One file per section. All its subsections are written inside it. Reordering subsections means cutting and pasting text.
-C: Three levels. Sub-subsections can become files of their own too. For long work with a fine structure.
 Reply with the letter.
 ```
 
-**Two things the descriptions of A and B deliberately do not say**, because both would be
-untrue:
+**Two things the descriptions deliberately do not say**, because both would be untrue:
 
-- **Not "every section".** A section with no structure of its own may stay inside the chapter
-  file — the two-level shape does exactly that with `80 Conclusion and Future Work.md` — and
-  the skill builds no folders in `Front Matter` and `Back Matter`, so sections there are always
-  inside their file. "Most" is the honest word.
+- **Not "the whole document".** The skill builds no folders in `Front Matter` and `Back
+  Matter`, so an appendix with sections keeps them inside its file. C says "every heading down
+  to 1.1.1" because that is what the body gets, and the sketches show only the body.
 - **Not "reorder by dragging".** Dragging belongs to the drag & drop variant of **question 11**
   — the next question, and not the same letters as the ones above. Pick the other one there
   and the order comes from the number in the file name, so reordering is renaming. This option
@@ -1851,11 +1865,14 @@ Two warnings about typesetting inside a question about folders is more than the 
 and the numbering was already settled in block 2. **Say it only if the user actually goes
 deeper**, and then follow "Questions 5 and 6 in detail".
 
-**Three levels is as deep as the skill builds.** Deeper is the user's own move later, and the
-note is what turns it into a move they can make instead of a wall they run into. Beyond three,
-the deepest files land where LaTeX stops setting headings as headings and the numbering
-question has to be reopened — see "Questions 5 and 6 in detail". Two levels leave room for a `##` or
-`###` inside the file before that line is reached, which is why two is the default.
+**Three levels is as deep as the skill builds, and the default.** Deeper is the user's own move
+later, and the note is what turns it into a move they can make instead of a wall they run into.
+Beyond three, the deepest files land where LaTeX stops numbering them and, from level 5 (level
+4 without chapters), stops setting them as headings of their own line; the numbering question
+then has to be reopened (see "Questions 5 and 6 in detail"). A `##` inside a file of the third
+level is level 4 already. That is no defect of the shape: it is the same heading a `###` in a
+two-level file gives, unnumbered and outside the contents list, just as the file list leaves it
+out. Why three is the default: "What each answer builds" above.
 
 ### Building it by rule — every template
 
@@ -1870,7 +1887,7 @@ folder are **subsections**. When you talk about them, use the word that fits, ne
 
 | Template | becomes a folder | stays a single file |
 |---|---|---|
-| `professional-thesis` | in `Main Matter/`: `30 Introduction`, `40 Background and Related Work`, `50 Methodology`, `60 Results`, `70 Discussion` | `Switch to Main Matter`, `80 Conclusion and Future Work`, everything in `Front Matter/` and `Back Matter/` |
+| `professional-thesis` | in `Main Matter/`: `30 Introduction`, `40 Background and Related Work`, `50 Methodology`, `60 Results`, `70 Discussion`, `80 Conclusion and Future Work` | `Switch to Main Matter`, everything in `Front Matter/` and `Back Matter/` |
 | `simple-thesis` | `60 Introduction`, `70 Literature Review` | Title Page, Abstract, the three lists, `80 Conclusion`, Bibliography, Appendix |
 | `academic-paper` | `30 Introduction`, `40 Methods`, `50 Results`, `60 Discussion` | Title, Abstract, `70 Conclusion`, Bibliography |
 
@@ -1878,8 +1895,11 @@ In `professional-thesis` the chapter folders are built **inside `Main Matter/`**
 chapter files already lie. `Main Matter/` is a grouping folder and stays one; it never gets a
 file of its own name.
 
-**Conclusion deliberately stays flat** in every template — it shows the user that both shapes
-coexist in one document and produce the same output.
+**The rule is the `##`, not the name.** A body file with `##` blocks becomes a folder, one
+without stays a file. That is why `80 Conclusion and Future Work` becomes a folder and the two
+other conclusions do not. Until v1.93.0 it stayed a file on purpose, to show that both shapes
+can stand side by side; that made the one chapter look like a mistake in a vault the user had
+asked to be split, and it broke the one rule above (decided 28.10.2026).
 
 Front matter, lists and the bibliography never become folders: they carry no substructure. The
 appendix stays one file too — an appendix nobody rearranges is better structured with `##`
@@ -1895,14 +1915,19 @@ inside (see "When an appendix outgrows one file" in `shared/headings.md`).
    folder**, named after the heading, and **turn the `##` into a single `#`**. Every
    heading inside the block loses one `#` the same way: a `###` under it becomes `##`.
    Anything above the first `##` — the lead-in — stays in the folder note. No extra folder in
-   between.
+   between. **In the folder note's remark, "The sections below are suggestions." becomes "The
+   sections in this folder are suggestions."** (without chapters: "subsections"; in a folder
+   from step 4: "subsections", without chapters "sub-subsections"), in the chat language like
+   the rest of the remark. Below the remark there is nothing left to point at: the parts now lie
+   next to the folder note as files. Measured 28.10.2026 (TF04): five folder notes still said
+   "below".
 4. **Three levels (option C) only:** repeat steps 1 to 3 one level down, for every section
    file from step 3 that now holds `##` blocks (they were `###` in the template). Its folder
    goes **inside the chapter folder**, and the section file becomes its folder note. Sections
    without `##` stay files. For one or two levels skip this step: the `##` stays inside the
    section file.
-5. **`professional-thesis` only: two remarks change with the shape.** In the flat template
-   they explain the `##`; in the folder shape they must explain the folder. Write them in the
+5. **`professional-thesis` only: one remark changes with the shape.** In the flat template
+   it explains the `##`; in the folder shape it must explain the folder. Write it in the
    chat language, like every remark.
    - In the folder note `Introduction`, keep the first sentence of the remark ("Introduce the
      topic: …"), **translated into the chat language like the rest**, as the first paragraph,
@@ -1993,23 +2018,6 @@ inside (see "When an appendix outgrows one file" in `shared/headings.md`).
      Gliederungsordner um, benenne seine Folder Note genau gleich mit. Sonst verliert der
      Ordner seine Folder Note, und alles darin rutscht eine Ebene hoch, ohne Warnung.")
 
-   - In `Conclusion and Future Work`, which stays a file, add this below the existing text of
-     its remark:
-
-     ```
-     This chapter is a single file, not a folder. Both work: a chapter
-     can be a folder or a plain file. Both start with one # and both
-     become a chapter, because a file that becomes a folder keeps its
-     level.
-
-     Its two sections live inside this file as ##. That is allowed.
-
-     When it gets a new section, it becomes a folder: a folder named
-     like this file, with this file inside it. This file's own # stays
-     exactly as it is, and the ## inside it may stay too. The new
-     section becomes a file of its own in that folder.
-     ```
-
    All other remarks keep their content. Their language still follows the chat language
    (see "Scaffold", step 2).
 
@@ -2021,7 +2029,10 @@ file of the same name, and no structure folder sits inside another one, except w
 levels, where exactly the sections from step 4 have one: two levels is
 the whole budget here (`#` in the folder note = the part itself, the other files in the folder
 = one level below). The area folders `Front Matter`, `Main Matter` and `Back Matter` are grouping
-folders and do not count; a chapter folder inside `Main Matter` is where it belongs.
+folders and do not count; a chapter folder inside `Main Matter` is where it belongs. **With
+three levels no file in the body holds a `##` any more**, in all three templates; with two
+levels exactly one does, the section from the table's third level (`Data Collection`,
+`Current State of Research`, `Data`).
 
 **Folder depth is not document depth.** Files inside a folder may still use `##` and `###`
 for their own sub-structure; the level budget is the sum of both. The depth note after
@@ -2077,7 +2088,7 @@ sketches stay exactly as they are, file names included.
 >         Switch to Main Matter
 >     [F] Introduction
 >     [F] Methodology
->         Conclusion
+>     [F] Conclusion
 > [F] Back Matter
 >
 > B  Numbers in the file names
@@ -2087,8 +2098,8 @@ sketches stay exactly as they are, file names included.
 > [F] 20 Main Matter         10 Front Matter
 >     [F] 30 Introduction    20 Main Matter
 >     [F] 50 Methodology        10 Switch to Main…
->         10 Switch to Main…    30 Introduction
->         80 Conclusion         50 Methodology
+>     [F] 80 Conclusion         30 Introduction
+>         10 Switch to Main…    50 Methodology
 > [F] 90 Back Matter            80 Conclusion
 >     00 Document Setup      90 Back Matter
 >
@@ -2536,7 +2547,7 @@ the plugin's own defaults on first load, so leaving it out is both correct and s
     "Manuscript/Main Matter": {
       "sortOrder": "custom",
       "customOrder": ["Switch to Main Matter.md", "Introduction", "Methodology",
-                      "Conclusion and Future Work.md"]
+                      "Conclusion and Future Work"]
     },
     "Manuscript/Back Matter": {
       "sortOrder": "custom",
@@ -2916,7 +2927,7 @@ obsitex-manuscript: Manuskript
 obsitex-template: professional-thesis
 obsitex-ordering: A
 obsitex-scaffold: true
-obsitex-levels: 2
+obsitex-levels: 3
 obsitex-chat-language: de
 obsitex-created: 2026-09-03
 ---

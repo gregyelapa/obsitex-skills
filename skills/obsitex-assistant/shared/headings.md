@@ -128,8 +128,9 @@ lay, inside `Main Matter`.
   the file name stays the same. A link that spells the folder path out must be updated
   (`links.md`).
 
-A flat chapter in a deeper project is no mistake. `obsitex-init` leaves the last
-chapter flat on purpose, and it stays flat until it gets a new heading within the depth.
+A flat chapter in a deeper project is no mistake. Vaults set up before v1.93.0 keep their last
+chapter flat on purpose, and a user may keep any chapter flat. It stays flat until it gets a
+new heading within the depth.
 
 **Both styles produce identical LaTeX.** `## Background` inside the folder note and
 `# Background` in a file next to it (or in its `Subchapters`) are the same thing. Moving a
@@ -314,7 +315,7 @@ Front Matter/
     Title Page.md, Abstract.md, … the lists
 Main Matter/
     Switch to Main Matter.md         ```latex \mainmatter       first in the folder
-    Introduction/ … Conclusion.md    the chapters
+    Introduction/ … Conclusion/      the chapters
 Back Matter/
     About Back Matter.md             remark only, may be deleted
     Bibliography.md
