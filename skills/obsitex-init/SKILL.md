@@ -43,7 +43,8 @@ document and PDF. This skill lays down everything the converter needs — docume
    it into folders, set the file names. Its first lines give the order of work.
 5. [[#Install the Flexplorer plugin]] and [[#Seed the Flexplorer order]] — only for variant A
    of question 11.
-6. [[#Install the Folder notes plugin]] — only on a yes to question 12.
+6. [[#Install the Folder notes plugin]] — only on a yes to question 12. Then
+   [[#The plugin list — `community-plugins.json`]], naming the add-ons that were installed.
 7. [[#Wrap up]] — the report to the user. Inside it:
    - [[#Switching the add-ons on — guide, then confirm]], for every add-on that was installed.
    - At its very end, the offer of [[#The project `AGENTS.md` — what the next session will not know]],
@@ -314,11 +315,13 @@ are fine. This applies to what you say, never to what the user has written.
    the project scaffold (default) the manuscript becomes a subfolder of it; with the
    opt-out the template files go directly into it.
 3. If the project folder already contains `.md` files, stop and ask before writing anything.
-4. Never write Obsidian's own configuration — no `app.json`, `community-plugins.json`,
-   workspace or appearance settings. **The only things you write under `.obsidian`** are
-   the bundled Flexplorer plugin files and its seed `data.json` ("Install the Flexplorer
-   plugin" below) and the three Folder notes files downloaded from their author ("Install the
-   Folder notes plugin" below).
+4. Never write Obsidian's own configuration — no `app.json`, workspace or appearance
+   settings. **The only things you write under `.obsidian`** are the bundled Flexplorer plugin
+   files and its seed `data.json` ("Install the Flexplorer plugin" below), the three Folder
+   notes files downloaded from their author ("Install the Folder notes plugin" below), and
+   the plugin list `community-plugins.json` naming exactly the add-ons you installed ("The
+   plugin list" below). The list does not answer Obsidian's trust question for the user; it
+   only saves them the switches once they have answered it.
 5. Read the file `VERSION` next to this `SKILL.md`. It holds one line, the installed version
    (for example `1.69.0`). The greeting names it, so the user sees at a glance which version
    runs. Skills have no version command of their own, and in testing this question came up
@@ -2541,10 +2544,9 @@ After scaffolding:
    `assets/flexplorer/` (in this skill folder) to `{projectFolder}/.obsidian/plugins/flexplorer/`.
    The licence is MIT, and MIT asks for its notice in every copy, so it travels along.
 3. Write the seed `data.json` next to them — see "Seed the Flexplorer order" below.
-4. Do **not** write anything else under `.obsidian` — no `community-plugins.json`, no
-   app or workspace settings. Enabling the plugin is the user's click, see "Switching the
-   add-ons on". (The one
-   other thing that goes there is Folder notes, see "Install the Folder notes plugin".)
+4. Put `flexplorer` into the plugin list, see "The plugin list". Do **not** write anything
+   else under `.obsidian` — no app or workspace settings. (The other things that go there are
+   Folder notes, see "Install the Folder notes plugin", and that list.)
 
 **If the user wants their project inside a vault they already use**, that is a legitimate
 wish — Flexplorer installed once for several projects, or a thesis living next to existing
@@ -2684,9 +2686,38 @@ After scaffolding:
    can install it later in Obsidian under Settings → Community plugins → Browse → "Folder
    notes" by **Lost Paul** (similar names exist). The vault works without it; only the file
    list looks less tidy. Do not retry in a loop, and do not fetch the files from anywhere else.
-5. Write nothing else. **No `data.json`:** the plugin's defaults are exactly what Obsitex needs
-   (name template `{{folder_name}}`, storage location "Inside the folder", "Sync folder name"
-   on). No `community-plugins.json` either; switching it on is the user's click (see "Switching the add-ons on").
+5. Write nothing else in its folder. **No `data.json`:** the plugin's defaults are exactly what
+   Obsitex needs (name template `{{folder_name}}`, storage location "Inside the folder", "Sync
+   folder name" on). Then put `folder-notes` into the plugin list, see "The plugin list".
+
+## The plugin list — `community-plugins.json`
+
+`{projectFolder}/.obsidian/community-plugins.json` is Obsidian's own list of the community
+plugins that are switched on, a JSON array of plugin ids. Obsidian writes it itself when the
+user flips a switch; written beforehand, it saves them those switches. **Write it after the
+add-ons, as the last thing under `.obsidian`**, naming exactly the add-ons you installed:
+
+```
+["flexplorer","folder-notes"]     variant A and a yes to question 12
+["flexplorer"]                    variant A, no to question 12
+["folder-notes"]                  variant B, yes to question 12
+```
+
+Nothing installed (variant B and a no): no file. One line, no spaces, as Obsidian writes it.
+
+- **If the file already exists** (a folder that was a vault before), read it, add the missing
+  ids and keep every other entry. Never remove an id, never write the file from scratch.
+- **If `.obsidian/plugins/<id>/` was left untouched in step 1** of either install section (the
+  plugin was already there), still make sure its id is in the list.
+
+What it does, measured 31.10.2026 (Obsidian 1.14.5, Windows, English and German UI): when the
+vault is opened for the first time, Obsidian asks whether to trust its author. **The list does
+not skip that question**, the consent lives in Obsidian, not in the vault. One click on "Trust
+author and enable plugins" then switches on exactly this list; the order shows within three
+seconds and every chapter folder is underlined, **no reload**. Without the list the same click
+switches on nothing, and the user has to find each switch in the settings. Until 31.10.2026 this
+file was deliberately not written, for fear of pre-setting the consent; the measurement showed
+that it cannot. The activation itself: "Switching the add-ons on" below.
 
 **The pin does not need to chase upstream.** The plugin id `folder-notes` is registered in
 Obsidian's community store, so Obsidian's plugin manager offers updates once the user has
@@ -2751,8 +2782,8 @@ Projektordner      ← Obsidian opens this (vault)
   opt-out, the project folder itself), Convert, and export (Overleaf / download).
 - **Switching the add-ons on** (Flexplorer in variant A, Folder notes whenever it was
   installed): walk the user through it as "Switching the add-ons on — guide, then confirm"
-  describes, with the sketch, the four steps, what they will see, and the follow-up for each
-  add-on. If the Folder notes download failed, say that instead, with the way to install it by
+  describes, with the sketch, the one click in Obsidian's trust dialog, what they will see, the
+  fallback for the restricted mode, and the follow-up for each add-on. If the Folder notes download failed, say that instead, with the way to install it by
   hand (see "Install the Folder notes plugin", step 4). **If the user said no to question 12,**
   say one sentence only: it can be added later, in Obsidian under Settings → Community
   plugins → Browse → "Folder notes" by Lost Paul, or by asking the assistant.
@@ -2814,48 +2845,56 @@ running; nobody will tell them then. "Nothing to show yet" is therefore no reaso
 steps out (measured 30.09.2026: a one-level run did exactly that).
 
 The clicks themselves are the user's — you have no access to Obsidian's UI, only to the
-files. Walk them through it in the chat, in their language. Sketch the path first, so it is
-easy to follow, and list only the add-ons that were installed:
+files. Walk them through it in the chat, in their language. Because the plugin list is written
+("The plugin list"), the whole activation is **one click in the dialog Obsidian shows when the
+vault is opened for the first time**. Sketch it first, so it is easy to follow, and name only
+the add-ons that were installed:
 
 ```
-⚙ Settings (bottom left)
-└─ Community plugins
-   ├─ [Turn on community plugins]
-   │     ← only on a new vault
-   └─ Installed plugins
-      ├─ Flexplorer     ( ●— )  ← switch on
-      └─ Folder notes   ( ●— )  ← switch on
-
-then: Ctrl+P (Mac: Cmd+P)
-   → "Reload app without saving"
-     ← without this the order stays hidden
+Open the project folder in Obsidian ("Open folder as vault")
+└─ Dialog: "Trust author and enable plugins?"
+   ├─ [Trust author and enable plugins]      ← this one
+   │     Flexplorer and Folder notes run at once,
+   │     the order shows within seconds, no reload
+   └─ [Browse vault in Restricted Mode]
+         nothing runs, see the fallback below
 ```
 
 Then give this exact sequence:
 
-1. Settings (gear icon, bottom left) → "Community plugins" ("Community-Erweiterungen") in the
-   left sidebar.
-2. If a restricted-mode notice is shown ("Community-Erweiterungen ... können ... Sicherheit
-   ... gefährden"), click "Turn on community plugins" ("Community-Erweiterungen aktivieren").
-   **Explain the notice instead of glossing over it:** community plugins are third-party
-   code, and Obsidian asks once whether they may run at all. That consent is deliberate and
-   must never be pre-set through a config file.
-3. Under "Installed plugins", switch on "Flexplorer" (variant A) and "Folder notes" (if it was
-   installed).
-4. **Reload Obsidian once:** Ctrl+P (Mac: Cmd+P), type "reload" (German: "neu laden"), choose
-   "Reload app without saving" ("Anwendung neu laden ohne zu speichern"). Closing Obsidian and
-   opening it again works just as well; the reload is simply quicker (measured 25.09.2026,
-   both plugins, first activation).
+1. Open the project folder in Obsidian as a vault. Obsidian asks whether it trusts the author
+   of this vault, because it found plugins in it. **Explain the question instead of glossing
+   over it:** community plugins are third-party code, and Obsidian asks once per vault whether
+   they may run at all. The list you wrote does not answer that question for the user; it only
+   says which add-ons to switch on once they say yes.
+2. Click "Trust author and enable plugins" ("Dem Ersteller vertrauen und Erweiterungen
+   aktivieren"). Every add-on in the list runs from that moment. Obsidian then opens its
+   settings in a window of its own; the user simply closes it.
+3. **Say what they will see, as a statement, before they look:** within a few seconds
+   `00 Document Setup` sits at the top and the chapters follow in document order (variant A);
+   with Folder notes each chapter folder is underlined and its folder note no longer shows as
+   a line of its own. **No reload** (measured 31.10.2026, Obsidian 1.14.5, both plugins,
+   English and German UI, with the vaults of the app's tool "Templates").
 
-**The reload is part of the instruction, not an afterthought. Say what the user will see
-before they look**, or the unchanged sidebar reads as a broken setup (measured 16.08.2026: it
-did). Switching an add-on on leaves the file tree exactly as it was, folders on top and
-everything alphabetical, because the tree was already built. The order itself is ready and
-correct from the moment the files are written; the reload is what makes it visible. Until
-then each folder note also still shows as a line of its own; that is expected.
+**Fallback, if the user chose "Browse vault in Restricted Mode"** ("Vault im eingeschränkten
+Modus betrachten"): Settings (gear icon, bottom left) → "Community plugins"
+("Community-Erweiterungen") → "Exit Restricted mode" ("Eingeschränkten Modus verlassen"; older
+Obsidian versions called the button "Turn on community plugins"). The add-ons in the list start at
+once, **but the file tree stays alphabetical until Obsidian is reloaded** (measured 31.10.2026):
+Ctrl+P (Mac: Cmd+P), type "reload" (German: "neu laden"), choose "Reload app without saving"
+("Anwendung neu laden ohne zu speichern"). Closing Obsidian and opening it again works just as
+well. Say that before they look, or the unchanged sidebar reads as a broken setup (measured
+16.08.2026: it did). Until the reload each folder note also still shows as a line of its own;
+that is expected.
 
-**Flexplorer: then say what they will see, as a statement, not a question.** After the reload,
-`00 Document Setup` sits at the top, with the chapters in document order. If they are unsure
+**If the vault is already open in Obsidian** (the AI tool runs inside Obsidian, or the folder
+was a vault before and the trust question is long answered): no dialog comes, and writing the
+list changes nothing in the running Obsidian. Then one reload, as in the fallback, and the
+add-ons in the list run (measured 31.10.2026: list written while the vault was open, nothing
+after six seconds, both running and sorted after the reload).
+
+**Flexplorer: then say what they will see, as a statement, not a question.** After the click
+(or the reload), `00 Document Setup` sits at the top, with the chapters in document order. If they are unsure
 whether the plugin is running at all, a simpler check: right-click a file — the entries *Pin*
 and *Hide* only appear with Flexplorer active. Add that they can tell you if the order looks
 wrong. Do not ask them to report back: the report asks one question only, the `AGENTS.md`
@@ -2864,9 +2903,10 @@ offer at its end, and a second open question leaves the user unsure which one to
 for the first answer). Afterwards the order can be changed by drag & drop. Updates come through Obsidian's
 plugin manager; deleting `.obsidian/plugins/flexplorer/` removes the plugin entirely.
 
-**If the order is wrong,** ask first whether the reload was really done — that is the
-common cause, and rewriting the file fixes nothing. If it was, have the user close Obsidian
-completely and open it again once. Only if the order is still wrong: have the user close
+**If the order is wrong,** ask first whether Flexplorer is actually running (the entries *Pin*
+and *Hide* in the right-click menu), and on the fallback whether the reload was really done —
+those are the common causes, and rewriting the file fixes nothing. If it is running, have the
+user close Obsidian completely and open it again once. Only if the order is still wrong: have the user close
 Obsidian **completely** (a running plugin rewrites the file on the next save), write the
 `data.json` again, then reopen Obsidian.
 

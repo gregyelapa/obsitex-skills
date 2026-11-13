@@ -1,10 +1,16 @@
 # Obsitex skills: write a thesis in Obsidian, get a LaTeX PDF
 
-Obsitex sets up your thesis or paper as an Obsidian vault and stays with you while you write
-it, so that the Markdown you produce converts cleanly to LaTeX and PDF.
+![A note in Obsidian on the left, and the typeset PDF page Obsitex makes of it on the right](.github/readme-banner.png)
+
+**[Obsitex](https://www.obsitex.com)** is a web app that turns your Obsidian notes into a
+professionally typeset PDF, with numbered chapters, figures, citations and a table of contents.
+
+[Open the app](https://www.obsitex.com) · [See a sample thesis (PDF)](https://www.obsitex.com/sample/sample-thesis.pdf) · [Free template, no AI needed](https://www.obsitex.com/?start=templates)
 
 These are two **Agent Skills** for an AI coding tool such as Claude Code, Codex or OpenCode.
-They work on your vault, whether your AI tool runs inside Obsidian or in its own window.
+They set up your thesis or paper as an Obsidian vault and stay with you while you write it, so
+that the Markdown you produce converts cleanly to LaTeX and PDF. They work on your vault,
+whether your AI tool runs inside Obsidian or in its own window.
 
 ## What they do
 
@@ -25,7 +31,8 @@ understands, which is not always the Markdown Obsidian renders.
   **Codex** reads the same skill folders but has not been tested yet. The setup interview works
   the same in every tool: each question comes as a chat message with its explanation and
   sketches, and you answer with a letter.
-- **Obsidian** for writing, and the **Obsitex web app** for turning the vault into a PDF.
+- **Obsidian** for writing, and the **[Obsitex web app](https://www.obsitex.com)** for turning
+  the vault into a PDF.
 - **Flexplorer**, an Obsidian plugin that controls file order, is recommended. `obsitex-init`
   installs a pinned copy into your vault for you. You never have to fetch it yourself.
 - **Folder notes**, an Obsidian plugin that shows a folder and its folder note as one entry.
